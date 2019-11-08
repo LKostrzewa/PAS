@@ -1,13 +1,13 @@
 package model;
 
-public class RegularClient extends ClientType{
-
-    public RegularClient() {
-        setPlacesLimit(6);
-    }
-
+public class RegularClient implements ClientType{
     @Override
     public double countDiscount(double base) {
         return (base >= 50) ? base * 0.25 : base * 0.2;
+    }
+
+    @Override
+    public String toString() {
+        return "regular ";
     }
 }

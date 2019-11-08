@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,34 +8,38 @@ import java.util.List;
 public class Reservation {
 
     private String id;
-    private Showing showing;
-    //TODO czy tutaj mapa cz lista hmmmm ?
-    private List<Client> clients;
+    private Resource resource;
+    private Client client;
+    private LocalDateTime beginning;
+    private LocalDateTime ending;
 
-    public Reservation(String id, Showing showing, List<Client> clients) {
+    public Reservation(String id, Resource resource, Client client) {
         this.id = id;
-        this.showing = showing;
-        this.clients = clients;
+        this.resource = resource;
+        this.client = client;
     }
 
     public String getId() {
         return id;
     }
 
-    public Showing getShowing() {
-        return showing;
+    public Resource getShowing() {
+        return resource;
     }
 
-    public List<Client> getClients() {
-        return Collections.unmodifiableList(clients);
+    public Client getClient() {
+        return client;
     }
 
     @Override
     public String toString() {
-        return "Reservation{" +
-                "id='" + id + '\'' +
-                ", showing=" + showing +
-                ", clients=" + clients +
-                '}';
+        final StringBuilder sb = new StringBuilder("Reservation{");
+        sb.append("id='").append(id).append('\'');
+        sb.append(", resource=").append(resource);
+        sb.append(", client=").append(client);
+        sb.append(", beginning=").append(beginning);
+        sb.append(", ending=").append(ending);
+        sb.append('}');
+        return sb.toString();
     }
 }

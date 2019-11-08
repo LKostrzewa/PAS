@@ -1,13 +1,14 @@
 package model;
 
-public class NormalClient extends ClientType {
-
-    public NormalClient() {
-        setPlacesLimit(2);
-    }
-
+public class NormalClient implements ClientType {
     @Override
     public double countDiscount(double base) {
         return 0;
     }
+
+    @Override
+    public String toString() {
+        return "normal ";
+    }
+
 }
