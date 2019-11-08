@@ -1,6 +1,8 @@
 package service;
 
+import model.BallRoom;
 import model.Resource;
+import model.Table;
 import repository.ResourceRepository;
 
 import java.util.ArrayList;
@@ -11,11 +13,15 @@ public class ResourceService {
 
     private ResourceRepository resources = new ResourceRepository();
 
-    public void createShowing(String id, String name, int ageRestriction, int room, int hour, int freeTickets, double price) throws Exception {
-
+    public void createBallRoom(String id, double price, String description, int numOfRooms) {
+        resources.add(id, new BallRoom(id, price, description, numOfRooms));
     }
 
-    public void endResource(String id){
+    public void createTable(String id, double price, int number, int numOfPeople){
+        resources.add(id, new Table(id, price, number, numOfPeople));
+    }
+
+    public void deleteResource(String id){
         resources.delete(id);
     }
 

@@ -23,7 +23,7 @@ public class Reservation {
         return id;
     }
 
-    public Resource getShowing() {
+    public Resource getResource() {
         return resource;
     }
 
