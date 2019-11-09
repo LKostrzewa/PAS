@@ -30,6 +30,10 @@ public class UserService {
         //else throw Exception("PANIE CO PAN "); //TODO nasze wyjatki albo i nie bo w sumie to moze jakos bd z przegladarki tak jak karbo czary mary odpierdalał
     }
 
+    // TODO gdzie dać taką metode??
+//    public List<Resource> getAllClientResources(String login){
+//    }
+
     public User getUser(String login){
         return users.get(login);
     }
@@ -40,6 +44,14 @@ public class UserService {
 
     public void deleteUser(String id){
         users.delete(id);
+    }
+
+    public void activateUser(String login){
+        users.activateUser(login);
+    }
+
+    public void deactivateUser(String login){
+        users.deactivateUser(login);
     }
 
     public List<User> getAllUsers(){

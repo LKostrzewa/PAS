@@ -1,6 +1,7 @@
 package repository;
 
 import model.Client;
+import model.Resource;
 import model.User;
 
 import java.util.ArrayList;
@@ -14,5 +15,13 @@ public class UserRepository extends Repository<User>{
             if(c instanceof Client) clients.add((Client) c);
         }
         return clients;
+    }
+
+    public void activateUser(String key){
+        get(key).setActive(true);
+    }
+
+    public void deactivateUser(String key){
+        get(key).setActive(false);
     }
 }
