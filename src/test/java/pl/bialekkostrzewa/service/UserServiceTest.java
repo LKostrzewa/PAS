@@ -1,12 +1,10 @@
-package service;
+package pl.bialekkostrzewa.service;
 
-import model.RegularClient;
+import pl.bialekkostrzewa.model.RegularClient;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class UserServiceTest {
+public class UserServiceTest {
     @Test
     public void firsTest(){
         UserService us = new UserService();

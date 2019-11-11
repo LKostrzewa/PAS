@@ -1,4 +1,4 @@
-package model;
+package pl.bialekkostrzewa.model;
 
 public class PremiumClient implements ClientType {
     @Override

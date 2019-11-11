@@ -1,10 +1,14 @@
-package service;
+package pl.bialekkostrzewa.service;
 
-import model.*;
-import repository.ReservationRepository;
+import org.springframework.stereotype.Service;
+import pl.bialekkostrzewa.model.Client;
+import pl.bialekkostrzewa.model.Reservation;
+import pl.bialekkostrzewa.model.Resource;
+import pl.bialekkostrzewa.repository.ReservationRepository;
 
 import java.util.List;
 
+@Service
 public class ReservationService {
 
     private ReservationRepository reservations = new ReservationRepository();

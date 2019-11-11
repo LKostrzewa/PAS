@@ -1,14 +1,14 @@
-package repository;
+package pl.bialekkostrzewa.repository;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class Repository <T> {
+public abstract class RepositoryTemplate<T> {
 
     private Map<String , T> data = new HashMap<String, T>();
 
-    //TODO dodac obsluge co jesli jest juz key albo nie ma tutaj lub w service :)
+    //TODO dodac obsluge co jesli jest juz key albo nie ma tutaj lub w pl.bialekkostrzewa.model.service :)
 
     public void add (String key, T value){
         data.put(key, value);

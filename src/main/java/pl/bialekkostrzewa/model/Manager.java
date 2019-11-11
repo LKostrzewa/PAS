@@ -1,20 +1,17 @@
-package model;
+package pl.bialekkostrzewa.model;
 
-import java.util.StringJoiner;
+public class Manager extends User {
 
-public class Administrator extends User {
-
-    public Administrator(String login, String name, String surname) {
+    public Manager(String login, String name, String surname) {
         super(login, name, surname);
     }
 
     @Override
     public String toString() {
-        return "Administrator{" +
+        return "Manager{" +
                 "login" + getLogin() + '\'' +
                 ", name='" + getName() + '\'' +
                 ", surname='" + getSurname() + '\'' +
                 '}';
     }
-
 }

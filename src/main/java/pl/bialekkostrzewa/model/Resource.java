@@ -1,4 +1,4 @@
-package model;
+package pl.bialekkostrzewa.model;
 
 public abstract class Resource {
 

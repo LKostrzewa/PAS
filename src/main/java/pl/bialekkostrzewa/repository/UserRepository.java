@@ -1,13 +1,14 @@
-package repository;
+package pl.bialekkostrzewa.repository;
 
-import model.Client;
-import model.Resource;
-import model.User;
+import org.springframework.stereotype.Repository;
+import pl.bialekkostrzewa.model.Client;
+import pl.bialekkostrzewa.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserRepository extends Repository<User>{
+@Repository
+public class UserRepository extends RepositoryTemplate<User> {
 
     public List<Client> getAllClients(){
         List<Client> clients = new ArrayList<>();

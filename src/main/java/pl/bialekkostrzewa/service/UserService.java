@@ -1,7 +1,8 @@
-package service;
+package pl.bialekkostrzewa.service;
 
-import model.*;
-import repository.UserRepository;
+import pl.bialekkostrzewa.model.*;
+import pl.bialekkostrzewa.model.*;
+import pl.bialekkostrzewa.repository.UserRepository;
 
 import java.util.List;
 

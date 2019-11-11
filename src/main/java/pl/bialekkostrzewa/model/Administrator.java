@@ -1,17 +1,18 @@
-package model;
+package pl.bialekkostrzewa.model;
 
-public class Manager extends User {
+public class Administrator extends User {
 
-    public Manager(String login, String name, String surname) {
+    public Administrator(String login, String name, String surname) {
         super(login, name, surname);
     }
 
     @Override
     public String toString() {
-        return "Manager{" +
+        return "Administrator{" +
                 "login" + getLogin() + '\'' +
                 ", name='" + getName() + '\'' +
                 ", surname='" + getSurname() + '\'' +
                 '}';
     }
+
 }
