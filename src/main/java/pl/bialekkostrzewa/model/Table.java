@@ -18,4 +18,14 @@ public class Table extends Resource {
     public int getNumOfPeople() {
         return numOfPeople;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Table{");
+        sb.append(super.toString());
+        sb.append(" number=").append(number);
+        sb.append(", numOfPeople=").append(numOfPeople);
+        sb.append('}');
+        return sb.toString();
+    }
 }

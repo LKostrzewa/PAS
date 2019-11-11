@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 public class UserServiceTest {
     @Test
-    public void firsTest(){
+    public void ClientTypeTest(){
         UserService us = new UserService();
 
         us.createClient("siusiak", "Pawel", "Bialek");

@@ -17,4 +17,12 @@ public abstract class Resource {
     public double getPrice() {
         return price;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("id='").append(id).append('\'');
+        sb.append(", price=").append(price);
+        return sb.toString();
+    }
 }
