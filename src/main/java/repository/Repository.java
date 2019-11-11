@@ -19,6 +19,10 @@ public abstract class Repository <T> {
     }
 
     //TODO UPDATE !!!!
+    public void update(String key, T value){
+        delete(key);
+        add(key,value);
+    }
 
     public void delete(String key){
         data.remove(key);

@@ -6,10 +6,7 @@ import java.util.List;
 
 public class Client extends User{
 
-
     private ClientType type;
-    //TODO narazie wypierdolka jak chcesz to zostaw ale imo to tylko generuje dodatkowe problemy
-    //private List<Reservation> reservations = new ArrayList<Reservation>();
 
     public Client(String login, String name, String surname, ClientType type) {
         super(login, name, surname);
@@ -26,10 +23,6 @@ public class Client extends User{
                 '}';
     }
 
-    /*public List<Reservation> getReservations() {
-        return Collections.unmodifiableList(reservations);
-    }*/
-
     public ClientType getType() {
         return type;
     }
@@ -41,8 +34,4 @@ public class Client extends User{
     public double getDiscount(double base){
         return type.countDiscount(base);
     }
-
-    /*public void addReservation(Reservation reservation){
-        reservations.add(reservation);
-    }*/
 }

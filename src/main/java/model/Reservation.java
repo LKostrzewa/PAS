@@ -31,6 +31,14 @@ public class Reservation {
         return client;
     }
 
+    public void setBeginning(LocalDateTime beginning) {
+        this.beginning = beginning;
+    }
+
+    public void setEnding(LocalDateTime ending) {
+        this.ending = ending;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Reservation{");

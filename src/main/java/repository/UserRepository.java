@@ -1,6 +1,7 @@
 package repository;
 
 import model.Client;
+import model.Resource;
 import model.User;
 
 import java.util.ArrayList;
