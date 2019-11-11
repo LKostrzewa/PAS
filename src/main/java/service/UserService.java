@@ -47,11 +47,11 @@ public class UserService {
     }
 
     public void activateUser(String login){
-        users.activateUser(login);
+        users.get(login).setActive(true);
     }
 
     public void deactivateUser(String login){
-        users.deactivateUser(login);
+        users.get(login).setActive(false);
     }
 
     public List<User> getAllUsers(){

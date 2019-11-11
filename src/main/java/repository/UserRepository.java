@@ -16,12 +16,4 @@ public class UserRepository extends Repository<User>{
         }
         return clients;
     }
-
-    public void activateUser(String key){
-        get(key).setActive(true);
-    }
-
-    public void deactivateUser(String key){
-        get(key).setActive(false);
-    }
 }
