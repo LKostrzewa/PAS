@@ -3,13 +3,19 @@ package pl.bialekkostrzewa.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import pl.bialekkostrzewa.model.Table;
 import pl.bialekkostrzewa.service.ResourceService;
 
+import javax.validation.Valid;
+
 @Controller
-@RequestMapping("siusiak")
+@RequestMapping("/add-resource")
 public class ResourceController {
 
     private ResourceService resourceService;
@@ -19,14 +25,16 @@ public class ResourceController {
         this.resourceService = resourceService;
     }
 
-    @GetMapping
+    @RequestMapping
+    public ModelAndView showForm() {
+        return new ModelAndView("resourceForm", "table", new Table());
+    }
+
+    @PostMapping("table-added")
     //@ResponseBody
-    public String resourceMajster(Model model){
-        resourceService.createTable("ajdi",24.50, 1, 4);
-        Table table = (Table)resourceService.getResource("ajdi");
+    public String tableForm(@Valid @ModelAttribute Table table, ModelMap model){
+        resourceService.addTable(table);
         model.addAttribute("table", table);
-        /*Gson gson = new Gson();
-        return gson.toJson(resourceService.getResource("ajdi"));*/
-        return "resource";
+        return "resourceShow";
     }
 }

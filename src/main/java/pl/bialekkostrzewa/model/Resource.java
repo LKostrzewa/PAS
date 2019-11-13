@@ -5,8 +5,20 @@ public abstract class Resource {
     private String id;
     private double price;
 
+    public Resource(){
+
+    }
+
     public Resource(String id, double price) {
         this.id = id;
+        this.price = price;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setPrice(double price) {
         this.price = price;
     }
 

@@ -23,8 +23,8 @@ public class ResourceService {
         resources.add(id, new BallRoom(id, price, description, numOfRooms));
     }
 
-    public void createTable(String id, double price, int number, int numOfPeople){
-        resources.add(id, new Table(id, price, number, numOfPeople));
+    public void addTable(Table table){
+        resources.add(table.getId(), table);
     }
 
     public void deleteResource(String id){

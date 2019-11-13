@@ -5,9 +5,21 @@ public class Table extends Resource {
     private int number;
     private int numOfPeople;
 
+    public Table(){
+
+    }
+
     public Table(String id, double price, int number, int numOfPeople) {
         super(id, price);
         this.number = number;
+        this.numOfPeople = numOfPeople;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public void setNumOfPeople(int numOfPeople) {
         this.numOfPeople = numOfPeople;
     }
 
