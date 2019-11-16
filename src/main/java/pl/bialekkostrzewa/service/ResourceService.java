@@ -12,19 +12,15 @@ import java.util.List;
 @Service
 public class ResourceService {
 
-    private ResourceRepository resources = new ResourceRepository();
+    private ResourceRepository resources;
 
     @Autowired
     public ResourceService(ResourceRepository resources) {
         this.resources = resources;
     }
 
-    public void createBallRoom(String id, double price, String description, int numOfRooms) {
-        resources.add(id, new BallRoom(id, price, description, numOfRooms));
-    }
-
-    public void addTable(Table table){
-        resources.add(table.getId(), table);
+    public void addResource(Resource resource){
+        resources.add(resource.getId(), resource);
     }
 
     public void deleteResource(String id){
@@ -37,5 +33,13 @@ public class ResourceService {
 
     public Resource getResource(String id) {
         return resources.get(id);
+    }
+
+    public List<Table> getAllTables(){
+        return resources.getAllTables();
+    }
+
+    public List<BallRoom> getAllBallRoom(){
+        return resources.getAllBallRooms();
     }
 }

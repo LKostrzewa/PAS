@@ -4,18 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import pl.bialekkostrzewa.model.BallRoom;
+import pl.bialekkostrzewa.model.Resource;
 import pl.bialekkostrzewa.model.Table;
 import pl.bialekkostrzewa.service.ResourceService;
 
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/add-resource")
+@RequestMapping("/resources")
 public class ResourceController {
 
     private ResourceService resourceService;
@@ -25,16 +24,42 @@ public class ResourceController {
         this.resourceService = resourceService;
     }
 
-    @RequestMapping
-    public ModelAndView showForm() {
-        return new ModelAndView("resourceForm", "table", new Table());
+    @GetMapping("add-table")
+    public ModelAndView showTableForm() {
+        return new ModelAndView("tableForm", "table", new Table());
     }
 
-    @PostMapping("table-added")
-    //@ResponseBody
-    public String tableForm(@Valid @ModelAttribute Table table, ModelMap model){
-        resourceService.addTable(table);
-        model.addAttribute("table", table);
-        return "resourceShow";
+    @GetMapping("add-room")
+    public ModelAndView showBallRoomForm(){
+        return new ModelAndView("ballRoomForm", "ballRoom", new BallRoom());
     }
+
+    @PostMapping("add-table")
+    public String addTable(@Valid @ModelAttribute Table resource){
+        resourceService.addResource(resource);
+        return "tableForm";
+    }
+
+    @PostMapping("add-room")
+    public String addBallRoom(@Valid @ModelAttribute BallRoom resource){
+        resourceService.addResource(resource);
+        return "ballRoomForm";
+    }
+
+    @RequestMapping("/all-resources")
+    public ModelAndView showAllResources(){
+        return new ModelAndView("allResource", "resource", resourceService.getAllResources());
+    }
+
+    @RequestMapping("all-tables")
+    public ModelAndView showAllTables(){
+        return new ModelAndView("allResource", "resource", resourceService.getAllTables());
+    }
+
+    @RequestMapping("all-rooms")
+    public ModelAndView showAllBallRoom(){
+        return new ModelAndView("allResource", "resource", resourceService.getAllBallRoom());
+    }
+
+
 }

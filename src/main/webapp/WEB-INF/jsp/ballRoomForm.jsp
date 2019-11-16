@@ -2,18 +2,17 @@
 <%--
   Created by IntelliJ IDEA.
   User: Lukasz
-  Date: 10.11.2019
-  Time: 21:51
+  Date: 15.11.2019
+  Time: 21:13
   To change this template use File | Settings | File Templates.
 --%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Dodaj stół</title>
+    <title>Dodaj sale balową</title>
 </head>
 <body>
-<form:form method="POST" action="add-resource/table-added" modelAttribute="table">
+<form:form action="add-room" modelAttribute="ballRoom">
     <table>
         <tr>
             <td><form:label path="id">ID</form:label></td>
@@ -24,14 +23,14 @@
             <td><form:input path="price"/></td>
         </tr>
         <tr>
-            <td><form:label path="numOfPeople">
-                Number of people at the table</form:label></td>
-            <td><form:input path="numOfPeople"/></td>
+            <td><form:label path="description">
+                Description</form:label></td>
+            <td><form:input path="description"/></td>
         </tr>
         <tr>
-            <td><form:label path="number">
-                Number of the table</form:label></td>
-            <td><form:input path="number"/></td>
+            <td><form:label path="numOfRooms">
+                Number of rooms</form:label></td>
+            <td><form:input path="numOfRooms"/></td>
         </tr>
         <tr>
             <td><input type="submit" value="Submit"/></td>
