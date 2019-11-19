@@ -45,7 +45,10 @@ class ResourceRepositoryTest {
         rr.update("1", t2);
 
         Assertions.assertEquals(rr.get("1"), t2);
-        //System.out.println(rr.getAll());
+
+        //Przy update trzeba uwazac zeby nie dopuscic do sytuacji gdy Table.id != id w mapie
+        rr.update("1", new Table("3", 125,1,2));
+        System.out.println(rr.get("1").getId());
     }
 
 }

@@ -23,7 +23,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    //TODO dodac obsluge typu klienta
     @GetMapping("add-client")
     public ModelAndView showClientForm(){
         return new ModelAndView("clientForm", "client", new Client());
@@ -32,7 +31,12 @@ public class UserController {
     @PostMapping("add-client")
     public String addClient(@Valid @ModelAttribute("client") Client client){
         userService.addUser(client);
-        return "clientShow";
+        return "clientForm";
     }
 
+    //TODO tutaj luzna sugestia pewnie widok sie zmieni dla upozadkowania
+    @RequestMapping("all-clients")
+    public ModelAndView showAllClients(){
+        return new ModelAndView("allResource", "resource", userService.getAllClients());
+    }
 }

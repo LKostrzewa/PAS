@@ -66,4 +66,19 @@ public class ResourceController {
         resourceService.deleteResource(id);
         return "allResource";
     }
+
+    //TODO Moze jeszcze byc zeby update moze byc robione bez id tzn
+    // przekazujemy tylko table i bierzemy jego id jako id do update
+
+    @RequestMapping("update-table/{id}")
+    public String updateResource(@PathVariable String id, @Valid @ModelAttribute Table table){
+        resourceService.updateResource(id, table);
+        return "allResource";
+    }
+
+    @RequestMapping("update-room/{id}")
+    public String updateBallRoom(@PathVariable String id, @Valid @ModelAttribute BallRoom ballRoom){
+        resourceService.updateResource(id, ballRoom);
+        return "allResource";
+    }
 }
