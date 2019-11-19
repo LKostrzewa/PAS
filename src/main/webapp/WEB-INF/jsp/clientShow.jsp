@@ -11,6 +11,6 @@
     <title>Stół</title>
 </head>
 <body>
-${Resource}
+${client}
 </body>
 </html>

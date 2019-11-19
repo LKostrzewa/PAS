@@ -4,6 +4,10 @@ public class Client extends User{
 
     private ClientType type;
 
+    public Client(){
+        type = new NormalClient();
+    }
+
     public Client(String login, String name, String surname, ClientType type) {
         super(login, name, surname);
         this.type = type;
@@ -12,7 +16,7 @@ public class Client extends User{
     @Override
     public String toString() {
         return "Client{" +
-                "login" + getLogin() + '\'' +
+                "login='" + getLogin() + '\'' +
                 ", name='" + getName() + '\'' +
                 ", surname='" + getSurname() + '\'' +
                 ", type=" + type +

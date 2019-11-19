@@ -42,4 +42,8 @@ public class ResourceService {
     public List<BallRoom> getAllBallRoom(){
         return resources.getAllBallRooms();
     }
+
+    public void updateResource(String id, Resource resource){
+        resources.update(id, resource);
+    }
 }

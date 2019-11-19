@@ -1,14 +1,20 @@
 package pl.bialekkostrzewa.service;
 
+import org.springframework.stereotype.Service;
 import pl.bialekkostrzewa.model.*;
 import pl.bialekkostrzewa.model.*;
 import pl.bialekkostrzewa.repository.UserRepository;
 
 import java.util.List;
 
+@Service
 public class UserService {
 
     private UserRepository users = new UserRepository();
+
+    public void addUser(User user){
+        users.add(user.getLogin(), user);
+    }
 
     public void createClient(String login, String name, String surname){
         users.add(login, new Client(login, name, surname, new NormalClient()));

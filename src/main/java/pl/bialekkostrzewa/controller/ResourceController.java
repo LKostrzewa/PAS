@@ -61,5 +61,9 @@ public class ResourceController {
         return new ModelAndView("allResource", "resource", resourceService.getAllBallRoom());
     }
 
-
+    @RequestMapping("delete-resource/{id}")
+    public String deleteResource(@PathVariable String id){
+        resourceService.deleteResource(id);
+        return "allResource";
+    }
 }

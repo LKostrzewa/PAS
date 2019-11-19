@@ -7,6 +7,10 @@ public abstract class User {
     private String surname;
     private boolean isActive;
 
+    public User(){
+
+    }
+
     public User(String login, String name, String surname) {
         this.login = login;
         this.name = name;
@@ -32,6 +36,18 @@ public abstract class User {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     @Override
