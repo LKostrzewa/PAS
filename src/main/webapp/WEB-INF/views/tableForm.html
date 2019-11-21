@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="#" th:action="@{/add-table}" th:object="${table}" method="post">
+    <table border="1">
+        <tr>
+            <td><label th:text="ID" /></td>
+            <td><input type="number" th:field="*{id}" /></td>
+        </tr>
+        <tr>
+            <td><label th:text="PRICE" /></td>
+            <td><input type="text" th:field="*{price}" /></td>
+        </tr>
+        <tr>
+            <td><label th:text="NUMBER OF PEOPLE" /></td>
+            <td><input type="text" th:field="*{numOfPeople}" /></td>
+        </tr>
+        <tr>
+            <td><label th:text="NUMBER" /></td>
+            <td><input type="text" th:field="*{number}" /></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit" /></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
