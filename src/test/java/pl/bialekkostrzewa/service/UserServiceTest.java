@@ -4,9 +4,9 @@ import pl.bialekkostrzewa.model.RegularClient;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class UserServiceTest {
+class UserServiceTest {
     @Test
-    public void ClientTypeTest(){
+    void ClientTypeTest(){
         UserService us = new UserService();
 
         us.createClient("siusiak", "Pawel", "Bialek");

@@ -6,6 +6,7 @@ import pl.bialekkostrzewa.model.Reservation;
 import pl.bialekkostrzewa.model.Resource;
 import pl.bialekkostrzewa.repository.ReservationRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -13,28 +14,22 @@ public class ReservationService {
 
     private ReservationRepository reservations = new ReservationRepository();
 
-    public void reserveResource(String id, Resource resource, Client client) throws Exception{
-        //TODO Kooncepcja taka nwm co do tych czasow i moze jakas logika bedzie tez nie znaju
-        for(Reservation r : reservations.getAll()){
-            if(r.getResource().getId().equals(resource.getId())){
-                throw new Exception("stolik zarezerwowany ! ");
-            }
-        }
-        reservations.add(id, new Reservation(id, resource, client));
+    //TODO do zmiany jezeli w controller bd inaczej hej ho
+    //TODO WYJATKI DO DODANIA ??!!
+
+    public void startReservation(Reservation reservation) /*Runtime bo w testach wygoniej :)*/throws RuntimeException {
+        if(reservations.getResevedReservations(reservation.getResource().getId()).isPresent())
+            throw new RuntimeException("Reserwacja niemozliwa zasob jest zajety");
+        else reservations.add(reservation.getId(), reservation);
     }
 
-    //tutaj mialem taka wstepna koncepcje ale to w sumie jeden chuj i sam nwm
-
-    /*public void reserveTable(String id, Table table, Client client){
-
+    public void endReservation(String id, LocalDateTime end){
+        reservations.get(id).setEnding(end);
     }
 
-    public void reserveBallRoom(String id, BallRoom ballRoom, Client client){
-
-    }*/
-
-    public void cancelReservation(String id){
-        reservations.delete(id);
+    public void deleteReservation(String id){
+        if(reservations.get(id).getEnding() != null)
+            reservations.delete(id);
     }
 
     public double countReservationPrice(String id){
