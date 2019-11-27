@@ -11,7 +11,7 @@ public class HelloController {
 
     @RequestMapping
     public String printHello(ModelMap model){
-        model.addAttribute("message", "Hello Spring MVC Framework");
+        model.addAttribute("message", "Witamy w restauracji");
         return "hello";
     }
 }

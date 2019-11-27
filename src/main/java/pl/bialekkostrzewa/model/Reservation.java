@@ -10,10 +10,11 @@ public class Reservation {
     private LocalDateTime beginning;
     private LocalDateTime ending;
 
-    public Reservation(String id, Resource resource, Client client) {
+    public Reservation(String id, Resource resource, Client client, LocalDateTime beginning) {
         this.id = id;
         this.resource = resource;
         this.client = client;
+        this.beginning = beginning;
     }
 
     public String getId() {
@@ -28,12 +29,16 @@ public class Reservation {
         return client;
     }
 
-    public void setBeginning(LocalDateTime beginning) {
-        this.beginning = beginning;
+    public LocalDateTime getBeginning() {
+        return beginning;
     }
 
     public void setEnding(LocalDateTime ending) {
         this.ending = ending;
+    }
+
+    public LocalDateTime getEnding() {
+        return ending;
     }
 
     @Override
