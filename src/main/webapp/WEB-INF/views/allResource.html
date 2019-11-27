@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resources</title>
+</head>
+<body>
+<table border="1">
+    <tr th:each="res: ${resource}">
+        <td th:text="${res}"/>
+        <td><button type="button">Update</button></td>
+        <td><form method="get" th:action="@{'delete-resource/' + ${res.getId()}}">
+            <button type="submit">Delete</button>
+        </form></td>
+    </tr>
+</table>
+<!-- Uposledzone ale dziala xddddd -->
+<form method="get" th:action="@{add-table}">
+    <button type="submit">Add table</button>
+</form>
+<form method="get" th:action="@{add-room}">
+    <button type="submit">Add ball room</button>
+</form>
+</body>
+</html>
