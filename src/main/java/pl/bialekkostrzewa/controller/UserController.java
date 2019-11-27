@@ -37,6 +37,6 @@ public class UserController {
     //TODO tutaj luzna sugestia pewnie widok sie zmieni dla upozadkowania
     @RequestMapping("all-clients")
     public ModelAndView showAllClients(){
-        return new ModelAndView("allResource", "resource", userService.getAllClients());
+        return new ModelAndView("allClient", "clients", userService.getAllClients());
     }
 }

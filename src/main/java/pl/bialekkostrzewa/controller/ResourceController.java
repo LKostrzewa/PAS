@@ -24,17 +24,17 @@ public class ResourceController {
         this.resourceService = resourceService;
     }
 
-    @GetMapping("add-table")
+    @GetMapping("/add-table")
     public ModelAndView showTableForm() {
         return new ModelAndView("tableForm", "table", new Table());
     }
 
-    @GetMapping("add-room")
+    @GetMapping("/add-room")
     public ModelAndView showBallRoomForm(){
         return new ModelAndView("ballRoomForm", "ballRoom", new BallRoom());
     }
 
-    @PostMapping("add-table")
+    @PostMapping("/add-table")
     public String addTable(@Valid @ModelAttribute Table resource){
         resourceService.addResource(resource);
         return "tableForm";
@@ -46,7 +46,7 @@ public class ResourceController {
         return "ballRoomForm";
     }
 
-    @RequestMapping("/all-resources")
+    @RequestMapping
     public ModelAndView showAllResources(){
         return new ModelAndView("allResource", "resource", resourceService.getAllResources());
     }
