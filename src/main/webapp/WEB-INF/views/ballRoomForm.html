@@ -5,26 +5,27 @@
     <title>Dodaj Salę Balową</title>
 </head>
 <body>
-<form action="#" th:action="@{/add-room}" th:object="${ballRoom}" method="post">
+<p>Dodaj Sale Balowa</p>
+<form action="#" th:action="@{add-room}" th:object="${ballRoom}" method="post">
     <table border="1">
         <tr>
-            <td><label th:text="ID" /></td>
-            <td><input type="number" th:field="*{id}" /></td>
+            <td><label th:text="'ID'" /></td>
+            <td><input type="text" th:field="*{id}" /></td>
         </tr>
         <tr>
-            <td><label th:text="PRICE" /></td>
+            <td><label th:text="'Cena'" /></td>
             <td><input type="text" th:field="*{price}" /></td>
         </tr>
         <tr>
-            <td><label th:text="DESCRYPTION" /></td>
+            <td><label th:text="'Opis'" /></td>
             <td><input type="text" th:field="*{description}" /></td>
         </tr>
         <tr>
-            <td><label th:text="NUMBER OF ROOMS" /></td>
+            <td><label th:text="'Ilosc sal'" /></td>
             <td><input type="text" th:field="*{numOfRooms}" /></td>
         </tr>
         <tr>
-            <td><input type="submit" value="Submit" /></td>
+            <td><input type="submit" value="Dodaj" /></td>
         </tr>
     </table>
 </form>

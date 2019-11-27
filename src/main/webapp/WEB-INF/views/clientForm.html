@@ -5,26 +5,27 @@
     <title>Dodaj Klienta</title>
 </head>
 <body>
-<form action="#" th:action="@{/add-client}" th:object="${client}" method="post">
+<p>Dodaj Klienta</p>
+<form action="#" th:action="@{add-client}" th:object="${client}" method="post">
     <table border="1">
         <tr>
-            <td><label th:text="LOGIN" /></td>
-            <td><input type="number" th:field="*{login}" /></td>
+            <td><label th:text="'Login'" /></td>
+            <td><input type="text" th:field="*{login}" /></td>
         </tr>
         <tr>
-            <td><label th:text="NAME" /></td>
+            <td><label th:text="'Imie'" /></td>
             <td><input type="text" th:field="*{name}" /></td>
         </tr>
         <tr>
-            <td><label th:text="SURNAME" /></td>
+            <td><label th:text="'Nazwisko'" /></td>
             <td><input type="text" th:field="*{surname}" /></td>
         </tr>
-        <tr>
+        <!--<tr>
             <td><label th:text="TYPE" /></td>
             <td><input type="text" th:field="*{type}" /></td>
-        </tr>
+        </tr>-->
         <tr>
-            <td><input type="submit" value="Submit" /></td>
+            <td><input type="submit" value="Dodaj" /></td>
         </tr>
     </table>
 </form>
