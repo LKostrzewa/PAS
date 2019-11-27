@@ -9,7 +9,9 @@
     <tr th:each="res: ${resource}">
         <td th:text="${res}"/>
         <td><button type="button">Update</button></td>
-        <td><button type="button">Delete</button></td>
+        <td><form method="get" th:action="@{'delete-resource/' + ${res.getId()}}">
+            <button type="submit">Delete</button>
+        </form></td>
     </tr>
 </table>
 <!-- Uposledzone ale dziala xddddd -->

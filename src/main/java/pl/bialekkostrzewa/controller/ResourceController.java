@@ -2,12 +2,9 @@ package pl.bialekkostrzewa.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bialekkostrzewa.model.BallRoom;
-import pl.bialekkostrzewa.model.Resource;
 import pl.bialekkostrzewa.model.Table;
 import pl.bialekkostrzewa.service.ResourceService;
 
@@ -66,7 +63,7 @@ public class ResourceController {
     @RequestMapping("delete-resource/{id}")
     public String deleteResource(@PathVariable String id){
         resourceService.deleteResource(id);
-        return "allResource";
+        return "redirect:/resources/";
     }
 
     //TODO Moze jeszcze byc zeby update moze byc robione bez id tzn
