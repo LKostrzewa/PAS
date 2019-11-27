@@ -34,8 +34,7 @@ public class UserController {
         return "clientForm";
     }
 
-    //TODO tutaj luzna sugestia pewnie widok sie zmieni dla upozadkowania
-    @RequestMapping("all-clients")
+    @RequestMapping
     public ModelAndView showAllClients(){
         return new ModelAndView("allClient", "clients", userService.getAllClients());
     }

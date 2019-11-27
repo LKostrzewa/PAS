@@ -51,6 +51,8 @@ public class ResourceController {
         return new ModelAndView("allResource", "resource", resourceService.getAllResources());
     }
 
+    //TODO INNY HTML Napisac do tych wariactw
+
     @RequestMapping("all-tables")
     public ModelAndView showAllTables(){
         return new ModelAndView("allResource", "resource", resourceService.getAllTables());
