@@ -2,10 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Dodaj Salę Balową</title>
+    <title>Add Ballroom</title>
 </head>
 <body>
-<p>Dodaj Sale Balowa</p>
+<p>Add Ballroom</p>
 <form action="#" th:action="@{add-room}" th:object="${ballRoom}" method="post">
     <table border="1">
         <tr>
@@ -13,19 +13,19 @@
             <td><input type="text" th:field="*{id}" /></td>
         </tr>
         <tr>
-            <td><label th:text="'Cena'" /></td>
+            <td><label th:text="'Price'" /></td>
             <td><input type="text" th:field="*{price}" /></td>
         </tr>
         <tr>
-            <td><label th:text="'Opis'" /></td>
+            <td><label th:text="'Description'" /></td>
             <td><input type="text" th:field="*{description}" /></td>
         </tr>
         <tr>
-            <td><label th:text="'Ilosc sal'" /></td>
+            <td><label th:text="'Number of rooms'" /></td>
             <td><input type="text" th:field="*{numOfRooms}" /></td>
         </tr>
         <tr>
-            <td><input type="submit" value="Dodaj" /></td>
+            <td><input type="submit" value="Add" /></td>
         </tr>
     </table>
 </form>

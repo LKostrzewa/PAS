@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bialekkostrzewa.model.BallRoom;
+import pl.bialekkostrzewa.model.Resource;
 import pl.bialekkostrzewa.model.Table;
 import pl.bialekkostrzewa.service.ResourceService;
 
@@ -66,23 +67,37 @@ public class ResourceController {
         return "redirect:/resources/";
     }
 
-    //TODO Moze jeszcze byc zeby update moze byc robione bez id tzn
-    // przekazujemy tylko table i bierzemy jego id jako id do update
+    @RequestMapping("/update-resource/{id}")
+    public ModelAndView showUpdateForm(@PathVariable String id){
+        Resource resource = resourceService.getResource(id);
+        if(resource instanceof  Table){
+            return showUpdateTableForm((Table) resource);
+        }
+        else {
+            return showUpdateBallRoomForm((BallRoom) resource);
+        }
 
-    @RequestMapping("/update-table/{id}")
-    public ModelAndView showUpdateTableForm(@PathVariable String id){
-        return new ModelAndView("tableUpdateForm", "table", (Table)resourceService.getResource(id));
+    }
+
+    //@RequestMapping("/update-table/{id}")
+    private ModelAndView showUpdateTableForm(Table table){
+        return new ModelAndView("tableUpdateForm", "table", table);
     }
 
     @PostMapping("/update-table")
-    public String updateResource(@Valid @ModelAttribute Table table){
+    public String updateTable(@Valid @ModelAttribute Table table){
         resourceService.updateResource(table.getId(), table);
         return "redirect:/resources/";
     }
 
-    @PostMapping("/update-room/{id}")
-    public String updateBallRoom(@PathVariable String id, @Valid @ModelAttribute BallRoom ballRoom){
-        resourceService.updateResource(id, ballRoom);
-        return "allResource";
+    //@RequestMapping("/update-room/{id}")
+    private ModelAndView showUpdateBallRoomForm(BallRoom ballRoom){
+        return new ModelAndView("ballRoomUpdateForm", "room", ballRoom);
+    }
+
+    @PostMapping("/update-room")
+    public String updateBallRoom(@Valid @ModelAttribute BallRoom ballRoom){
+        resourceService.updateResource(ballRoom.getId(), ballRoom);
+        return "redirect:/resources/";
     }
 }

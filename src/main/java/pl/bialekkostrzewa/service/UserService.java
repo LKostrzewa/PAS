@@ -45,12 +45,8 @@ public class UserService {
         return users.get(login);
     }
 
-    public Client getClient(String login){
-        return (Client)users.get(login);
-    }
-
-    public void deleteUser(String id){
-        users.delete(id);
+    public void updateUser(String id, User user){
+        users.update(id, user);
     }
 
     public void activateUser(String login){

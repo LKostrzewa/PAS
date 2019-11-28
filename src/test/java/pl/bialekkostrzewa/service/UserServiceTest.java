@@ -1,5 +1,6 @@
 package pl.bialekkostrzewa.service;
 
+import pl.bialekkostrzewa.model.Client;
 import pl.bialekkostrzewa.model.RegularClient;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,6 @@ class UserServiceTest {
 
         us.changeClientsType("siusiak", new RegularClient());
 
-        Assertions.assertTrue(us.getClient("siusiak").getType() instanceof RegularClient);
+        Assertions.assertTrue(((Client)us.getUser("siusiak")).getType() instanceof RegularClient);
     }
 }

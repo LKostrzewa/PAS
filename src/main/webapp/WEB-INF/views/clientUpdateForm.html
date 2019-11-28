@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Client</title>
+</head>
+<body>
+<p>Update Client</p>
+<form action="#" th:action="@{/users/update-client}" th:object="${client}" method="post">
+    <table border="1">
+        <tr>
+            <td><label th:text="'Name'" /></td>
+            <td><input type="text" th:field="*{name}" /></td>
+        </tr>
+        <tr>
+            <td><label th:text="'Surname'" /></td>
+            <td><input type="text" th:field="*{surname}" /></td>
+        </tr>
+        <tr>
+            <td><input type="hidden" th:field="*{login}"></td>
+            <td><input type="submit" value="Update" /></td>
+        </tr>
+    </table>
+</body>
+</html>

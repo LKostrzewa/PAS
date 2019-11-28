@@ -8,7 +8,7 @@
 <table border="1">
     <tr th:each="res: ${resource}">
         <td th:text="${res}"/>
-        <td><form method="get" th:action="@{'update-table/' + ${res.getId()}}">
+        <td><form method="get" th:action="@{'update-resource/' + ${res.getId()}}">
             <button type="submit">Update</button>
         </form></td>
         <td><form method="get" th:action="@{'delete-resource/' + ${res.getId()}}">
