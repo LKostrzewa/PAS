@@ -37,7 +37,7 @@ public class ResourceController {
         return "tableForm";
     }
 
-    @PostMapping("add-room")
+    @PostMapping("/add-room")
     public String addBallRoom(@Valid @ModelAttribute BallRoom resource){
         resourceService.addResource(resource);
         return "ballRoomForm";
@@ -50,17 +50,17 @@ public class ResourceController {
 
     //TODO INNY HTML Napisac do tych wariactw
 
-    @RequestMapping("all-tables")
+    @RequestMapping("/all-tables")
     public ModelAndView showAllTables(){
         return new ModelAndView("allResource", "resource", resourceService.getAllTables());
     }
 
-    @RequestMapping("all-rooms")
+    @RequestMapping("/all-rooms")
     public ModelAndView showAllBallRoom(){
         return new ModelAndView("allResource", "resource", resourceService.getAllBallRoom());
     }
 
-    @RequestMapping("delete-resource/{id}")
+    @RequestMapping("/delete-resource/{id}")
     public String deleteResource(@PathVariable String id){
         resourceService.deleteResource(id);
         return "redirect:/resources/";
@@ -69,18 +69,18 @@ public class ResourceController {
     //TODO Moze jeszcze byc zeby update moze byc robione bez id tzn
     // przekazujemy tylko table i bierzemy jego id jako id do update
 
-    @RequestMapping("update-table/{id}")
+    @RequestMapping("/update-table/{id}")
     public ModelAndView showUpdateTableForm(@PathVariable String id){
         return new ModelAndView("tableUpdateForm", "table", (Table)resourceService.getResource(id));
     }
 
-    @RequestMapping("update-table")
+    @PostMapping("/update-table")
     public String updateResource(@Valid @ModelAttribute Table table){
         resourceService.updateResource(table.getId(), table);
         return "redirect:/resources/";
     }
 
-    @PostMapping("update-room/{id}")
+    @PostMapping("/update-room/{id}")
     public String updateBallRoom(@PathVariable String id, @Valid @ModelAttribute BallRoom ballRoom){
         resourceService.updateResource(id, ballRoom);
         return "allResource";
