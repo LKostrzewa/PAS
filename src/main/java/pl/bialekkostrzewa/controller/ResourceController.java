@@ -70,12 +70,17 @@ public class ResourceController {
     // przekazujemy tylko table i bierzemy jego id jako id do update
 
     @RequestMapping("update-table/{id}")
-    public String updateResource(@PathVariable String id, @Valid @ModelAttribute Table table){
-        resourceService.updateResource(id, table);
-        return "allResource";
+    public ModelAndView showUpdateTableForm(@PathVariable String id){
+        return new ModelAndView("tableUpdateForm", "table", (Table)resourceService.getResource(id));
     }
 
-    @RequestMapping("update-room/{id}")
+    @RequestMapping("update-table")
+    public String updateResource(@Valid @ModelAttribute Table table){
+        resourceService.updateResource(table.getId(), table);
+        return "redirect:/resources/";
+    }
+
+    @PostMapping("update-room/{id}")
     public String updateBallRoom(@PathVariable String id, @Valid @ModelAttribute BallRoom ballRoom){
         resourceService.updateResource(id, ballRoom);
         return "allResource";

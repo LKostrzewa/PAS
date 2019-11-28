@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Table Update Form</title>
+</head>
+<body>
+<p>Modyfikuj stol</p>
+<form action="#" th:action="@{update-table}" th:object="${table}" method="post">
+    <table border="1">
+        <tr>
+            <td><label th:text="'Cena'" /></td>
+            <td><input type="text" th:field="*{price}" /></td>
+        </tr>
+        <tr>
+            <td><label th:text="'Ilosc osob'" /></td>
+            <td><input type="text" th:field="*{numOfPeople}" /></td>
+        </tr>
+        <tr>
+            <td><label th:text="'Numer'" /></td>
+            <td><input type="text" th:field="*{number}" /></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Modyfikuj" /></td>
+        </tr>
+    </table>
+</form>
+<a th:href="@{/resources/}">Powrot</a>
+</body>
+</html>
