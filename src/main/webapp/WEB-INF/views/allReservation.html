@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Reservations</title>
 </head>
 <body>
-
+<table border="1">
+    <tr th:each="res: ${reservation}">
+        <td th:text="${res}"/>
+        <td><form method="get" th:action="@{'update-reservation/' + ${res.getId()}}">
+            <button type="submit">Update</button>
+        </form></td>
+        <td><form method="get" th:action="@{'delete-reservation/' + ${res.getId()}}">
+            <button type="submit">Delete</button>
+        </form></td>
+    </tr>
+</table>
+<form method="get" th:action="@{add-reservation}">
+    <button type="submit">Add reservation</button>
+</form>
 </body>
 </html>

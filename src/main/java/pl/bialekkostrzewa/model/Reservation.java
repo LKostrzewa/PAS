@@ -10,6 +10,9 @@ public class Reservation {
     private LocalDateTime beginning;
     private LocalDateTime ending;
 
+    public Reservation(){
+    }
+
     public Reservation(String id, Resource resource, Client client, LocalDateTime beginning) {
         this.id = id;
         this.resource = resource;

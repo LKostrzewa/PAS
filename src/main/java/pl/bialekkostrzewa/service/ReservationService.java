@@ -1,5 +1,6 @@
 package pl.bialekkostrzewa.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.bialekkostrzewa.model.Client;
 import pl.bialekkostrzewa.model.Reservation;
@@ -12,6 +13,7 @@ import java.util.List;
 @Service
 public class ReservationService {
 
+    @Autowired
     private ReservationRepository reservations = new ReservationRepository();
 
     //TODO do zmiany jezeli w controller bd inaczej hej ho

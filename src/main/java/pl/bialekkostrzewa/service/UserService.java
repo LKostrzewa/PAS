@@ -1,5 +1,6 @@
 package pl.bialekkostrzewa.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.bialekkostrzewa.model.*;
 import pl.bialekkostrzewa.model.*;
@@ -10,6 +11,7 @@ import java.util.List;
 @Service
 public class UserService {
 
+    @Autowired
     private UserRepository users = new UserRepository();
 
     public void addUser(User user){

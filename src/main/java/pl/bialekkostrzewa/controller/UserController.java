@@ -10,7 +10,7 @@ import pl.bialekkostrzewa.service.UserService;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("users")
+@RequestMapping("/users")
 public class UserController {
 
     private UserService userService;
@@ -20,12 +20,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("add-client")
+    @GetMapping("/add-client")
     public ModelAndView showClientForm(){
         return new ModelAndView("clientForm", "client", new Client());
     }
 
-    @PostMapping("add-client")
+    @PostMapping("/add-client")
     public String addClient(@Valid @ModelAttribute("client") Client client){
         userService.addUser(client);
         return "clientForm";
