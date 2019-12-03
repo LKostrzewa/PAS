@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj Rezerwację</title>
+</head>
+<body>
+<p>Dodaj Rezerwację</p>
+<form action="#" th:action="@{add-reservation}" th:object="${reservation}" method="post">
+    <table border="1">
+        <tr>
+            <td><label th:text="'ID'" /></td>
+            <td><input type="text" th:field="*{id}" /></td>
+        </tr>
+        <tr>
+            <td><label th:text="Klient"/></td>
+            <td>
+                <select th:field="*{client}">
+                    <option th:each="client : ${clients}" th:value="client" th:text="client.login"></option>
+                </select>
+            </td>
+        </tr>
+        <!-- TODO -->
+        <tr>
+            <td><input type="submit" value="Add" /></td>
+        </tr>
+    </table>
+    <a th:href="@{/reservations/}">Return</a>
+</form>
+</body>
+</html>
