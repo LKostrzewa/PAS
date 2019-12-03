@@ -20,6 +20,14 @@ public class Reservation {
         this.beginning = beginning;
     }
 
+    public Reservation(String id, Resource resource, Client client, LocalDateTime beginning, LocalDateTime ending) {
+        this.id = id;
+        this.resource = resource;
+        this.client = client;
+        this.beginning = beginning;
+        this.ending = ending;
+    }
+
     public String getId() {
         return id;
     }

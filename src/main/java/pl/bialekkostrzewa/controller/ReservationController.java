@@ -34,7 +34,7 @@ public class ReservationController {
         ModelAndView modelAndView = new ModelAndView("reservationForm", "reservation", new Reservation());
         modelAndView.addObject("clients", userService.getAllClients());
         modelAndView.addObject("resources", resourceService.getAllResources());
-        return new ModelAndView("reservationForm", "reservation", new Reservation());
+        return modelAndView;
     }
 
     @PostMapping("/add-reservation")
