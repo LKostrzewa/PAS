@@ -20,18 +20,19 @@
                 </select>
             </td>
         </tr>
-        <!--<tr>
+        <tr>
             <td><label th:text="Resource"/></td>
             <td>
                 <select th:field="*{resource.id}">
-                    <option th:each="resource : ${resources}" th:value="${resource.id}" th:text="${resource.id}"></option>
+                    <option th:each="res : ${resources}"
+                            th:value="${res.id}" th:text="${res.id}"></option>
                 </select>
             </td>
-        </tr>-->
-        <!--<tr>
+        </tr>
+        <tr>
             <td><label th:text="Beginning"/></td>
             <td><input type="datetime-local" th:field="*{beginning}" /></td>
-        </tr>-->
+        </tr>
         <!--<tr>
             <td><label th:text="Ending"/></td>
             <td><input type="datetime-local" th:field="*{ending}" /></td>

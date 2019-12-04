@@ -1,6 +1,6 @@
 package pl.bialekkostrzewa.model;
 
-public abstract class Resource {
+public class Resource {
 
     private String id;
     private double price;
