@@ -5,7 +5,7 @@
     <title>Dodaj Rezerwację</title>
 </head>
 <body>
-<p>Dodaj Rezerwację</p>
+<p>Add reservation</p>
 <form action="#" th:action="@{add-reservation}" th:object="${reservation}" method="post">
     <table border="1">
         <tr>
@@ -15,28 +15,30 @@
         <tr>
             <td><label th:text="Client"/></td>
             <td>
-                <select th:field="*{client}">
-                    <option th:each="client : ${clients}" th:value="${client}" th:text="${client.login}"></option>
+                <select th:field="*{client.login}">
+                    <option th:each="client : ${clients}" th:value="${client.login}" th:text="${client.login}"></option>
                 </select>
             </td>
         </tr>
-        <tr>
+        <!--<tr>
             <td><label th:text="Resource"/></td>
             <td>
-                <select th:field="*{resource}">
-                    <option th:each="resource : ${resources}" th:value="${resource}" th:text="${resource.id}"></option>
+                <select th:field="*{resource.id}">
+                    <option th:each="resource : ${resources}" th:value="${resource.id}" th:text="${resource.id}"></option>
                 </select>
             </td>
-        </tr>
-        <tr>
+        </tr>-->
+        <!--<tr>
             <td><label th:text="Beginning"/></td>
             <td><input type="datetime-local" th:field="*{beginning}" /></td>
-        </tr>
-        <tr>
+        </tr>-->
+        <!--<tr>
             <td><label th:text="Ending"/></td>
             <td><input type="datetime-local" th:field="*{ending}" /></td>
-        </tr>
+        </tr>-->
         <tr>
+            <!--<td><input type="hidden" th:field="*{ending}"></td>
+            <td><input type="hidden" th:field="*{beginning}"></td>-->
             <td><input type="submit" value="Add" /></td>
         </tr>
     </table>

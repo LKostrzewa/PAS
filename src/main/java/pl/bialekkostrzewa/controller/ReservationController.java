@@ -5,12 +5,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import pl.bialekkostrzewa.model.Client;
 import pl.bialekkostrzewa.model.Reservation;
+import pl.bialekkostrzewa.model.Resource;
 import pl.bialekkostrzewa.service.ReservationService;
 import pl.bialekkostrzewa.service.ResourceService;
 import pl.bialekkostrzewa.service.UserService;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/reservations")
@@ -20,14 +23,12 @@ public class ReservationController {
     private UserService userService;
     private ResourceService resourceService;
 
+    @Autowired
     public ReservationController(ReservationService reservationService, UserService userService, ResourceService resourceService) {
         this.reservationService = reservationService;
         this.userService = userService;
         this.resourceService = resourceService;
     }
-
-    @Autowired
-
 
     @GetMapping("/add-reservation")
     public ModelAndView showReservationForm(){
@@ -38,7 +39,9 @@ public class ReservationController {
     }
 
     @PostMapping("/add-reservation")
-    public String addReservation(@Valid @ModelAttribute("reservation") Reservation reservation){
+    public String addReservation(@Valid @ModelAttribute Reservation reservation){
+        reservation.setClient((Client)userService.getUser(reservation.getClient().getLogin()));
+        reservation.setResource(resourceService.getResource(reservation.getResource().getId()));
         reservationService.startReservation(reservation);
         return "reservationForm";
     }
