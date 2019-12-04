@@ -5,7 +5,7 @@
     <title>Dodaj Rezerwację</title>
 </head>
 <body>
-<p>Dodaj Rezerwację</p>
+<p>Add reservation</p>
 <form action="#" th:action="@{add-reservation}" th:object="${reservation}" method="post">
     <table border="1">
         <tr>
@@ -28,15 +28,17 @@
                 </select>
             </td>
         </tr>
-        <tr>
+        <!--<tr>
             <td><label th:text="Beginning"/></td>
             <td><input type="datetime-local" th:field="*{beginning}" /></td>
-        </tr>
-        <tr>
+        </tr>-->
+        <!--<tr>
             <td><label th:text="Ending"/></td>
             <td><input type="datetime-local" th:field="*{ending}" /></td>
-        </tr>
+        </tr>-->
         <tr>
+            <!--<td><input type="hidden" th:field="*{ending}"></td>
+            <td><input type="hidden" th:field="*{beginning}"></td>-->
             <td><input type="submit" value="Add" /></td>
         </tr>
     </table>

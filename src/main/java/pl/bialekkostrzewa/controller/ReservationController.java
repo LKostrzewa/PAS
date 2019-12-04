@@ -20,14 +20,12 @@ public class ReservationController {
     private UserService userService;
     private ResourceService resourceService;
 
+    @Autowired
     public ReservationController(ReservationService reservationService, UserService userService, ResourceService resourceService) {
         this.reservationService = reservationService;
         this.userService = userService;
         this.resourceService = resourceService;
     }
-
-    @Autowired
-
 
     @GetMapping("/add-reservation")
     public ModelAndView showReservationForm(){
@@ -38,7 +36,7 @@ public class ReservationController {
     }
 
     @PostMapping("/add-reservation")
-    public String addReservation(@Valid @ModelAttribute("reservation") Reservation reservation){
+    public String addReservation(@Valid @ModelAttribute Reservation reservation){
         reservationService.startReservation(reservation);
         return "reservationForm";
     }

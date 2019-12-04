@@ -1,5 +1,7 @@
 package pl.bialekkostrzewa.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDateTime;
 
 public class Reservation {
@@ -7,10 +9,13 @@ public class Reservation {
     private String id;
     private Resource resource;
     private Client client;
-    private LocalDateTime beginning;
+    //@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) private LocalDateTime beginning;
     private LocalDateTime ending;
 
     public Reservation(){
+        beginning = LocalDateTime.now();
+        ending = LocalDateTime.now().plusHours(10);
     }
 
     public Reservation(String id, Resource resource, Client client, LocalDateTime beginning) {
@@ -18,14 +23,6 @@ public class Reservation {
         this.resource = resource;
         this.client = client;
         this.beginning = beginning;
-    }
-
-    public Reservation(String id, Resource resource, Client client, LocalDateTime beginning, LocalDateTime ending) {
-        this.id = id;
-        this.resource = resource;
-        this.client = client;
-        this.beginning = beginning;
-        this.ending = ending;
     }
 
     public String getId() {
@@ -50,6 +47,22 @@ public class Reservation {
 
     public LocalDateTime getEnding() {
         return ending;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setResource(Resource resource) {
+        this.resource = resource;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public void setBeginning(LocalDateTime beginning) {
+        this.beginning = beginning;
     }
 
     @Override
