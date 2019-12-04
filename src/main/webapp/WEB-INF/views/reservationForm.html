@@ -15,19 +15,19 @@
         <tr>
             <td><label th:text="Client"/></td>
             <td>
-                <select th:field="*{client}">
-                    <option th:each="client : ${clients}" th:value="${client}" th:text="${client.login}"></option>
+                <select th:field="*{client.login}">
+                    <option th:each="client : ${clients}" th:value="${client.login}" th:text="${client.login}"></option>
                 </select>
             </td>
         </tr>
-        <tr>
+        <!--<tr>
             <td><label th:text="Resource"/></td>
             <td>
-                <select th:field="*{resource}">
-                    <option th:each="resource : ${resources}" th:value="${resource}" th:text="${resource.id}"></option>
+                <select th:field="*{resource.id}">
+                    <option th:each="resource : ${resources}" th:value="${resource.id}" th:text="${resource.id}"></option>
                 </select>
             </td>
-        </tr>
+        </tr>-->
         <!--<tr>
             <td><label th:text="Beginning"/></td>
             <td><input type="datetime-local" th:field="*{beginning}" /></td>
