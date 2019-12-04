@@ -17,6 +17,10 @@
             <td><input type="text" th:field="*{surname}" /></td>
         </tr>
         <tr>
+            <td><label th:text="'Active'" /></td>
+            <td><input type="checkbox" th:checked="*{active}" th:field="*{active}"/></td>
+        </tr>
+        <tr>
             <td><input type="hidden" th:field="*{login}"></td>
             <td><input type="submit" value="Update" /></td>
         </tr>

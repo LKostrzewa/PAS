@@ -17,4 +17,12 @@ public class UserRepository extends RepositoryTemplate<User> {
         }
         return clients;
     }
+
+    public List<Client> getAllActiveClients(){
+        List<Client> clients = new ArrayList<>();
+        for(User c : getAll()){
+            if(c instanceof Client && c.isActive()) clients.add((Client) c);
+        }
+        return clients;
+    }
 }

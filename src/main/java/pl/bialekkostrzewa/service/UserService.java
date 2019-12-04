@@ -66,4 +66,8 @@ public class UserService {
     public List<Client> getAllClients(){
         return users.getAllClients();
     }
+
+    public List<Client> getAllActiveClients(){
+        return users.getAllActiveClients();
+    }
 }

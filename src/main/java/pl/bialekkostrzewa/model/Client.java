@@ -19,7 +19,8 @@ public class Client extends User{
                 "login='" + getLogin() + '\'' +
                 ", name='" + getName() + '\'' +
                 ", surname='" + getSurname() + '\'' +
-                ", type=" + type +
+                ", type=" + type + '\'' +
+                ", isActive='" + isActive() + '\'' +
                 '}';
     }
 

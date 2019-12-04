@@ -33,7 +33,7 @@ public class ReservationController {
     @GetMapping("/add-reservation")
     public ModelAndView showReservationForm(){
         ModelAndView modelAndView = new ModelAndView("reservationForm", "reservation", new Reservation());
-        modelAndView.addObject("clients", userService.getAllClients());
+        modelAndView.addObject("clients", userService.getAllActiveClients());
         modelAndView.addObject("resources", resourceService.getAllResources());
         return modelAndView;
     }

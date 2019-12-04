@@ -8,7 +8,7 @@ public abstract class User {
     private boolean isActive;
 
     public User(){
-
+        this.isActive = true;
     }
 
     public User(String login, String name, String surname) {

@@ -8,9 +8,11 @@
 <table border="1">
     <tr th:each="cli: ${clients}">
         <td th:text="${cli}"/>
-        <td><form method="get" th:action="@{'update-client/' + ${cli.getLogin()}}">
-            <button type="submit">Update</button>
-        </form></td>
+        <td>
+            <form method="get" th:action="@{'update-client/' + ${cli.getLogin()}}">
+                <button type="submit">Update</button>
+            </form>
+        </td>
     </tr>
 </table>
 <!-- Uposledzone ale dziala xddddd -->
