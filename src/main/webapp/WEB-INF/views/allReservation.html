@@ -8,9 +8,6 @@
 <table border="1">
     <tr th:each="res: ${reservation}">
         <td th:text="${res}"/>
-        <td><form method="get" th:action="@{'update-reservation/' + ${res.getId()}}">
-            <button type="submit">Update</button>
-        </form></td>
         <td><form method="get" th:action="@{'delete-reservation/' + ${res.getId()}}">
             <button type="submit">Delete</button>
         </form></td>

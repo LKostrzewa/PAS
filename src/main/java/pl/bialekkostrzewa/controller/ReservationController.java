@@ -51,16 +51,16 @@ public class ReservationController {
         return new ModelAndView("allReservation", "reservation", reservationService.getAllReservations());
     }
 
-    @RequestMapping("/delete-resource/{id}")
+    @RequestMapping("/delete-reservation/{id}")
     public String deleteResource(@PathVariable String id){
         reservationService.deleteReservation(id);
         return "redirect:/reservations/";
     }
 
-    @RequestMapping("/update-resource/{id}")
+    /*@RequestMapping("/update-reservation/{id}")
     public ModelAndView showUpdateForm(@PathVariable String id){
         Reservation reservation = reservationService.getReservation(id);
         return new ModelAndView("reservationUpdateForm", "reservation", reservation);
-    }
+    }*/
 
 }
