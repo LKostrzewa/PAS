@@ -11,6 +11,9 @@
         <td><form method="get" th:action="@{'delete-reservation/' + ${res.getId()}}">
             <button type="submit">Delete</button>
         </form></td>
+        <td><form method="get" th:action="@{'end-reservation/' + ${res.getId()}}">
+            <button type="submit">End</button>
+        </form></td>
     </tr>
 </table>
 <form method="get" th:action="@{add-reservation}">

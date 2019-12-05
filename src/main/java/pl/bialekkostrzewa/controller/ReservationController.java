@@ -3,6 +3,7 @@ package pl.bialekkostrzewa.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bialekkostrzewa.model.Client;
@@ -13,6 +14,7 @@ import pl.bialekkostrzewa.service.ResourceService;
 import pl.bialekkostrzewa.service.UserService;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @Controller
@@ -39,7 +41,10 @@ public class ReservationController {
     }
 
     @PostMapping("/add-reservation")
-    public String addReservation(@Valid @ModelAttribute Reservation reservation){
+    public String addReservation(@Valid @ModelAttribute Reservation reservation, BindingResult bindingResult){
+        /*if(bindingResult.hasErrors()){
+            return "reservationForm";
+        }*/
         reservation.setClient((Client)userService.getUser(reservation.getClient().getLogin()));
         reservation.setResource(resourceService.getResource(reservation.getResource().getId()));
         reservationService.startReservation(reservation);
@@ -57,10 +62,10 @@ public class ReservationController {
         return "redirect:/reservations/";
     }
 
-    /*@RequestMapping("/update-reservation/{id}")
-    public ModelAndView showUpdateForm(@PathVariable String id){
-        Reservation reservation = reservationService.getReservation(id);
-        return new ModelAndView("reservationUpdateForm", "reservation", reservation);
-    }*/
+    @RequestMapping("/end-reservation/{id}")
+    public String showUpdateForm(@PathVariable String id){
+        reservationService.endReservation(id, LocalDateTime.now());
+        return "redirect:/reservations/";
+    }
 
 }

@@ -15,7 +15,6 @@ public class Reservation {
 
     public Reservation(){
         beginning = LocalDateTime.now();
-        ending = LocalDateTime.now().plusHours(10);
     }
 
     public Reservation(String id, Resource resource, Client client, LocalDateTime beginning) {

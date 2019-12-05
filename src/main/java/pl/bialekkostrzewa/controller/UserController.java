@@ -2,6 +2,7 @@ package pl.bialekkostrzewa.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bialekkostrzewa.model.Client;
@@ -26,7 +27,10 @@ public class UserController {
     }
 
     @PostMapping("/add-client")
-    public String addClient(@Valid @ModelAttribute("client") Client client){
+    public String addClient(@Valid @ModelAttribute("client") Client client, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return "clientForm";
+        }
         userService.addUser(client);
         return "clientForm";
     }
@@ -37,7 +41,10 @@ public class UserController {
     }
 
     @PostMapping("/update-client")
-    public String updateClient(@Valid @ModelAttribute Client client){
+    public String updateClient(@Valid @ModelAttribute Client client, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return "redirect:/users/";
+        }
         userService.updateUser(client.getLogin(), client);
         return "redirect:/users/";
     }
