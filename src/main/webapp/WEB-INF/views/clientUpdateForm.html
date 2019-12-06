@@ -5,7 +5,7 @@
     <title>Update Client</title>
 </head>
 <body>
-<p>Update Client</p>
+<label th:text="'Update client ' + ${client.login}"/>
 <form action="#" th:action="@{/users/update-client}" th:object="${client}" method="post">
     <table border="1">
         <tr>

@@ -23,13 +23,13 @@ public class UserService {
         users.add(user.getLogin(), user);
     }
 
-    public void changeClientsType(String login, ClientType type){
+    public void changeClientsType(String login, ClientType type) throws RuntimeException{
         User user = users.get(login);
         if(user instanceof Client){
             Client client = (Client)user;
             client.setType(type);
         }
-        //else throw Exception("PANIE CO PAN "); //TODO nasze wyjatki albo i nie bo w sumie to moze jakos bd z przegladarki tak jak karbo czary mary odpierdalał
+        else throw new RuntimeException("This user is not a client");
     }
 
     public User getUser(String login){

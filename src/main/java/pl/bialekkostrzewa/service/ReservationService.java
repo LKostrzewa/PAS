@@ -25,9 +25,9 @@ public class ReservationService {
 
     public void startReservation(Reservation reservation) /*Runtime bo w testach wygoniej :)*/throws RuntimeException {
         if(reservations.getResevedReservations(reservation.getResource().getId()).isPresent())
-            throw new ResourceTakenException("Reserwacja niemozliwa zasob jest zajety");
+            throw new ResourceTakenException("Reservation impossible, that resource is already taken");
         if(!reservation.getClient().isActive()){
-            throw new InactiveClientException("Klient jest nieaktywny");
+            throw new InactiveClientException("Cannot reserve, client is inactive");
         }
         else reservations.add(reservation.getId(), reservation);
     }
