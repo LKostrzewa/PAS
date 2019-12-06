@@ -3,6 +3,7 @@ package pl.bialekkostrzewa.service;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pl.bialekkostrzewa.model.*;
+import pl.bialekkostrzewa.repository.ReservationRepository;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +13,7 @@ class ReservationServiceTest {
 
     @Test
     void startReservationTest() {
-        ReservationService rs = new ReservationService();
+        ReservationService rs = new ReservationService(new ReservationRepository());
 
         Client client = new Client("jk98", "jan", "kowalski", new NormalClient());
         Table table = new Table("1", 13.20, 1, 2);
@@ -33,7 +34,7 @@ class ReservationServiceTest {
 
     @Test
     void deleteReservation() {
-        ReservationService rs = new ReservationService();
+        ReservationService rs = new ReservationService(new ReservationRepository());
 
         Client client = new Client("jk98", "jan", "kowalski", new NormalClient());
         Table table = new Table("1", 13.20, 1, 2);

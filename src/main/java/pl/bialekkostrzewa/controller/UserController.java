@@ -28,11 +28,10 @@ public class UserController {
 
     @PostMapping("/add-client")
     public String addClient(@Valid @ModelAttribute("client") Client client, BindingResult bindingResult){
-        if (bindingResult.hasErrors()){
-            return "clientForm";
+        if (!bindingResult.hasErrors() && !client.getLogin().isEmpty()){
+            userService.addUser(client);
         }
-        userService.addUser(client);
-        return "clientForm";
+        return "redirect:/users/";
     }
 
     @RequestMapping("/update-client/{login}")

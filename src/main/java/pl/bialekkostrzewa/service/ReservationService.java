@@ -2,6 +2,8 @@ package pl.bialekkostrzewa.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.bialekkostrzewa.exceptions.InactiveClientException;
+import pl.bialekkostrzewa.exceptions.ResourceTakenException;
 import pl.bialekkostrzewa.model.Client;
 import pl.bialekkostrzewa.model.Reservation;
 import pl.bialekkostrzewa.model.Resource;
@@ -13,20 +15,27 @@ import java.util.List;
 @Service
 public class ReservationService {
 
-    @Autowired
-    private ReservationRepository reservations = new ReservationRepository();
 
-    //TODO do zmiany jezeli w controller bd inaczej hej ho
-    //TODO WYJATKI DO DODANIA ??!!
+    private ReservationRepository reservations;
+
+    @Autowired
+    public ReservationService(ReservationRepository reservations) {
+        this.reservations = reservations;
+    }
 
     public void startReservation(Reservation reservation) /*Runtime bo w testach wygoniej :)*/throws RuntimeException {
         if(reservations.getResevedReservations(reservation.getResource().getId()).isPresent())
-            throw new RuntimeException("Reserwacja niemozliwa zasob jest zajety");
+            throw new ResourceTakenException("Reserwacja niemozliwa zasob jest zajety");
+        if(!reservation.getClient().isActive()){
+            throw new InactiveClientException("Klient jest nieaktywny");
+        }
         else reservations.add(reservation.getId(), reservation);
     }
 
     public void endReservation(String id, LocalDateTime end){
-        reservations.get(id).setEnding(end);
+        Reservation r = getReservation(id);
+        if(r.getClient().isActive())
+            r.setEnding(end);
     }
 
     public void deleteReservation(String id){

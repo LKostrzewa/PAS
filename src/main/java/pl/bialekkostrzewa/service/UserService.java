@@ -11,23 +11,16 @@ import java.util.List;
 @Service
 public class UserService {
 
+
+    private UserRepository users;
+
     @Autowired
-    private UserRepository users = new UserRepository();
+    public UserService(UserRepository users) {
+        this.users = users;
+    }
 
     public void addUser(User user){
         users.add(user.getLogin(), user);
-    }
-
-    public void createClient(String login, String name, String surname){
-        users.add(login, new Client(login, name, surname, new NormalClient()));
-    }
-
-    public void createAdministrator(String login, String name, String surname){
-        users.add(login, new Administrator(login, name, surname));
-    }
-
-    public void createManager(String login, String name, String surname){
-        users.add(login, new Manager(login, name, surname));
     }
 
     public void changeClientsType(String login, ClientType type){

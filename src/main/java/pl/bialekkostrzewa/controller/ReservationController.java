@@ -41,14 +41,24 @@ public class ReservationController {
     }
 
     @PostMapping("/add-reservation")
-    public String addReservation(@Valid @ModelAttribute Reservation reservation, BindingResult bindingResult){
-        /*if(bindingResult.hasErrors()){
-            return "reservationForm";
-        }*/
-        reservation.setClient((Client)userService.getUser(reservation.getClient().getLogin()));
-        reservation.setResource(resourceService.getResource(reservation.getResource().getId()));
-        reservationService.startReservation(reservation);
-        return "reservationForm";
+    public String addReservation(@Valid @ModelAttribute Reservation reservation){
+        //TODO dodacc returny do roznych html ?? albo modyfikowac inny
+        if(reservation.getId().isEmpty()){
+            return "redirect:/reservations/";
+        }
+        try{
+            reservation.setClient((Client)userService.getUser(reservation.getClient().getLogin()));
+            reservation.setResource(resourceService.getResource(reservation.getResource().getId()));
+            reservationService.startReservation(reservation);
+        }
+        catch (NullPointerException e){
+            return "redirect:/reservations/";
+        }
+        catch (RuntimeException e){
+            e.printStackTrace();
+            return "redirect:/reservations/";
+        }
+        return "redirect:/reservations/";
     }
 
     @RequestMapping

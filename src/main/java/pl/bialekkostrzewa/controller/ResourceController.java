@@ -35,20 +35,21 @@ public class ResourceController {
 
     @PostMapping("/add-table")
     public String addTable(@Valid @ModelAttribute Table resource, BindingResult bindingResult){
-        if (bindingResult.hasErrors()){
-            return "tableForm";
+        //TODO rowniez do dodania widoki html
+        if (!bindingResult.hasErrors() && !resource.getId().isEmpty()){
+            //return "redirect:/resources/";
+            resourceService.addResource(resource);
         }
-        resourceService.addResource(resource);
-        return "tableForm";
+        return "redirect:/resources/";
     }
 
     @PostMapping("/add-room")
     public String addBallRoom(@Valid @ModelAttribute BallRoom resource, BindingResult bindingResult){
-        if (bindingResult.hasErrors()){
-            return "ballRoomForm";
+        if (!bindingResult.hasErrors() && !resource.getId().isEmpty()){
+            //return "redirect:/resources/";
+            resourceService.addResource(resource);
         }
-        resourceService.addResource(resource);
-        return "ballRoomForm";
+        return "redirect:/resources/";
     }
 
     @RequestMapping
@@ -84,31 +85,27 @@ public class ResourceController {
 
     }
 
-    //@RequestMapping("/update-table/{id}")
     private ModelAndView showUpdateTableForm(Table table){
         return new ModelAndView("tableUpdateForm", "table", table);
     }
 
     @PostMapping("/update-table")
     public String updateTable(@Valid @ModelAttribute Table table, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            return "redirect:/resources/";
+        if(!bindingResult.hasErrors()){
+            resourceService.updateResource(table.getId(), table);
         }
-        resourceService.updateResource(table.getId(), table);
         return "redirect:/resources/";
     }
 
-    //@RequestMapping("/update-room/{id}")
     private ModelAndView showUpdateBallRoomForm(BallRoom ballRoom){
         return new ModelAndView("ballRoomUpdateForm", "room", ballRoom);
     }
 
     @PostMapping("/update-room")
     public String updateBallRoom(@Valid @ModelAttribute BallRoom ballRoom, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            return "redirect:/resources/";
+        if(!bindingResult.hasErrors()){
+            resourceService.updateResource(ballRoom.getId(), ballRoom);
         }
-        resourceService.updateResource(ballRoom.getId(), ballRoom);
         return "redirect:/resources/";
     }
 }
