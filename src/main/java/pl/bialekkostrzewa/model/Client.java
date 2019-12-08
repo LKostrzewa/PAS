@@ -15,13 +15,20 @@ public class Client extends User{
 
     @Override
     public String toString() {
-        return "Client{" +
+        String tmp;
+        if(isActive()){
+            tmp = "is active";
+        }
+        else tmp = "is inactive";
+        return "Client login " + getLogin() + " full name " + getName()
+                + " " + getSurname() + " " + getType() + " type " + tmp;
+        /*return "Client{" +
                 "login='" + getLogin() + '\'' +
                 ", name='" + getName() + '\'' +
                 ", surname='" + getSurname() + '\'' +
                 ", type=" + type + '\'' +
                 ", isActive='" + isActive() + '\'' +
-                '}';
+                '}';*/
     }
 
     public ClientType getType() {

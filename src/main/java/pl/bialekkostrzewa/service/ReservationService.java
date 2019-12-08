@@ -9,7 +9,9 @@ import pl.bialekkostrzewa.model.Reservation;
 import pl.bialekkostrzewa.model.Resource;
 import pl.bialekkostrzewa.repository.ReservationRepository;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.List;
 
 @Service
@@ -45,8 +47,10 @@ public class ReservationService {
 
     public double countReservationPrice(String id){
         Reservation r = reservations.get(id);
+        Duration duration = Duration.between(r.getBeginning(), r.getEnding());
+        long diff = duration.toHours();
         double price = r.getResource().getPrice();
-        return price - r.getClient().getDiscount(price);
+        return price*diff - r.getClient().getDiscount(price);
     }
 
     public List<Reservation> getAllReservations(){

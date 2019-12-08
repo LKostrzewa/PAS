@@ -33,8 +33,8 @@ public class Resource {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append("id='").append(id).append('\'');
-        sb.append(", price=").append(price);
+        sb.append("id ").append(id);
+        sb.append(", costs ").append(price);
         return sb.toString();
     }
 }

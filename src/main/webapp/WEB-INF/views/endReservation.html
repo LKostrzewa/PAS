@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservation</title>
+</head>
+<body>
+<label th:text="${reservation} + ' ended' + ' overall cost: ' + ${price}"></label>
+<p><a th:href="@{/reservations/}">Return</a></p>
+</body>
+</html>

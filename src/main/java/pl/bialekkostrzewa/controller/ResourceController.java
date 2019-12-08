@@ -2,6 +2,7 @@ package pl.bialekkostrzewa.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -34,22 +35,22 @@ public class ResourceController {
     }
 
     @PostMapping("/add-table")
-    public String addTable(@Valid @ModelAttribute Table resource, BindingResult bindingResult){
-        //TODO rowniez do dodania widoki html
-        if (!bindingResult.hasErrors() && !resource.getId().isEmpty()){
-            //return "redirect:/resources/";
-            resourceService.addResource(resource);
-        }
-        return "redirect:/resources/";
+    public String addTable(@Valid @ModelAttribute Table resource, BindingResult bindingResult, Model model){
+        return addResource(resource, bindingResult, model);
     }
 
     @PostMapping("/add-room")
-    public String addBallRoom(@Valid @ModelAttribute BallRoom resource, BindingResult bindingResult){
+    public String addBallRoom(@Valid @ModelAttribute BallRoom resource, BindingResult bindingResult, Model model){
+        return addResource(resource, bindingResult, model);
+    }
+
+    private String addResource(Resource resource, BindingResult bindingResult, Model model){
         if (!bindingResult.hasErrors() && !resource.getId().isEmpty()){
-            //return "redirect:/resources/";
             resourceService.addResource(resource);
+            return "redirect:/resources/";
         }
-        return "redirect:/resources/";
+        model.addAttribute("dir", "resources");
+        return "emptyId";
     }
 
     @RequestMapping

@@ -33,11 +33,11 @@ public class Table extends Resource {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Table{");
+        final StringBuilder sb = new StringBuilder("Table ");
         sb.append(super.toString());
-        sb.append(" number=").append(number);
-        sb.append(", numOfPeople=").append(numOfPeople);
-        sb.append('}');
+        sb.append(" number ").append(number);
+        sb.append(", can hold ").append(numOfPeople);
+        sb.append(" people");
         return sb.toString();
     }
 }

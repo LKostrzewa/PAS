@@ -33,11 +33,11 @@ public class BallRoom extends Resource {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("BallRoom{");
+        final StringBuilder sb = new StringBuilder("BallRoom ");
         sb.append(super.toString());
-        sb.append(" description='").append(description).append('\'');
-        sb.append(", numOfRooms=").append(numOfRooms);
-        sb.append('}');
+        sb.append(", ").append(description);
+        sb.append(", has ").append(numOfRooms);
+        sb.append(" rooms");
         return sb.toString();
     }
 }

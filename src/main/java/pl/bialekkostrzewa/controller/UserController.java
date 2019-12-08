@@ -2,6 +2,7 @@ package pl.bialekkostrzewa.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,11 +28,13 @@ public class UserController {
     }
 
     @PostMapping("/add-client")
-    public String addClient(@Valid @ModelAttribute("client") Client client, BindingResult bindingResult){
+    public String addClient(@Valid @ModelAttribute("client") Client client, BindingResult bindingResult, Model model){
         if (!bindingResult.hasErrors() && !client.getLogin().isEmpty()){
             userService.addUser(client);
+            return "redirect:/users/";
         }
-        return "redirect:/users/";
+        model.addAttribute("dir", "users");
+        return "emptyId";
     }
 
     @RequestMapping("/update-client/{login}")
@@ -41,10 +44,9 @@ public class UserController {
 
     @PostMapping("/update-client")
     public String updateClient(@Valid @ModelAttribute Client client, BindingResult bindingResult){
-        if (bindingResult.hasErrors()){
-            return "redirect:/users/";
+        if (!bindingResult.hasErrors()){
+            userService.updateUser(client.getLogin(), client);
         }
-        userService.updateUser(client.getLogin(), client);
         return "redirect:/users/";
     }
 

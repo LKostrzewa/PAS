@@ -3,6 +3,7 @@ package pl.bialekkostrzewa.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,10 +42,10 @@ public class ReservationController {
     }
 
     @PostMapping("/add-reservation")
-    public String addReservation(@Valid @ModelAttribute Reservation reservation){
-        //TODO dodacc returny do roznych html ?? albo modyfikowac inny
+    public String addReservation(@Valid @ModelAttribute Reservation reservation, Model model){
         if(reservation.getId().isEmpty()){
-            return "redirect:/reservations/";
+            model.addAttribute("dir", "reservations");
+            return "emptyId";
         }
         try{
             reservation.setClient((Client)userService.getUser(reservation.getClient().getLogin()));
@@ -56,6 +57,7 @@ public class ReservationController {
         }
         catch (RuntimeException e){
             e.printStackTrace();
+            //TODO ciach bajera jakas fajna analogiczna ale nie chce mi sie hehe iksde lol beka
             return "redirect:/reservations/";
         }
         return "redirect:/reservations/";
@@ -67,15 +69,17 @@ public class ReservationController {
     }
 
     @RequestMapping("/delete-reservation/{id}")
-    public String deleteResource(@PathVariable String id){
+    public String deleteReservation(@PathVariable String id){
         reservationService.deleteReservation(id);
         return "redirect:/reservations/";
     }
 
     @RequestMapping("/end-reservation/{id}")
-    public String showUpdateForm(@PathVariable String id){
+    public ModelAndView endReservation(@PathVariable String id){
         reservationService.endReservation(id, LocalDateTime.now());
-        return "redirect:/reservations/";
+        ModelAndView model = new ModelAndView("endReservation", "reservation", reservationService.getReservation(id));
+        model.addObject("price", reservationService.countReservationPrice(id));
+        return model;
     }
 
 }

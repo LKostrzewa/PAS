@@ -66,13 +66,12 @@ public class Reservation {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Reservation{");
-        sb.append("id='").append(id).append('\'');
-        sb.append(", resource=").append(resource);
-        sb.append(", client=").append(client);
-        sb.append(", beginning=").append(beginning);
-        sb.append(", ending=").append(ending);
-        sb.append('}');
+        final StringBuilder sb = new StringBuilder("Reservation ");
+        sb.append("id ").append(id).append(" of");
+        sb.append(" resource ").append(resource.getId()).append(" by");
+        sb.append(" client ").append(client.getLogin());
+        sb.append(", begins ").append(beginning);
+        sb.append(", ends ").append(ending);
         return sb.toString();
     }
 }
