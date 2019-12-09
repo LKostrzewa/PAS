@@ -53,12 +53,12 @@ public class ReservationController {
             reservationService.startReservation(reservation);
         }
         catch (NullPointerException e){
-            return "redirect:/reservations/";
+            model.addAttribute("msg", "requested object is not accessible right now");
+            return "exception";
         }
         catch (RuntimeException e){
-            e.printStackTrace();
-            //TODO ciach bajera jakas fajna analogiczna ale nie chce mi sie hehe iksde lol beka
-            return "redirect:/reservations/";
+            model.addAttribute("msg", e.getMessage());
+            return "exception";
         }
         return "redirect:/reservations/";
     }
