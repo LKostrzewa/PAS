@@ -1,8 +1,12 @@
 package pl.bialekkostrzewa.model;
 
+import javax.validation.constraints.Min;
+
 public class Table extends Resource {
 
+    @Min(0)
     private int number;
+    @Min(0)
     private int numOfPeople;
 
     public Table(){

@@ -3,20 +3,16 @@ package pl.bialekkostrzewa.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bialekkostrzewa.model.Client;
 import pl.bialekkostrzewa.model.Reservation;
-import pl.bialekkostrzewa.model.Resource;
 import pl.bialekkostrzewa.service.ReservationService;
 import pl.bialekkostrzewa.service.ResourceService;
 import pl.bialekkostrzewa.service.UserService;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/reservations")
@@ -45,7 +41,7 @@ public class ReservationController {
     public String addReservation(@Valid @ModelAttribute Reservation reservation, Model model){
         if(reservation.getId().isEmpty()){
             model.addAttribute("dir", "reservations");
-            return "emptyId";
+            return "validMistake";
         }
         try{
             reservation.setClient((Client)userService.getUser(reservation.getClient().getLogin()));

@@ -1,5 +1,6 @@
 package pl.bialekkostrzewa.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,12 +46,18 @@ public class ResourceController {
     }
 
     private String addResource(Resource resource, BindingResult bindingResult, Model model){
-        if (!bindingResult.hasErrors() && !resource.getId().isEmpty()){
-            resourceService.addResource(resource);
-            return "redirect:/resources/";
+        if (resource.getId().isEmpty()){
+            model.addAttribute("dir", "resources");
+            model.addAttribute("msg", " Empty id given");
+            return "validMistake";
         }
-        model.addAttribute("dir", "resources");
-        return "emptyId";
+        else if(bindingResult.hasErrors()){
+            model.addAttribute("dir", "resources");
+            model.addAttribute("msg", " Invalid data given ");
+            return "validMistake";
+        }
+        resourceService.addResource(resource);
+        return "redirect:/resources/";
     }
 
     @RequestMapping
@@ -91,11 +98,8 @@ public class ResourceController {
     }
 
     @PostMapping("/update-table")
-    public String updateTable(@Valid @ModelAttribute Table table, BindingResult bindingResult){
-        if(!bindingResult.hasErrors()){
-            resourceService.updateResource(table.getId(), table);
-        }
-        return "redirect:/resources/";
+    public String updateTable(@Valid @ModelAttribute Table table, BindingResult bindingResult, Model model){
+        return updateResource(table, bindingResult, model);
     }
 
     private ModelAndView showUpdateBallRoomForm(BallRoom ballRoom){
@@ -103,10 +107,19 @@ public class ResourceController {
     }
 
     @PostMapping("/update-room")
-    public String updateBallRoom(@Valid @ModelAttribute BallRoom ballRoom, BindingResult bindingResult){
-        if(!bindingResult.hasErrors()){
-            resourceService.updateResource(ballRoom.getId(), ballRoom);
+    public String updateBallRoom(@Valid @ModelAttribute BallRoom ballRoom, BindingResult bindingResult, Model model){
+        return updateResource(ballRoom, bindingResult, model);
+    }
+
+    private String updateResource(Resource resource, BindingResult bindingResult, Model model){
+        if(bindingResult.hasErrors()){
+            model.addAttribute("dir", "resources");
+            model.addAttribute("msg", " Invalid data given ");
+            return "validMistake";
         }
-        return "redirect:/resources/";
+        else {
+            resourceService.updateResource(resource.getId(), resource);
+            return "redirect:/resources/";
+        }
     }
 }

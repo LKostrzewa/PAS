@@ -1,8 +1,11 @@
 package pl.bialekkostrzewa.model;
 
+import javax.validation.constraints.Min;
+
 public class Resource {
 
     private String id;
+    @Min(0)
     private double price;
 
     public Resource(){

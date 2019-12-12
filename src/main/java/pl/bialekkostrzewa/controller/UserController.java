@@ -34,7 +34,7 @@ public class UserController {
             return "redirect:/users/";
         }
         model.addAttribute("dir", "users");
-        return "emptyId";
+        return "validMistake";
     }
 
     @RequestMapping("/update-client/{login}")

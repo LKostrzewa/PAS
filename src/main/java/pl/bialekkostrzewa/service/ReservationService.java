@@ -41,7 +41,7 @@ public class ReservationService {
     }
 
     public void deleteReservation(String id){
-        if(reservations.get(id).getEnding() != null)
+        if(reservations.get(id).getEnding() == null)
             reservations.delete(id);
     }
 
