@@ -1,7 +1,10 @@
 package pl.bialekkostrzewa.model;
 
+import javax.validation.constraints.NotNull;
+
 public abstract class User {
 
+    @NotNull
     private String login;
     private String name;
     private String surname;

@@ -33,8 +33,7 @@ public class UserController {
             userService.addUser(client);
             return "redirect:/users/";
         }
-        model.addAttribute("dir", "users");
-        return "validMistake";
+        return "validMistakeClient";
     }
 
     @RequestMapping("/update-client/{login}")

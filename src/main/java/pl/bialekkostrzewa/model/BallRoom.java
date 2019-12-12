@@ -1,8 +1,11 @@
 package pl.bialekkostrzewa.model;
 
+import javax.validation.constraints.Min;
+
 public class BallRoom extends Resource {
 
     private String description;
+    @Min(0)
     private int numOfRooms;
 
     public BallRoom(){

@@ -41,7 +41,7 @@ public class ReservationController {
     public String addReservation(@Valid @ModelAttribute Reservation reservation, Model model){
         if(reservation.getId().isEmpty()){
             model.addAttribute("dir", "reservations");
-            return "validMistake";
+            return "validMistakeClient";
         }
         try{
             reservation.setClient((Client)userService.getUser(reservation.getClient().getLogin()));
