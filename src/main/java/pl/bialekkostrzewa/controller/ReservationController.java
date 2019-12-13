@@ -3,6 +3,7 @@ package pl.bialekkostrzewa.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bialekkostrzewa.model.Client;
@@ -38,10 +39,10 @@ public class ReservationController {
     }
 
     @PostMapping("/add-reservation")
-    public String addReservation(@Valid @ModelAttribute Reservation reservation, Model model){
-        if(reservation.getId().isEmpty()){
+    public String addReservation(@Valid @ModelAttribute Reservation reservation, Model model, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
             model.addAttribute("dir", "reservations");
-            return "validMistakeClient";
+            return "reservationForm";
         }
         try{
             reservation.setClient((Client)userService.getUser(reservation.getClient().getLogin()));

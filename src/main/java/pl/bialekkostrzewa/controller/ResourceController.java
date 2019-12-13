@@ -37,21 +37,21 @@ public class ResourceController {
     @PostMapping("/add-table")
     public String addTable(@Valid @ModelAttribute Table resource, BindingResult bindingResult, Model model) {
         model.addAttribute("type", "table");
-        return addResource(resource, bindingResult);
+        if (!bindingResult.hasErrors()) {
+            resourceService.addResource(resource);
+            return "redirect:/resources/";
+        }
+        return "tableForm";
     }
 
     @PostMapping("/add-room")
     public String addBallRoom(@Valid @ModelAttribute BallRoom resource, BindingResult bindingResult, Model model) {
         model.addAttribute("type", "room");
-        return addResource(resource, bindingResult);
-    }
-
-    private String addResource(Resource resource, BindingResult bindingResult) {
-        if (!resource.getId().isEmpty() && !bindingResult.hasErrors()) {
+        if ( !bindingResult.hasErrors()) {
             resourceService.addResource(resource);
             return "redirect:/resources/";
         }
-        return "validMistakeAddResource";
+        return "ballRoomForm";
     }
 
     @RequestMapping
@@ -91,7 +91,12 @@ public class ResourceController {
 
     @PostMapping("/update-table")
     public String updateTable(@Valid @ModelAttribute Table table, BindingResult bindingResult, Model model) {
-        return updateResource(table, bindingResult, model);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("res", table);
+            return "tableUpdateForm";
+        }
+        resourceService.updateResource(table.getId(), table);
+        return "redirect:/resources/";
     }
 
     private ModelAndView showUpdateBallRoomForm(BallRoom ballRoom) {
@@ -100,15 +105,11 @@ public class ResourceController {
 
     @PostMapping("/update-room")
     public String updateBallRoom(@Valid @ModelAttribute BallRoom ballRoom, BindingResult bindingResult, Model model) {
-        return updateResource(ballRoom, bindingResult, model);
-    }
-
-    private String updateResource(Resource resource, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("res", resource);
-            return "validMistakeUpdateResource";
+            model.addAttribute("res", ballRoom);
+            return "ballRoomUpdateForm";
         }
-        resourceService.updateResource(resource.getId(), resource);
+        resourceService.updateResource(ballRoom.getId(), ballRoom);
         return "redirect:/resources/";
     }
 }

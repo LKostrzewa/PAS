@@ -1,10 +1,11 @@
 package pl.bialekkostrzewa.model;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public abstract class User {
 
-    @NotNull
+    @NotBlank(message = "Login cannot be blank")
     private String login;
     private String name;
     private String surname;

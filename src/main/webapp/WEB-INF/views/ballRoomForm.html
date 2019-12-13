@@ -11,18 +11,22 @@
         <tr>
             <td><label th:text="'ID'" /></td>
             <td><input type="text" th:field="*{id}" /></td>
+            <td th:if="${#fields.hasErrors('id')}" th:errors="*{id}">ID Error</td>
         </tr>
         <tr>
             <td><label th:text="'Price'" /></td>
             <td><input type="text" th:field="*{price}" /></td>
+            <td th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price Error</td>
         </tr>
         <tr>
             <td><label th:text="'Description'" /></td>
             <td><input type="text" th:field="*{description}" /></td>
+            <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</td>
         </tr>
         <tr>
             <td><label th:text="'Number of rooms'" /></td>
             <td><input type="text" th:field="*{numOfRooms}" /></td>
+            <td th:if="${#fields.hasErrors('numOfRooms')}" th:errors="*{numOfRooms}">Number Of Rooms Error</td>
         </tr>
         <tr>
             <td><input type="submit" value="Add" /></td>

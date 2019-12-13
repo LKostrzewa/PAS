@@ -1,11 +1,14 @@
 package pl.bialekkostrzewa.model;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 public class Resource {
 
+    @NotBlank(message = "Empty ID given")
     private String id;
-    @Min(0)
+    @Min(value = 0, message = "Price has to be positive decimal")
     private double price;
 
     public Resource(){

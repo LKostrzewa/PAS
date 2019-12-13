@@ -29,11 +29,11 @@ public class UserController {
 
     @PostMapping("/add-client")
     public String addClient(@Valid @ModelAttribute("client") Client client, BindingResult bindingResult, Model model){
-        if (!bindingResult.hasErrors() && !client.getLogin().isEmpty()){
+        if (!bindingResult.hasErrors()){
             userService.addUser(client);
             return "redirect:/users/";
         }
-        return "validMistakeClient";
+        return "clientForm";
     }
 
     @RequestMapping("/update-client/{login}")

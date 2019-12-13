@@ -4,9 +4,9 @@ import javax.validation.constraints.Min;
 
 public class Table extends Resource {
 
-    @Min(0)
+    @Min(value = 0, message = "Number has to be positive integer")
     private int number;
-    @Min(0)
+    @Min(value = 0, message = "Number of people has to be positive integer")
     private int numOfPeople;
 
     public Table(){
