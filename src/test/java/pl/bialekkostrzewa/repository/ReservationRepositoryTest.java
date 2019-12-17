@@ -15,8 +15,8 @@ class ReservationRepositoryTest {
 
         ReservationRepository rr = new ReservationRepository();
 
-        Client c1 = new Client("pb98", "Pawel", "Bialek", new NormalClient());
-        Client c2 = new Client("lk98", "Lukasz", "Kostrzewa", new NormalClient());
+        Client c1 = new Client("pb98", "Pawel", "Bialek", ClientType.NORMAL);
+        Client c2 = new Client("lk98", "Lukasz", "Kostrzewa", ClientType.NORMAL);
 
         Table t1 = new Table("1", 45, 1, 2);
         Table t2 = new Table("2", 65, 2, 3);
@@ -44,9 +44,9 @@ class ReservationRepositoryTest {
 
         ReservationRepository rr = new ReservationRepository();
 
-        Client c1 = new Client("pb98", "Pawel", "Bialek", new NormalClient());
-        Client c2 = new Client("lk98", "Lukasz", "Kostrzewa", new NormalClient());
-        Client c3 = new Client("am77", "Adam", "Malysz", new PremiumClient());
+        Client c1 = new Client("pb98", "Pawel", "Bialek", ClientType.NORMAL);
+        Client c2 = new Client("lk98", "Lukasz", "Kostrzewa", ClientType.NORMAL);
+        Client c3 = new Client("am77", "Adam", "Malysz", ClientType.PREMIUM);
 
         Table t1 = new Table("1", 45, 1, 2);
         BallRoom b = new BallRoom("4", 3500, "bardzo fajna sala balowa", 4);

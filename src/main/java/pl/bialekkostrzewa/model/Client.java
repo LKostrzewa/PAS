@@ -3,10 +3,10 @@ package pl.bialekkostrzewa.model;
 public class Client extends User{
 
     private ClientType type;
-    private String typeName;
+    //private String typeName;
 
     public Client(){
-        type = new NormalClient();
+        type = ClientType.NORMAL;
     }
 
     public Client(String login, String name, String surname, ClientType type) {
@@ -37,26 +37,7 @@ public class Client extends User{
     }
 
     public void setType(String type) {
-        switch (type){
-            case "Normal":
-                this.type = new NormalClient();
-                break;
-            case "Regular":
-                this.type = new RegularClient();
-                break;
-            case "Premium":
-                this.type = new PremiumClient();
-                break;
-        }
-    }
-
-    public String getTypeName(){
-        return typeName;
-    }
-
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
-        setType(typeName);
+        this.type = ClientType.valueOf(type);
     }
 
     public void setType(ClientType type) {

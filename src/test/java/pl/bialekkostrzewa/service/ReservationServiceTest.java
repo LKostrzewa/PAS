@@ -15,7 +15,7 @@ class ReservationServiceTest {
     void startReservationTest() {
         ReservationService rs = new ReservationService(new ReservationRepository());
 
-        Client client = new Client("jk98", "jan", "kowalski", new NormalClient());
+        Client client = new Client("jk98", "jan", "kowalski", ClientType.NORMAL);
         Table table = new Table("1", 13.20, 1, 2);
         Table table1 = new Table("2", 20, 2, 4);
 
@@ -36,7 +36,7 @@ class ReservationServiceTest {
     void deleteReservation() {
         ReservationService rs = new ReservationService(new ReservationRepository());
 
-        Client client = new Client("jk98", "jan", "kowalski", new NormalClient());
+        Client client = new Client("jk98", "jan", "kowalski", ClientType.NORMAL);
         Table table = new Table("1", 13.20, 1, 2);
         Table table1 = new Table("2", 20, 2, 4);
 
@@ -45,7 +45,7 @@ class ReservationServiceTest {
 
         rs.deleteReservation("1");
 
-        Assertions.assertEquals(rs.getAllReservations().size(), 2);
+        Assertions.assertEquals(rs.getAllReservations().size(), 1);
 
         rs.endReservation("2", LocalDateTime.now().plusDays(2));
         rs.deleteReservation("2");
