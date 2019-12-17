@@ -22,13 +22,11 @@ public class UserService {
         users.add(user.getLogin(), user);
     }
 
-    public void changeClientsType(String login, ClientType type) throws RuntimeException{
-        User user = users.get(login);
+    private void changeClientsTypeByName(User user){
         if(user instanceof Client){
-            Client client = (Client)user;
-            client.setType(type);
+            Client c = (Client) user;
+            c.setType(c.getType().getName());
         }
-        else throw new RuntimeException("This user is not a client");
     }
 
     public User getUser(String login){
@@ -36,6 +34,7 @@ public class UserService {
     }
 
     public void updateUser(String id, User user){
+        changeClientsTypeByName(user);
         users.update(id, user);
     }
 

@@ -23,7 +23,7 @@
         <tr>
             <td><label th:text="'Type'" /></td>
             <td>
-                <select th:field="*{type}">
+                <select th:field="*{type.name}">
                     <option th:value="'Normal'" th:text="'Normal'"/>
                     <option th:value="'Regular'" th:text="'Regular'"/>
                     <option th:value="'Premium'" th:text="'Premium'"/>

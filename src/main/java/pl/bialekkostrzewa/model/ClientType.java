@@ -23,7 +23,6 @@ public enum ClientType {
 
     public void setName(String name) {
         this.name = name;
-        //this = ClientType.valueOf(name);
     }
 
     public String getName() {
@@ -32,6 +31,6 @@ public enum ClientType {
 
     @Override
     public String toString() {
-        return name + name();
+        return name;
     }
 }

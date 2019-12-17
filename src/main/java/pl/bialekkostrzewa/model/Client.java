@@ -1,5 +1,8 @@
 package pl.bialekkostrzewa.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Client extends User{
 
     private ClientType type;
@@ -37,7 +40,13 @@ public class Client extends User{
     }
 
     public void setType(String type) {
-        this.type = ClientType.valueOf(type);
+        Map<String, ClientType> map = new HashMap<>()
+        {{
+            put("Normal",ClientType.NORMAL);
+            put("Regular", ClientType.REGULAR);
+            put("Premium", ClientType.PREMIUM);
+        }};
+        this.type = map.get(type);
     }
 
     public void setType(ClientType type) {
