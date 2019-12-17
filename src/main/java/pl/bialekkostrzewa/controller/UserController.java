@@ -10,6 +10,8 @@ import pl.bialekkostrzewa.model.Client;
 import pl.bialekkostrzewa.service.UserService;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Controller
 @RequestMapping("/users")
@@ -37,7 +39,8 @@ public class UserController {
     }
 
     @RequestMapping("/update-client/{login}")
-    public ModelAndView showClientUpdateForm(@PathVariable String login){
+    public ModelAndView showClientUpdateForm(@PathVariable String login, Model model){
+        model.addAttribute("allTypes", new ArrayList<>(Arrays.asList("Normal", "Regular", "Premium")));
         return new ModelAndView("clientUpdateForm", "client", userService.getUser(login));
     }
 

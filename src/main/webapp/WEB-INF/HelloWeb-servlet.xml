@@ -34,4 +34,12 @@
     <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
         <property name="templateEngine" ref="templateEngine" />
     </bean>
+
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="pl.bialekkostrzewa.converter.StringToTypeConverter" />
+            </set>
+        </property>
+    </bean>
 </beans>

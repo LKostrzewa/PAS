@@ -23,10 +23,10 @@
         <tr>
             <td><label th:text="'Type'" /></td>
             <td>
-                <select th:field="*{typeName}">
-                    <option th:value="'Normal'" th:text="'Normal'"/>
-                    <option th:value="'Regular'" th:text="'Regular'"/>
-                    <option th:value="'Premium'" th:text="'Premium'"/>
+                <select th:field="*{type}">
+                    <option th:each="ct : ${allTypes}"
+                            th:text="${{ct}}" th:value="${ct}"
+                            th:selected="${ct == client.type}"> Type</option>
                 </select>
             </td>
         </tr>
