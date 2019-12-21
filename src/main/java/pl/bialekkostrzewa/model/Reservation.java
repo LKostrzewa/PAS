@@ -12,8 +12,9 @@ public class Reservation {
     private String id;
     private Resource resource;
     private Client client;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") private LocalDateTime beginning;
-    //@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    //@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime beginning;
     private LocalDateTime ending;
 
     public Reservation(){
