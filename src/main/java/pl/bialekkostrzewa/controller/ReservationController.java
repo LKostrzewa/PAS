@@ -39,11 +39,11 @@ public class ReservationController {
     }
 
     @PostMapping("/add-reservation")
-    public ModelAndView addReservation(@Valid @ModelAttribute Reservation reservation, BindingResult bindingResult){
+    public String addReservation(@Valid @ModelAttribute Reservation reservation, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
-            //model.addAttribute("clients", userService.getAllActiveClients());
-            return showReservationForm();
-            //return "reservationForm";
+            model.addAttribute("clients", userService.getAllActiveClients());
+            model.addAttribute("resources", resourceService.getAllResources());
+            return "reservationForm";
         }
         try{
             reservation.setClient((Client)userService.getUser(reservation.getClient().getLogin()));
@@ -51,17 +51,14 @@ public class ReservationController {
             reservationService.startReservation(reservation);
         }
         catch (NullPointerException e){
-            return new ModelAndView("exception", "msg", "requested object is not accessible right now");
-            //model.addAttribute("msg", "requested object is not accessible right now");
-            //return "exception";
+            model.addAttribute("msg", "requested object is not accessible right now");
+            return "exception";
         }
         catch (RuntimeException e){
-            return new ModelAndView("exception", "msg", e.getMessage());
-            //model.addAttribute("msg", e.getMessage());
-            //return "exception";
+            model.addAttribute("msg", e.getMessage());
+            return "exception";
         }
-        return showAllReservations();
-        //return "redirect:/reservations/";
+        return "redirect:/reservations/";
     }
 
     @RequestMapping
