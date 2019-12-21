@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @RequestMapping("/update-client/{login}")
-    public ModelAndView showClientUpdateForm(@PathVariable String login, Model model){
+    public ModelAndView showClientUpdateForm(@PathVariable String login){
         return new ModelAndView("clientUpdateForm", "client", userService.getUser(login));
     }
 
