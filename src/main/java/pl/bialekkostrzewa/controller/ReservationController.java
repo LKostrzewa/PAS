@@ -41,7 +41,6 @@ public class ReservationController {
     @PostMapping("/add-reservation")
     public String addReservation(@Valid @ModelAttribute Reservation reservation, Model model, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            model.addAttribute("dir", "reservations");
             return "reservationForm";
         }
         try{

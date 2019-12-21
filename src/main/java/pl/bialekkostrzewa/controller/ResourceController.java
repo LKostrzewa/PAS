@@ -35,8 +35,7 @@ public class ResourceController {
     }
 
     @PostMapping("/add-table")
-    public String addTable(@Valid @ModelAttribute Table resource, BindingResult bindingResult, Model model) {
-        model.addAttribute("type", "table");
+    public String addTable(@Valid @ModelAttribute Table resource, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
             resourceService.addResource(resource);
             return "redirect:/resources/";
@@ -45,8 +44,7 @@ public class ResourceController {
     }
 
     @PostMapping("/add-room")
-    public String addBallRoom(@Valid @ModelAttribute BallRoom resource, BindingResult bindingResult, Model model) {
-        model.addAttribute("type", "room");
+    public String addBallRoom(@Valid @ModelAttribute BallRoom resource, BindingResult bindingResult) {
         if ( !bindingResult.hasErrors()) {
             resourceService.addResource(resource);
             return "redirect:/resources/";

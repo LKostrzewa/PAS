@@ -31,12 +31,12 @@ public class WebConfig {
         this.applicationContext = applicationContext;
     }*/
 
-    @Bean
+    /*@Bean
     public ConversionService conversionService(){
         DefaultConversionService conversionService = new DefaultConversionService();
         conversionService.addConverter(new StringToTypeConverter());
         return conversionService;
-    }
+    }*/
 
     /*@Override
     public void addFormatters(FormatterRegistry formatterRegistry) {

@@ -35,11 +35,11 @@
         <property name="templateEngine" ref="templateEngine" />
     </bean>
 
-    <!--<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
         <property name="converters">
             <list>
                 <bean class="pl.bialekkostrzewa.converter.StringToTypeConverter" />
             </list>
         </property>
-    </bean>-->
+    </bean>
 </beans>
