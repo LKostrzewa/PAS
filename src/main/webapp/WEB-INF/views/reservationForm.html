@@ -9,7 +9,7 @@
 <form action="#" th:action="@{add-reservation}" th:object="${reservation}" method="post">
     <table border="1">
         <tr>
-            <td><label th:text="ID" /></td>
+            <td><label th:text="'ID'" /></td>
             <td><input type="text" th:field="*{id}" /></td>
             <td th:if="${#fields.hasErrors('id')}" th:errors="*{id}">ID Error</td>
         </tr>

@@ -10,6 +10,8 @@ import pl.bialekkostrzewa.model.Client;
 import pl.bialekkostrzewa.service.UserService;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Controller
 @RequestMapping("/users")
@@ -28,7 +30,7 @@ public class UserController {
     }
 
     @PostMapping("/add-client")
-    public String addClient(@Valid @ModelAttribute("client") Client client, BindingResult bindingResult, Model model){
+    public String addClient(@Valid @ModelAttribute("client") Client client, BindingResult bindingResult){
         if (!bindingResult.hasErrors()){
             userService.addUser(client);
             return "redirect:/users/";

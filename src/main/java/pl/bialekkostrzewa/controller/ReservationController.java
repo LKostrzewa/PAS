@@ -39,9 +39,10 @@ public class ReservationController {
     }
 
     @PostMapping("/add-reservation")
-    public String addReservation(@Valid @ModelAttribute Reservation reservation, Model model, BindingResult bindingResult){
+    public String addReservation(@Valid @ModelAttribute Reservation reservation, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
-            model.addAttribute("dir", "reservations");
+            model.addAttribute("clients", userService.getAllActiveClients());
+            model.addAttribute("resources", resourceService.getAllResources());
             return "reservationForm";
         }
         try{

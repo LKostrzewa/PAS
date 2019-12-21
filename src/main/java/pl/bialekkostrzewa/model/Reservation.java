@@ -2,15 +2,19 @@ package pl.bialekkostrzewa.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class Reservation {
 
+    @NotBlank(message = "id cannot be blank")
     private String id;
     private Resource resource;
     private Client client;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") private LocalDateTime beginning;
-    //@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    //@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime beginning;
     private LocalDateTime ending;
 
     public Reservation(){
