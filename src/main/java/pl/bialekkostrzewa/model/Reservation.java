@@ -3,6 +3,7 @@ package pl.bialekkostrzewa.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class Reservation {
