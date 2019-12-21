@@ -30,7 +30,7 @@ public class UserController {
     }
 
     @PostMapping("/add-client")
-    public String addClient(@Valid @ModelAttribute("client") Client client, BindingResult bindingResult, Model model){
+    public String addClient(@Valid @ModelAttribute("client") Client client, BindingResult bindingResult){
         if (!bindingResult.hasErrors()){
             userService.addUser(client);
             return "redirect:/users/";
@@ -40,7 +40,6 @@ public class UserController {
 
     @RequestMapping("/update-client/{login}")
     public ModelAndView showClientUpdateForm(@PathVariable String login, Model model){
-        model.addAttribute("allTypes", new ArrayList<>(Arrays.asList("Normal", "Regular", "Premium")));
         return new ModelAndView("clientUpdateForm", "client", userService.getUser(login));
     }
 

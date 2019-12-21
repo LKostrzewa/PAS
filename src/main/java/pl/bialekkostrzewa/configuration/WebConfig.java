@@ -5,6 +5,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -20,7 +22,7 @@ import java.util.List;
 @Configuration
 //@EnableWebMvc
 //@ComponentScan(basePackages = "pl.bialekkostrzewa")
-public class WebConfig implements WebMvcConfigurer {
+public class WebConfig {
 
     /*private ApplicationContext applicationContext;
 
@@ -29,10 +31,17 @@ public class WebConfig implements WebMvcConfigurer {
         this.applicationContext = applicationContext;
     }*/
 
-    @Override
+    @Bean
+    public ConversionService conversionService(){
+        DefaultConversionService conversionService = new DefaultConversionService();
+        conversionService.addConverter(new StringToTypeConverter());
+        return conversionService;
+    }
+
+    /*@Override
     public void addFormatters(FormatterRegistry formatterRegistry) {
         formatterRegistry.addConverter(new StringToTypeConverter());
-    }
+    }*/
 
     /*@Bean
     public SpringResourceTemplateResolver templateResolver(){
