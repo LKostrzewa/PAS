@@ -17,12 +17,12 @@ import javax.validation.Valid;
 @Controller
 public class RegistrationController {
 
-    /*private UserService userService;
+    private UserService userService;
 
     @Autowired
     public RegistrationController(UserService userService){
         this.userService = userService;
-    }*/
+    }
 
     @RequestMapping
     public String showMainPage(ModelMap model){
@@ -42,13 +42,14 @@ public class RegistrationController {
         return new ModelAndView("register", "user", client);
     }
 
-    @PostMapping("/aaaa")
+    @PostMapping("/add-client")
     public String addClient(@Valid @ModelAttribute("user") Client client, BindingResult bindingResult){
-        /*if(!bindingResult.hasErrors()){
+        if(!bindingResult.hasErrors()){
             userService.addUser(client);
             //for now
-            return "redirect:/users/";
-        }*/
+            //TODO strona startowa klienta tzn jego rezerwejszyny
+            return "register";
+        }
         return "register";
     }
 }

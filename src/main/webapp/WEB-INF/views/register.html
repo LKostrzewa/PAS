@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1 th:text="'Register'"></h1>
-<form action="#" th:action="@{aaaa}" th:object="${user}" method="POST" enctype="utf8">
+<form action="/restaurant" th:action="@{/add-client}" th:object="${user}" method="POST">
     <div>
         <label th:text="'Login'">login</label>
         <input th:field="*{login}"/>
@@ -29,6 +29,5 @@
 </form>
 
 <!--<a th:href="@{/login.html}" th:text="#{label.form.loginLink}">login</a>-->
-</body>
 </body>
 </html>
