@@ -45,7 +45,7 @@ class ReservationServiceTest {
 
         rs.deleteReservation("1");
 
-        Assertions.assertEquals(rs.getAllReservations().size(), 2);
+        Assertions.assertEquals(rs.getAllReservations().size(), 1);
 
         rs.endReservation("2", LocalDateTime.now().plusDays(2));
         rs.deleteReservation("2");

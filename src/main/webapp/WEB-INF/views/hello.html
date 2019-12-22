@@ -6,8 +6,8 @@
 </head>
 <body>
 <h2><span th:text="${message}" /></h2>
-<a href="/Restauracja/resources/">Manager page</a>
-<a href="/Restauracja/users/">Administrator page</a>
-<a href="/Restauracja/reservations/">User page</a>
+<a th:href="@{/resources/}">Manager page</a>
+<a th:href="@{/users/}">Administrator page</a>
+<a th:href="@{/reservations/}">User page</a>
 </body>
 </html>

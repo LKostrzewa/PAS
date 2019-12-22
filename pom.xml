@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>pl.kostrzewabialek</groupId>
-    <artifactId>helloSpringMVC</artifactId>
+    <artifactId>FirstWebApp</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
@@ -60,7 +60,7 @@
 
 
     <build>
-        <finalName>Restauracja</finalName>
+        <finalName>restaurant</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
