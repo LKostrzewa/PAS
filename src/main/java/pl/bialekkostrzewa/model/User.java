@@ -7,6 +7,8 @@ public abstract class User {
 
     @NotBlank(message = "Login cannot be blank")
     private String login;
+    @NotBlank(message = "Password cannot be blank")
+    private String password;
     private String name;
     private String surname;
     private boolean isActive;
@@ -15,11 +17,20 @@ public abstract class User {
         this.isActive = true;
     }
 
-    public User(String login, String name, String surname) {
+    public User(String login, String password, String name, String surname) {
         this.login = login;
+        this.password = password;
         this.name = name;
         this.surname = surname;
         this.isActive = true;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getLogin() {

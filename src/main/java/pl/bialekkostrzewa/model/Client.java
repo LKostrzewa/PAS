@@ -9,8 +9,8 @@ public class Client extends User{
         type = new NormalClient();
     }
 
-    public Client(String login, String name, String surname, ClientType type) {
-        super(login, name, surname);
+    public Client(String login, String password, String name, String surname, ClientType type) {
+        super(login, password, name, surname);
         this.type = type;
     }
 

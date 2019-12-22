@@ -23,7 +23,7 @@ public class ReservationRepository extends RepositoryTemplate<Reservation> {
                 .collect(Collectors.toList());
     }
 
-    public Optional<Reservation> getResevedReservations(String id){
+    public Optional<Reservation> getReservedReservations(String id){
         return getReservationsForResource(id).stream().filter(
                 r -> r.getEnding() == null).findAny();
     }

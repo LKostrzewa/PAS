@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+</head>
+<body>
+<h2><span th:text="${message}" /></h2>
+<!--<a th:href="@{/resources/}">Manager page</a>
+<a th:href="@{/users/}">Administrator page</a>
+<a th:href="@{/reservations/}">User page</a>-->
+<form method="get" th:action="@{login}">
+    <button type="submit">Register</button>
+</form>
+<form method="get" th:action="@{register}">
+    <button type="submit">Login</button>
+</form>
+</body>
+</html>

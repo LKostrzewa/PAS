@@ -2,8 +2,8 @@ package pl.bialekkostrzewa.model;
 
 public class Administrator extends User {
 
-    public Administrator(String login, String name, String surname) {
-        super(login, name, surname);
+    public Administrator(String login, String password, String name, String surname) {
+        super(login, password, name, surname);
     }
 
     @Override

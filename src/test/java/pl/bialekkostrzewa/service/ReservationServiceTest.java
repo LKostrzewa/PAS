@@ -15,7 +15,7 @@ class ReservationServiceTest {
     void startReservationTest() {
         ReservationService rs = new ReservationService(new ReservationRepository());
 
-        Client client = new Client("jk98", "jan", "kowalski", new NormalClient());
+        Client client = new Client("jk98", "sekret", "jan", "kowalski", new NormalClient());
         Table table = new Table("1", 13.20, 1, 2);
         Table table1 = new Table("2", 20, 2, 4);
 
@@ -36,7 +36,7 @@ class ReservationServiceTest {
     void deleteReservation() {
         ReservationService rs = new ReservationService(new ReservationRepository());
 
-        Client client = new Client("jk98", "jan", "kowalski", new NormalClient());
+        Client client = new Client("jk98", "sekret", "jan", "kowalski", new NormalClient());
         Table table = new Table("1", 13.20, 1, 2);
         Table table1 = new Table("2", 20, 2, 4);
 
