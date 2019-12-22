@@ -46,9 +46,7 @@ public class RegistrationController {
     public String addClient(@Valid @ModelAttribute("user") Client client, BindingResult bindingResult){
         if(!bindingResult.hasErrors()){
             userService.addUser(client);
-            //for now
-            //TODO strona startowa klienta tzn jego rezerwejszyny
-            return "register";
+            return "redirect:/reservations/" + client.getLogin() +"/";
         }
         return "register";
     }

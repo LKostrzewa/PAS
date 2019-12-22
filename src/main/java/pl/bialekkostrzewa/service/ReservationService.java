@@ -54,7 +54,7 @@ public class ReservationService {
         return reservations.getAll();
     }
 
-    public List<Reservation> getAllReservationsForClient(String login){
+    public List<Reservation> getAllClientReservations(String login){
         return reservations.getReservationsForClient(login);
     }
 

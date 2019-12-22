@@ -66,6 +66,13 @@ public class ReservationController {
         return new ModelAndView("allReservation", "reservation", reservationService.getAllReservations());
     }
 
+    @RequestMapping("{login}")
+    public ModelAndView showClientReservations(@PathVariable String login){
+        //TODO add-reservation jeszcze tu nie dziala ale wszystko sie zrobi panie majster tutaj tylko prototyp :)
+        //TODO bo moze byc tak ze to zawsze bd szlo po loginie i rozpoznawalo kiedy jest admin ? jakos tak
+        return new ModelAndView("allReservation", "reservations", reservationService.getAllClientReservations(login));
+    }
+
     @RequestMapping("/delete-reservation/{id}")
     public String deleteReservation(@PathVariable String id){
         reservationService.deleteReservation(id);
