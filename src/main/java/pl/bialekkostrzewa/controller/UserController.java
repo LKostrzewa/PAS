@@ -47,8 +47,9 @@ public class UserController {
     public String updateClient(@Valid @ModelAttribute Client client, BindingResult bindingResult){
         if (!bindingResult.hasErrors()){
             userService.updateUser(client.getLogin(), client);
+            return "redirect:/users/";
         }
-        return "redirect:/users/";
+        return "clientUpdateForm";
     }
 
     @RequestMapping

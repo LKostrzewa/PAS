@@ -3,7 +3,7 @@ package pl.bialekkostrzewa.model;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-public abstract class User {
+public /*abstract */class User {
 
     @NotBlank(message = "Login cannot be blank")
     private String login;
@@ -65,6 +65,6 @@ public abstract class User {
         this.surname = surname;
     }
 
-    @Override
-    public abstract String toString();
+    /*@Override
+    public abstract String toString();*/
 }

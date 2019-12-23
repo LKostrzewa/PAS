@@ -31,8 +31,8 @@ public class RegistrationController {
     }
 
     @RequestMapping("/login")
-    public ModelAndView showLoginPage(){
-        return null;
+    public String showLoginPage(){
+        return "login";
     }
 
     @RequestMapping("/register")

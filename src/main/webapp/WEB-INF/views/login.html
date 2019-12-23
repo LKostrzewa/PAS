@@ -5,6 +5,23 @@
     <title>Login</title>
 </head>
 <body>
-
+<h1 th:text="'Login'"></h1>
+<form action="#" method="POST">
+    <table>
+        <tr>
+            <td><label th:text="'Login'">login</label></td>
+            <td><input/></td>
+            <!--<td th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Validation error</td>-->
+        </tr>
+        <tr>
+            <td><label th:text="'Password'">password</label></td>
+            <td><input type="password"/></td>
+            <!--<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Validation error</td>-->
+        </tr>
+        <tr>
+            <td><button type="submit" th:text="'Login'">submit</button></td>
+        </tr>
+    </table>
+</form>
 </body>
 </html>
