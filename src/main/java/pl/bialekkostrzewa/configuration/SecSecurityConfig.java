@@ -8,9 +8,16 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import pl.bialekkostrzewa.model.MyUserDetails;
+import pl.bialekkostrzewa.service.MyUserDetailsService;
+
+import java.util.Collection;
 
 @Configuration
 @EnableWebSecurity
@@ -30,13 +37,14 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
         //loginPage to chyba login.html badz tez restaurant/login
         //userParameter to login
         //i nwm wariacie jak te beany tutaj bo to jakos do xml trzeba zaladowac pierdolnac z grubej rury
+        // Zabawa z tym zostanie jak rozwiążemy problrm z drugiego todo
         http.authorizeRequests()
                 .antMatchers("/restaurant/reservations").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                 .antMatchers("/restaurant/resources").access("hasRole('ROLE_MANAGER')")
                 .antMatchers("/restaurant/users").access("hasRole('ROLE_ADMIN')")
                 .and()
-                    .formLogin().loginPage("/loginPage")
-                    .defaultSuccessUrl("/homePage")
+                    .formLogin().loginPage("/login")
+                    .defaultSuccessUrl("/restaurant/reservations")
                     .failureUrl("/loginPage?error")
                     .usernameParameter("username").passwordParameter("password")
                 .and()
@@ -44,6 +52,11 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
+    @Bean
+    @Override
+    public UserDetailsService userDetailsService() {
+        return new MyUserDetailsService();
+    }
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider(){
