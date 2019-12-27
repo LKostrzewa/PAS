@@ -6,20 +6,20 @@
 </head>
 <body>
 <h1 th:text="'Login'"></h1>
-<form action="#" method="POST">
+<form action="#" th:action="@{/login}" method="POST">
     <table>
         <tr>
             <td><label th:text="'Login'">login</label></td>
-            <td><input/></td>
+            <td><input name="username"/></td>
             <!--<td th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Validation error</td>-->
         </tr>
         <tr>
             <td><label th:text="'Password'">password</label></td>
-            <td><input type="password"/></td>
+            <td><input name="password" type="password"/></td>
             <!--<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Validation error</td>-->
         </tr>
         <tr>
-            <td><button type="submit" th:text="'Login'">submit</button></td>
+            <td><input type="submit" name="submit" value="Login"/></td>
         </tr>
     </table>
 </form>
