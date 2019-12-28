@@ -1,6 +1,8 @@
 package pl.bialekkostrzewa.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,9 +32,10 @@ public class UserController {
     }
 
     @PostMapping("/add-client")
-    public String addClient(@Valid @ModelAttribute("client") Client client, BindingResult bindingResult){
+    public String addClient(@Valid @ModelAttribute("client") Client client, BindingResult bindingResult, AuthenticationManagerBuilder auth){
         if (!bindingResult.hasErrors()){
             userService.addUser(client);
+            userService.addUserToPool(client,"ROLE_USER");
             return "redirect:/users/";
         }
         return "clientForm";

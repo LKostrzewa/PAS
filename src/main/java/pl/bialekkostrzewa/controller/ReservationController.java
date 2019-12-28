@@ -1,6 +1,9 @@
 package pl.bialekkostrzewa.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -61,16 +64,19 @@ public class ReservationController {
         return "redirect:/reservations/";
     }
 
-    @RequestMapping
+    /*@RequestMapping
     public ModelAndView showAllReservations(){
         return new ModelAndView("allReservation", "reservation", reservationService.getAllReservations());
-    }
+    }*/
 
-    @RequestMapping("{login}")
-    public ModelAndView showClientReservations(@PathVariable String login){
-        //TODO add-reservation jeszcze tu nie dziala ale wszystko sie zrobi panie majster tutaj tylko prototyp :)
-        //TODO bo moze byc tak ze to zawsze bd szlo po loginie i rozpoznawalo kiedy jest admin ? jakos tak
-        return new ModelAndView("allReservation", "reservations", reservationService.getAllClientReservations(login));
+    //@RequestMapping("{login}")
+    @RequestMapping
+    public ModelAndView showClientReservations(Authentication authentication){
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        if(userDetails.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
+            return new ModelAndView("allReservation", "reservations", reservationService.getAllReservations());
+        }
+        return new ModelAndView("allReservation", "reservations", reservationService.getAllClientReservations(userDetails.getUsername()));
     }
 
     @RequestMapping("/delete-reservation/{id}")

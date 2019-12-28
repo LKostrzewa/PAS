@@ -30,7 +30,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    //nwm na ile to jest okej
+    //nwm na ile to jest okej (dziala ale wiec chyba git)
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder().encode("password")).roles("ADMIN")
