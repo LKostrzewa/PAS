@@ -46,7 +46,7 @@ public class RegistrationController {
             return "redirect:/users";
         } else if (request.isUserInRole("MANAGER")) {
             return "redirect:/resources";
-        } else return "redirect:/";
+        } else return "redirect:/reservations";
     }
 
     @RequestMapping("/login")

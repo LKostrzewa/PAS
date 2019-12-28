@@ -22,13 +22,13 @@ public class UserToSecurityUserConverter implements Converter<User, UserDetails>
         //TODO tu mamy problem bo trzeba ustawić role naszego usera - klient,admin,manager
         //userDetails.setAuthorities(Collections.singletonList(new SimpleGrantedAuthority()));
         if(user instanceof Administrator){
-            userDetails.setAuthorities(List.of(new SimpleGrantedAuthority("ROLE_ADMIN")));
+            userDetails.setAuthorities(Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN")));
         }
         else if(user instanceof Manager){
-            userDetails.setAuthorities(List.of(new SimpleGrantedAuthority("ROLE_MANAGER")));
+            userDetails.setAuthorities(Collections.singletonList(new SimpleGrantedAuthority("ROLE_MANAGER")));
         }
         else {
-            userDetails.setAuthorities(List.of(new SimpleGrantedAuthority("ROLE_USER")));
+            userDetails.setAuthorities(Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
         }
         return userDetails;
     }

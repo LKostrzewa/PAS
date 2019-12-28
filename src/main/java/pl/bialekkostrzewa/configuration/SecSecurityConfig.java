@@ -47,15 +47,19 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 //nwm te chyba nie dzialaja jakos xd
                 //bo jak jstm zalogowany jako manager to mg inne rzeczy se przegladac
                 //byc moze to kwestia scope'ow
-                .antMatchers("/restaurant/reservations").access("hasRole('USER') or hasRole('ADMIN')")
-                .antMatchers("/restaurant/resources").access("hasRole('MANAGER')")
-                .antMatchers("/restaurant/users").access("hasRole('ADMIN')")
+                .antMatchers("/reservations", "/reservations/" , "/reservations/*").hasRole("USER")
+                .antMatchers("/resources", "/resources/", "/resources/*").hasRole("MANAGER")
+                .antMatchers("/users", "/users/", "/users/*").hasRole("ADMIN")
+                //.antMatchers("/restaurant/reservations").access("hasRole('USER') or hasRole('ADMIN')")
+                //.antMatchers("/restaurant/resources").access("hasRole('MANAGER')")
+                //.antMatchers("/restaurant/users").access("hasRole('ADMIN')")
                 .and()
                     .formLogin().loginPage("/login")
                     .defaultSuccessUrl("/default")
                     //.failureUrl("/loginPage?error")
-                    .usernameParameter("username").passwordParameter("password");
-                //.and()
+                    .usernameParameter("username").passwordParameter("password").permitAll()
+                .and()
+                    .logout().permitAll();
                    // .logout().logoutSuccessUrl("/loginPage?logout");
 
     }
