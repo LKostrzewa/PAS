@@ -41,17 +41,12 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         //TODO
         //no dzien dobry wpierdalaam sie na grubo tutaj
-        //czy tutaj defaultSuccessUrl bedzie chyba inny dla kazdej roli
-        //i sugestie takie na chlopski rozum :
-        //loginPage to chyba login.html badz tez restaurant/login
-        //userParameter to login
-        //i nwm wariacie jak te beany tutaj bo to jakos do xml trzeba zaladowac pierdolnac z grubej rury
-        // Zabawa z tym zostanie jak rozwiążemy problrm z drugiego todo
         //Czy tutaj jezeli jest hasRole nie powinno byc bez refiksu ROLE_ zmienilem gdyz wyjebywalo exception jezeli mialo by byc role przed to by bylo
         // hasAuthority
         http.authorizeRequests()
                 //nwm te chyba nie dzialaja jakos xd
                 //bo jak jstm zalogowany jako manager to mg inne rzeczy se przegladac
+                //byc moze to kwestia scope'ow
                 .antMatchers("/restaurant/reservations").access("hasRole('USER') or hasRole('ADMIN')")
                 .antMatchers("/restaurant/resources").access("hasRole('MANAGER')")
                 .antMatchers("/restaurant/users").access("hasRole('ADMIN')")
