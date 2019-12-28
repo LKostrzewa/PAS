@@ -14,6 +14,7 @@ import pl.bialekkostrzewa.model.*;
 import pl.bialekkostrzewa.model.*;
 import pl.bialekkostrzewa.repository.UserRepository;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,6 +78,24 @@ public class UserService {
         UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), authorities);
         Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        //addUser(user);
+    }
+
+    @Transactional
+    public void addUserToPool2(MyUserDetails user, String role){
+        Client client = new Client();
+        client.setLogin(user.getUsername());
+        client.setPassword(user.getPassword());
+        client.setName(user.getName());
+        client.setSurname(user.getSurname());
+        client.setActive(user.isEnabled());
+        client.setType(new NormalClient());
+        addUser(client);
+        //List<GrantedAuthority> authorities = new ArrayList<>();
+        //authorities.add(new SimpleGrantedAuthority(role));
+        //UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), authorities);
+        //Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
+        //SecurityContextHolder.getContext().setAuthentication(authentication);
         //addUser(user);
     }
 }

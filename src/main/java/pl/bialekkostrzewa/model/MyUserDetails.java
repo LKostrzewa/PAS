@@ -3,14 +3,22 @@ package pl.bialekkostrzewa.model;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import pl.bialekkostrzewa.validators.PasswordMatches;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 
+@PasswordMatches
 public class MyUserDetails implements UserDetails {
 
     private Collection<SimpleGrantedAuthority> authorities;
+    @NotBlank(message = "login cannot be blank")
     private String username;
+    @NotBlank(message = "password cannot be blank")
     private String password;
+    private String matchingPassword;
+    private String name;
+    private String surname;
     private Boolean enabled;
 
     public void setAuthorities(Collection<SimpleGrantedAuthority> authorities) {
@@ -39,6 +47,30 @@ public class MyUserDetails implements UserDetails {
     @Override
     public String getUsername() {
         return username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getMatchingPassword() {
+        return matchingPassword;
+    }
+
+    public void setMatchingPassword(String matchingPassword) {
+        this.matchingPassword = matchingPassword;
     }
 
     @Override

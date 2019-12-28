@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bialekkostrzewa.model.Client;
+import pl.bialekkostrzewa.model.MyUserDetails;
 import pl.bialekkostrzewa.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,16 +57,18 @@ public class RegistrationController {
 
     @RequestMapping("/register")
     public ModelAndView showRegisterPage() {
-        Client client = new Client();
-        client.setActive(false);
+        MyUserDetails client = new MyUserDetails();
+        client.setEnabled(false);
+        //Client client = new Client();
+        //client.setActive(false);
         return new ModelAndView("register", "user", client);
     }
 
     @PostMapping("/add-client")
-    public String addClient(@Valid @ModelAttribute("user") Client client, BindingResult bindingResult) {
+    public String addClient(@Valid @ModelAttribute("user") MyUserDetails client, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
-            userService.addUserToPool(client,"USER");
-            userService.addUser(client);
+            //userService.addUser(client);
+            userService.addUserToPool2(client,"USER");
             return "redirect:/reservations/";
         }
         return "register";

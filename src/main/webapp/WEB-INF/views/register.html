@@ -10,8 +10,8 @@
     <table>
         <tr>
             <td><label th:text="'Login'">login</label></td>
-            <td><input th:field="*{login}"/></td>
-            <td th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Validation error</td>
+            <td><input th:field="*{username}"/></td>
+            <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Validation error</td>
         </tr>
         <tr>
             <td><label th:text="'Name'">name</label></td>
@@ -27,8 +27,12 @@
             <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Validation error</td>
         </tr>
         <tr>
+            <td><label th:text="'Confirm Password'">confirm</label></td>
+            <td><input type="password" th:field="*{matchingPassword}"/></td>
+        </tr>
+        <tr>
             <td><input type="submit" value="Register"/></td>
-            <td><input type="hidden" th:field="*{active}"></td>
+            <td><input type="hidden" th:field="*{enabled}"></td>
         </tr>
     </table>
 </form>

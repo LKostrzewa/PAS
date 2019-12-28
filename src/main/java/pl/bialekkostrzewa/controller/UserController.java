@@ -9,6 +9,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bialekkostrzewa.model.Client;
+import pl.bialekkostrzewa.model.MyUserDetails;
+import pl.bialekkostrzewa.service.MyUserDetailsService;
 import pl.bialekkostrzewa.service.UserService;
 
 import javax.validation.Valid;
@@ -28,17 +30,23 @@ public class UserController {
 
     @GetMapping("/add-client")
     public ModelAndView showClientForm(){
-        return new ModelAndView("clientForm", "client", new Client());
+        MyUserDetails client = new MyUserDetails();
+        client.setEnabled(true);
+        return new ModelAndView("clientForm", "client", client);
     }
 
     @PostMapping("/add-client")
-    public String addClient(@Valid @ModelAttribute("client") Client client, BindingResult bindingResult, AuthenticationManagerBuilder auth){
+    public String addClient(@Valid @ModelAttribute("client") MyUserDetails client, BindingResult bindingResult, AuthenticationManagerBuilder auth){
         if (!bindingResult.hasErrors()){
-            userService.addUser(client);
-            userService.addUserToPool(client,"USER");
+            //userService.addUser(client);
+
+            userService.addUserToPool2(client,"USER");
             return "redirect:/users/";
         }
         return "clientForm";
+        //else {
+        //    new ModelAndView("clientForm", "client", client);
+        //}
     }
 
     @RequestMapping("/update-client/{login}")
