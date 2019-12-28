@@ -35,7 +35,7 @@ public class UserController {
     public String addClient(@Valid @ModelAttribute("client") Client client, BindingResult bindingResult, AuthenticationManagerBuilder auth){
         if (!bindingResult.hasErrors()){
             userService.addUser(client);
-            userService.addUserToPool(client,"ROLE_USER");
+            userService.addUserToPool(client,"USER");
             return "redirect:/users/";
         }
         return "clientForm";

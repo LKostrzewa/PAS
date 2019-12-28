@@ -64,7 +64,7 @@ public class RegistrationController {
     @PostMapping("/add-client")
     public String addClient(@Valid @ModelAttribute("user") Client client, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
-            userService.addUserToPool(client,"ROLE_USER");
+            userService.addUserToPool(client,"USER");
             userService.addUser(client);
             return "redirect:/reservations/";
         }

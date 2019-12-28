@@ -73,7 +73,8 @@ public class ReservationController {
     @RequestMapping
     public ModelAndView showClientReservations(Authentication authentication){
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-        if(userDetails.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
+        //TODO czy to nie działa?
+        if(userDetails.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))){
             return new ModelAndView("allReservation", "reservations", reservationService.getAllReservations());
         }
         return new ModelAndView("allReservation", "reservations", reservationService.getAllClientReservations(userDetails.getUsername()));

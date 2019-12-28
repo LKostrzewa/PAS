@@ -24,8 +24,11 @@ import java.util.Collection;
 public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
+    private MyUserDetailsService userDetailsService;
+
+    @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
         auth.authenticationProvider(authenticationProvider());
     }
 
@@ -47,9 +50,9 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 //nwm te chyba nie dzialaja jakos xd
                 //bo jak jstm zalogowany jako manager to mg inne rzeczy se przegladac
                 //byc moze to kwestia scope'ow
-                .antMatchers("/reservations", "/reservations/" , "/reservations/*").hasRole("USER")
-                .antMatchers("/resources", "/resources/", "/resources/*").hasRole("MANAGER")
-                .antMatchers("/users", "/users/", "/users/*").hasRole("ADMIN")
+                .antMatchers("/reservations", "/reservations/" , "/reservations/**", "/reservations/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/resources", "/resources/", "/resources/**", "/resources/*").hasRole("MANAGER")
+                .antMatchers("/users", "/users/", "/users/**", "/users/*").hasRole("ADMIN")
                 //.antMatchers("/restaurant/reservations").access("hasRole('USER') or hasRole('ADMIN')")
                 //.antMatchers("/restaurant/resources").access("hasRole('MANAGER')")
                 //.antMatchers("/restaurant/users").access("hasRole('ADMIN')")
@@ -64,11 +67,11 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    @Bean
+    /*@Bean
     @Override
     public UserDetailsService userDetailsService() {
         return new MyUserDetailsService();
-    }
+    }*/
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider(){
