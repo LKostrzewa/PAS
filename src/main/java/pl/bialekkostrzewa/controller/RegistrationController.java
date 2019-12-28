@@ -43,10 +43,10 @@ public class RegistrationController {
     @RequestMapping("/default")
     public String defaultAfterLogin(HttpServletRequest request) {
         if (request.isUserInRole("ADMIN")) {
-            return "redirect:/users";
+            return "redirect:/users/";
         } else if (request.isUserInRole("MANAGER")) {
-            return "redirect:/resources";
-        } else return "redirect:/reservations";
+            return "redirect:/resources/";
+        } else return "redirect:/reservations/";
     }
 
     @RequestMapping("/login")
