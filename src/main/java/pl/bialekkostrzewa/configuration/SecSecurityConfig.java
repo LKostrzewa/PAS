@@ -50,12 +50,14 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
         //Czy tutaj jezeli jest hasRole nie powinno byc bez refiksu ROLE_ zmienilem gdyz wyjebywalo exception jezeli mialo by byc role przed to by bylo
         // hasAuthority
         http.authorizeRequests()
+                //nwm te chyba nie dzialaja jakos xd
+                //bo jak jstm zalogowany jako manager to mg inne rzeczy se przegladac
                 .antMatchers("/restaurant/reservations").access("hasRole('USER') or hasRole('ADMIN')")
                 .antMatchers("/restaurant/resources").access("hasRole('MANAGER')")
                 .antMatchers("/restaurant/users").access("hasRole('ADMIN')")
                 .and()
                     .formLogin().loginPage("/login")
-                    .defaultSuccessUrl("/reservations/")
+                    .defaultSuccessUrl("/default")
                     //.failureUrl("/loginPage?error")
                     .usernameParameter("username").passwordParameter("password");
                 //.and()

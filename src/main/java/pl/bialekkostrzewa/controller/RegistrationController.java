@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.bialekkostrzewa.model.Client;
 import pl.bialekkostrzewa.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 //@RequestMapping("")
@@ -28,6 +29,17 @@ public class RegistrationController {
     public String showMainPage(ModelMap model){
         model.addAttribute("message", "Welcome in our restaurant");
         return "index";
+    }
+
+    @RequestMapping("/default")
+    public String defaultAfterLogin(HttpServletRequest request){
+        if(request.isUserInRole("ADMIN")){
+            return "redirect:/users";
+        }
+        else if(request.isUserInRole("MANAGER")){
+            return "redirect:/resources";
+        }
+        else return "redirect:/";
     }
 
     @RequestMapping("/login")
