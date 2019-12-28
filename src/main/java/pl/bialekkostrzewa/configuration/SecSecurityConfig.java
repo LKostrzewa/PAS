@@ -33,8 +33,8 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     //nwm na ile to jest okej
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("admin").password("password").roles("ADMIN")
-                .and().withUser("manager").password("password").roles("MANAGER");
+        auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder().encode("password")).roles("ADMIN")
+                .and().withUser("manager").password(passwordEncoder().encode("password")).roles("MANAGER");
     }
 
     @Override
@@ -50,16 +50,16 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
         //Czy tutaj jezeli jest hasRole nie powinno byc bez refiksu ROLE_ zmienilem gdyz wyjebywalo exception jezeli mialo by byc role przed to by bylo
         // hasAuthority
         http.authorizeRequests()
-                .antMatchers("/restaurant/reservations").access("hasRole('_USER') or hasRole('ADMIN')")
+                .antMatchers("/restaurant/reservations").access("hasRole('USER') or hasRole('ADMIN')")
                 .antMatchers("/restaurant/resources").access("hasRole('MANAGER')")
                 .antMatchers("/restaurant/users").access("hasRole('ADMIN')")
                 .and()
                     .formLogin().loginPage("/login")
-                    .defaultSuccessUrl("/restaurant/reservations")
-                    .failureUrl("/loginPage?error")
-                    .usernameParameter("username").passwordParameter("password")
-                .and()
-                    .logout().logoutSuccessUrl("/loginPage?logout");
+                    .defaultSuccessUrl("/reservations/")
+                    //.failureUrl("/loginPage?error")
+                    .usernameParameter("username").passwordParameter("password");
+                //.and()
+                   // .logout().logoutSuccessUrl("/loginPage?logout");
 
     }
 
