@@ -6,71 +6,43 @@ import org.springframework.security.core.userdetails.UserDetails;
 import pl.bialekkostrzewa.validators.PasswordMatches;
 
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 @PasswordMatches
 public class MyUserDetails implements UserDetails {
 
-    private Collection<SimpleGrantedAuthority> authorities;
-    @NotBlank(message = "login cannot be blank")
-    private String username;
-    @NotBlank(message = "password cannot be blank")
-    private String password;
-    private String matchingPassword;
-    private String name;
-    private String surname;
-    private Boolean enabled;
+    private User user;
 
-    public void setAuthorities(Collection<SimpleGrantedAuthority> authorities) {
-        this.authorities = authorities;
-    }
-    public void setUsername(String username) {
-        this.username = username;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
+    public MyUserDetails(User user){
+        this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        if(user instanceof Administrator){
+            authorities.add(new SimpleGrantedAuthority("ADMIN"));
+        }
+        else if(user instanceof Manager){
+            authorities.add(new SimpleGrantedAuthority("MANAGER"));
+        }
+        else {
+            authorities.add(new SimpleGrantedAuthority("USER"));
+        }
         return authorities;
     }
 
     @Override
     public String getPassword() {
-        return password;
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return username;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getMatchingPassword() {
-        return matchingPassword;
-    }
-
-    public void setMatchingPassword(String matchingPassword) {
-        this.matchingPassword = matchingPassword;
+        return user.getLogin();
     }
 
     @Override
@@ -90,6 +62,10 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return enabled;
+        return user.isActive();
+    }
+
+    public String getMatchingPassword() {
+        return user.getMatchingPassword();
     }
 }

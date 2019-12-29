@@ -6,7 +6,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bialekkostrzewa.model.Client;
 import pl.bialekkostrzewa.model.MyUserDetails;
+import pl.bialekkostrzewa.model.User;
 import pl.bialekkostrzewa.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -57,15 +57,15 @@ public class RegistrationController {
 
     @RequestMapping("/register")
     public ModelAndView showRegisterPage() {
-        MyUserDetails client = new MyUserDetails();
-        client.setEnabled(false);
+        User user = new User();
+        user.setActive(false);
         //Client client = new Client();
         //client.setActive(false);
-        return new ModelAndView("register", "user", client);
+        return new ModelAndView("register", "user", user);
     }
 
     @PostMapping("/add-client")
-    public String addClient(@Valid @ModelAttribute("user") MyUserDetails client, BindingResult bindingResult) {
+    public String addClient(@Valid @ModelAttribute("user") User client, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
             //userService.addUser(client);
             userService.addUserToPool2(client,"USER");

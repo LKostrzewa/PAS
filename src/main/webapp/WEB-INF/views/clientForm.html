@@ -10,8 +10,8 @@
     <table border="1">
         <tr>
             <td><label th:text="'Login'" /></td>
-            <td><input type="text" th:field="*{username}" /></td>
-            <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Login Error</td>
+            <td><input type="text" th:field="*{login}" /></td>
+            <td th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login Error</td>
         </tr>
         <tr>
             <td><label th:text="'Password'" /></td>
@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <td><input type="submit" value="Add" /></td>
-            <td><input type="hidden" th:field="*{enabled}"></td>
+            <td><input type="hidden" th:field="*{active}"></td>
         </tr>
     </table>
     <a th:href="@{/users/}">Return</a>

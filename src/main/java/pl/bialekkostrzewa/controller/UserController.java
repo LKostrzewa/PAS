@@ -2,6 +2,8 @@ package pl.bialekkostrzewa.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,12 +12,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bialekkostrzewa.model.Client;
 import pl.bialekkostrzewa.model.MyUserDetails;
+import pl.bialekkostrzewa.model.User;
 import pl.bialekkostrzewa.service.MyUserDetailsService;
 import pl.bialekkostrzewa.service.UserService;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -30,17 +35,19 @@ public class UserController {
 
     @GetMapping("/add-client")
     public ModelAndView showClientForm(){
-        MyUserDetails client = new MyUserDetails();
-        client.setEnabled(true);
+        User client = new User();
+        client.setActive(true);
         return new ModelAndView("clientForm", "client", client);
     }
 
     @PostMapping("/add-client")
-    public String addClient(@Valid @ModelAttribute("client") MyUserDetails client, BindingResult bindingResult, AuthenticationManagerBuilder auth){
+    public String addClient(@Valid @ModelAttribute("client") User user, BindingResult bindingResult, AuthenticationManagerBuilder auth){
         if (!bindingResult.hasErrors()){
             //userService.addUser(client);
-
-            userService.addUserToPool2(client,"USER");
+            //Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+            //authorities.add(new SimpleGrantedAuthority("USER"));
+            //client.setAuthorities(authorities);
+            userService.addUserToPool2(user,"USER");
             return "redirect:/users/";
         }
         return "clientForm";

@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 import pl.bialekkostrzewa.model.*;
@@ -30,6 +31,7 @@ public class UserService {
     }
 
     public void addUser(User user){
+        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
         users.add(user.getLogin(), user);
     }
 
@@ -82,13 +84,13 @@ public class UserService {
     }
 
     @Transactional
-    public void addUserToPool2(MyUserDetails user, String role){
+    public void addUserToPool2(User user, String role){
         Client client = new Client();
-        client.setLogin(user.getUsername());
+        client.setLogin(user.getLogin());
         client.setPassword(user.getPassword());
         client.setName(user.getName());
         client.setSurname(user.getSurname());
-        client.setActive(user.isEnabled());
+        client.setActive(user.isActive());
         client.setType(new NormalClient());
         addUser(client);
         //List<GrantedAuthority> authorities = new ArrayList<>();

@@ -11,7 +11,7 @@ import pl.bialekkostrzewa.model.User;
 
 import java.util.Collections;
 import java.util.List;
-
+/*
 @Component
 public class UserToSecurityUserConverter implements Converter<User, UserDetails> {
     @Override
@@ -38,4 +38,4 @@ public class UserToSecurityUserConverter implements Converter<User, UserDetails>
         }
         return userDetails;
     }
-}
+}*/
