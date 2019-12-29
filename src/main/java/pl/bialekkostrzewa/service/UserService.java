@@ -1,27 +1,17 @@
 package pl.bialekkostrzewa.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
-import pl.bialekkostrzewa.model.*;
-import pl.bialekkostrzewa.model.*;
+import pl.bialekkostrzewa.model.Client;
+import pl.bialekkostrzewa.model.ClientType;
+import pl.bialekkostrzewa.model.User;
 import pl.bialekkostrzewa.repository.UserRepository;
 
-import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UserService {
-
 
     private UserRepository users;
 

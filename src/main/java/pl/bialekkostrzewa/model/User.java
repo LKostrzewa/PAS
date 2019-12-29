@@ -1,8 +1,11 @@
 package pl.bialekkostrzewa.model;
 
+import pl.bialekkostrzewa.validators.PasswordMatches;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+@PasswordMatches
 public /*abstract */class User {
 
     @NotBlank(message = "Login cannot be blank")

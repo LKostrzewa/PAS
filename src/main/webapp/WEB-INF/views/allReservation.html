@@ -6,7 +6,7 @@
 </head>
 <body>
 <table border="1">
-    <tr th:each="res: ${reservation}">
+    <tr th:each="res: ${reservations}">
         <td th:text="${res}"/>
         <td><form method="get" th:action="@{'delete-reservation/' + ${res.getId()}}">
             <button type="submit">Delete</button>
