@@ -27,6 +27,10 @@
             <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Validation error</td>
         </tr>
         <tr>
+            <td><label th:text="'Confirm Password'">confirm</label></td>
+            <td><input type="password" th:field="*{matchingPassword}"/></td>
+        </tr>
+        <tr>
             <td><input type="submit" value="Register"/></td>
             <td><input type="hidden" th:field="*{enabled}"></td>
             <td><input type="hidden" th:field="*{authorities}"></td>

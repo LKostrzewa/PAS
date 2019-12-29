@@ -19,6 +19,10 @@
             <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Login Error</td>
         </tr>
         <tr>
+            <td><label th:text="'Confirm Password'">confirm</label></td>
+            <td><input type="password" th:field="*{matchingPassword}"/></td>
+        </tr>
+        <tr>
             <td><label th:text="'Name'" /></td>
             <td><input type="text" th:field="*{name}" /></td>
         </tr>
