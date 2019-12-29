@@ -35,9 +35,9 @@ public class UserController {
 
     @GetMapping("/add-client")
     public ModelAndView showClientForm(){
-        User client = new User();
-        client.setActive(true);
-        return new ModelAndView("clientForm", "client", client);
+        User user = new User();
+        user.setActive(true);
+        return new ModelAndView("clientForm", "user", user);
     }
 
     @PostMapping("/add-client")

@@ -34,10 +34,16 @@ public class ReservationController {
     }
 
     @GetMapping("/add-reservation")
-    public ModelAndView showReservationForm(){
+    public ModelAndView showReservationForm(Authentication authentication){
         ModelAndView modelAndView = new ModelAndView("reservationForm", "reservation", new Reservation());
-        modelAndView.addObject("clients", userService.getAllActiveClients());
+        //modelAndView.addObject("clients", userService.getAllActiveClients());
         modelAndView.addObject("resources", resourceService.getAllResources());
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        if(userDetails.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
+            modelAndView.addObject("clients", userService.getAllActiveClients());
+        } else {
+            modelAndView.addObject("clients", userService.getUser(userDetails.getUsername()));
+        }
         return modelAndView;
     }
 

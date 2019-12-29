@@ -36,7 +36,6 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder().encode("password")).roles("ADMIN")
                 .and().withUser("manager").password(passwordEncoder().encode("password")).roles("MANAGER");
         //auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
-
     }
 
     @Override
@@ -45,14 +44,14 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
         //no dzien dobry wpierdalaam sie na grubo tutaj
         //Czy tutaj jezeli jest hasRole nie powinno byc bez refiksu ROLE_ zmienilem gdyz wyjebywalo exception jezeli mialo by byc role przed to by bylo
         // hasAuthority
-        http.csrf().disable().authorizeRequests()
+        http.authorizeRequests()
                 //nwm te chyba nie dzialaja jakos xd
                 //bo jak jstm zalogowany jako manager to mg inne rzeczy se przegladac
                 //byc moze to kwestia scope'ow
                 .antMatchers("/reservations", "/reservations/" , "/reservations/**", "/reservations/*").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/resources", "/resources/", "/resources/**", "/resources/*").hasRole("MANAGER")
                 .antMatchers("/users", "/users/", "/users/**", "/users/*").hasRole("ADMIN")
-                .and().csrf().disable()
+                .and()
                 //.antMatchers("/restaurant/reservations").access("hasRole('USER') or hasRole('ADMIN')")
                 //.antMatchers("/restaurant/resources").access("hasRole('MANAGER')")
                 //.antMatchers("/restaurant/users").access("hasRole('ADMIN')")

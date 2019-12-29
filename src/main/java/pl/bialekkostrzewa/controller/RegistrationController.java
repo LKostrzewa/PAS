@@ -64,7 +64,7 @@ public class RegistrationController {
         return new ModelAndView("register", "user", user);
     }
 
-    @PostMapping("/add-client")
+    @PostMapping("/register")
     public String addClient(@Valid @ModelAttribute("user") User client, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
             //userService.addUser(client);

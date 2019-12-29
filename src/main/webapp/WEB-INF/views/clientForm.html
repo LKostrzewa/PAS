@@ -6,17 +6,21 @@
 </head>
 <body>
 <p>Add Client</p>
-<form action="#" th:action="@{/add-client}" th:object="${client}" method="post">
+<form action="#" th:action="@{/add-client}" th:object="${user}" method="post">
     <table border="1">
         <tr>
             <td><label th:text="'Login'" /></td>
             <td><input type="text" th:field="*{login}" /></td>
-            <td th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login Error</td>
+            <td th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Validation Error</td>
         </tr>
         <tr>
             <td><label th:text="'Password'" /></td>
             <td><input type="password" th:field="*{password}" /></td>
-            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Login Error</td>
+            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Validation Error</td>
+        </tr>
+        <tr>
+            <td><label th:text="'Confirm Password'">confirm</label></td>
+            <td><input type="password" th:field="*{matchingPassword}"/></td>
         </tr>
         <tr>
             <td><label th:text="'Name'" /></td>
