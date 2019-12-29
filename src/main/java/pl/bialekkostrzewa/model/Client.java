@@ -16,7 +16,7 @@ public class Client extends User{
     public Client(String login, String password, String name, String surname, ClientType type) {
         super(login, password, name, surname);
         this.type = type;
-        setAuthorities(List.of(new SimpleGrantedAuthority("USER")));
+        setAuthorities(List.of(new SimpleGrantedAuthority("ROLE_USER")));
     }
 
     @Override

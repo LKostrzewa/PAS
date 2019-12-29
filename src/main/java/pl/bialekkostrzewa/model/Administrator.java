@@ -8,7 +8,7 @@ public class Administrator extends User {
 
     public Administrator(String login, String password, String name, String surname) {
         super(login, password, name, surname);
-        setAuthorities(List.of(new SimpleGrantedAuthority("ADMIN")));
+        setAuthorities(List.of(new SimpleGrantedAuthority("ROLE_ADMIN")));
     }
 
     @Override

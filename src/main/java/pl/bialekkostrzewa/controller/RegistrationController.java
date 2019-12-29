@@ -20,17 +20,17 @@ import javax.validation.Valid;
 public class RegistrationController {
 
     private UserService userService;
-    private MyUserDetailsService myUserDetailsService;
+    //private MyUserDetailsService myUserDetailsService;
 
     @Autowired
     public RegistrationController(UserService userService) {
         this.userService = userService;
     }
 
-    @Autowired
+    /*@Autowired
     public void setMyUserDetailsService(MyUserDetailsService myUserDetailsService) {
         this.myUserDetailsService = myUserDetailsService;
-    }
+    }*/
 
     @RequestMapping
     public String showMainPage(ModelMap model) {
@@ -59,7 +59,7 @@ public class RegistrationController {
         return new ModelAndView("register", "user", client);
     }
 
-    @PostMapping("/add-client")
+    @PostMapping("/register")
     public String addClient(@Valid @ModelAttribute("user") Client client, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
             userService.addUser(client);

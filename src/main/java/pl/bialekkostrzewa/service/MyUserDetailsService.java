@@ -32,18 +32,9 @@ public class MyUserDetailsService implements UserDetailsService {
         this.accountRepository = accountRepository;
     }*/
 
-    @Transactional
-    public User addUser(pl.bialekkostrzewa.model.User user){
-        User user1 = new User(user.getUsername(), user.getPassword(), true, true, true, true,
-                user.getAuthorities());
-        //return accountRepository.save(user1);
-        return user1;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        pl.bialekkostrzewa.model.User user = userService.getUser(s);
-        return new User(user.getUsername(), user.getPassword(), true, true, true, true,
-                user.getAuthorities());
+        return userService.getUser(s);
     }
 }

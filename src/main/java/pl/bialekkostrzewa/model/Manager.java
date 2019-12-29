@@ -8,7 +8,7 @@ public class Manager extends User {
 
     public Manager(String login, String password, String name, String surname) {
         super(login, password, name, surname);
-        setAuthorities(List.of(new SimpleGrantedAuthority("MANAGER")));
+        setAuthorities(List.of(new SimpleGrantedAuthority("ROLE_MANAGER")));
     }
 
     @Override
