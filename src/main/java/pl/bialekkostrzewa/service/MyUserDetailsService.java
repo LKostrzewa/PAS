@@ -22,13 +22,12 @@ import java.util.*;
 @Transactional
 public class MyUserDetailsService implements UserDetailsService {
 
-    @Autowired
     private UserService userService;
     //private UserToSecurityUserConverter userToSecurityUserConverter;
-    /*@Autowired
+    @Autowired
     public void setUserService(UserService userService){
         this.userService = userService;
-    }*/
+    }
 
     /*@Autowired
     public void setUserToSecurityUserConverter(UserToSecurityUserConverter userToSecurityUserConverter) {
@@ -44,7 +43,6 @@ public class MyUserDetailsService implements UserDetailsService {
         User user = userService.getUser(s);
         if(user == null)
             throw new UsernameNotFoundException(String.format( "A user with username {} doesn't exist", s));
-        MyUserDetails myUserDetails = new MyUserDetails(user);
-        return myUserDetails;
+        return new MyUserDetails(user);
     }
 }

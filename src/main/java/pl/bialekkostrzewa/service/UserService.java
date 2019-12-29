@@ -84,7 +84,7 @@ public class UserService {
     }
 
     @Transactional
-    public void addUserToPool2(User user, String role){
+    public void addClientFromUser(User user){
         Client client = new Client();
         client.setLogin(user.getLogin());
         client.setPassword(user.getPassword());

@@ -1,12 +1,6 @@
 package pl.bialekkostrzewa.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -14,15 +8,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import pl.bialekkostrzewa.model.Client;
-import pl.bialekkostrzewa.model.MyUserDetails;
 import pl.bialekkostrzewa.model.User;
 import pl.bialekkostrzewa.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 //@RequestMapping("")
 @Controller
@@ -68,7 +58,7 @@ public class RegistrationController {
     public String addClient(@Valid @ModelAttribute("user") User client, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
             //userService.addUser(client);
-            userService.addUserToPool2(client,"USER");
+            userService.addClientFromUser(client);
             return "redirect:/reservations/";
         }
         return "register";
