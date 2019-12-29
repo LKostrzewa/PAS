@@ -72,18 +72,7 @@ public class UserService {
         return users.getAllActiveClients();
     }
 
-    //TODO
-    //nie dziala logowanie wiec moznaby przyjac ze tutaj to nie dziala :/
-    public void addUserToPool(User user, String role){
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(role));
-        UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), authorities);
-        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        //addUser(user);
-    }
-
-    @Transactional
+    /*@Transactional
     public void addClientFromUser(User user){
         Client client = new Client();
         client.setLogin(user.getLogin());
@@ -99,5 +88,5 @@ public class UserService {
         //Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
         //SecurityContextHolder.getContext().setAuthentication(authentication);
         //addUser(user);
-    }
+    }*/
 }

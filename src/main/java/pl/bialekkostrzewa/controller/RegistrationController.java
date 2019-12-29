@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import pl.bialekkostrzewa.model.Client;
 import pl.bialekkostrzewa.model.User;
 import pl.bialekkostrzewa.service.UserService;
 
@@ -34,7 +35,7 @@ public class RegistrationController {
     @RequestMapping("/default")
     public String defaultAfterLogin(HttpServletRequest request) {
         if (request.isUserInRole("ADMIN")) {
-            return "redirect:/users/";
+            return "adminMain";
         } else if (request.isUserInRole("MANAGER")) {
             return "redirect:/resources/";
         } else return "redirect:/reservations/";
@@ -47,18 +48,18 @@ public class RegistrationController {
 
     @RequestMapping("/register")
     public ModelAndView showRegisterPage() {
-        User user = new User();
-        user.setActive(false);
-        //Client client = new Client();
-        //client.setActive(false);
-        return new ModelAndView("register", "user", user);
+        //User user = new User();
+        //user.setActive(false);
+        Client client = new Client();
+        client.setActive(false);
+        return new ModelAndView("register", "client", client);
     }
 
     @PostMapping("/register")
-    public String addClient(@Valid @ModelAttribute("user") User client, BindingResult bindingResult) {
+    public String addClient(@Valid @ModelAttribute("client") Client client, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
-            //userService.addUser(client);
-            userService.addClientFromUser(client);
+            userService.addUser(client);
+            //userService.addClientFromUser(client);
             return "redirect:/reservations/";
         }
         return "register";

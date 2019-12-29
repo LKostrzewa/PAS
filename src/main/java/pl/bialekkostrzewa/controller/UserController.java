@@ -24,19 +24,14 @@ public class UserController {
 
     @GetMapping("/add-client")
     public ModelAndView showClientForm(){
-        User user = new User();
-        user.setActive(true);
-        return new ModelAndView("clientForm", "user", user);
+        return new ModelAndView("clientForm", "client", new Client());
     }
 
     @PostMapping("/add-client")
-    public String addClient(@Valid @ModelAttribute("user") User user, BindingResult bindingResult){
+    public String addClient(@Valid @ModelAttribute("client") Client client, BindingResult bindingResult){
         if (!bindingResult.hasErrors()){
-            //userService.addUser(client);
-            //Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-            //authorities.add(new SimpleGrantedAuthority("USER"));
-            //client.setAuthorities(authorities);
-            userService.addClientFromUser(user);
+            //userService.addClientFromUser(user);
+            userService.addUser(client);
             return "redirect:/users/";
         }
         return "clientForm";
