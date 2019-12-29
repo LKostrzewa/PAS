@@ -1,21 +1,11 @@
 package pl.bialekkostrzewa.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
-import pl.bialekkostrzewa.model.*;
 import pl.bialekkostrzewa.model.*;
 import pl.bialekkostrzewa.repository.UserRepository;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,7 +20,7 @@ public class UserService {
     }
 
     public void addUser(User user){
-        users.add(user.getLogin(), user);
+        users.add(user.getUsername(), user);
     }
 
     public void changeClientsType(String login, ClientType type) throws RuntimeException{
@@ -51,11 +41,11 @@ public class UserService {
     }
 
     public void activateUser(String login){
-        users.get(login).setActive(true);
+        users.get(login).setEnabled(true);
     }
 
     public void deactivateUser(String login){
-        users.get(login).setActive(false);
+        users.get(login).setEnabled(false);
     }
 
     public List<User> getAllUsers(){
@@ -70,12 +60,12 @@ public class UserService {
         return users.getAllActiveClients();
     }
 
-    //TODO
+    /*//TODO
     //nie dziala logowanie wiec moznaby przyjac ze tutaj to nie dziala :/
     public void addUserToPool(User user, String role){
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(role));
-        UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), authorities);
+        UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
         Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         //addUser(user);
@@ -84,18 +74,17 @@ public class UserService {
     @Transactional
     public void addUserToPool2(MyUserDetails user, String role){
         Client client = new Client();
-        client.setLogin(user.getUsername());
+        client.setUsername(user.getUsername());
         client.setPassword(user.getPassword());
         client.setName(user.getName());
         client.setSurname(user.getSurname());
-        client.setActive(user.isEnabled());
+        client.setEnabled(user.isEnabled());
         client.setType(new NormalClient());
         addUser(client);
-        //List<GrantedAuthority> authorities = new ArrayList<>();
-        //authorities.add(new SimpleGrantedAuthority(role));
-        //UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), authorities);
-        //Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
-        //SecurityContextHolder.getContext().setAuthentication(authentication);
-        //addUser(user);
-    }
+        /*List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(role));
+        Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        addUser(client);
+    }*/
 }

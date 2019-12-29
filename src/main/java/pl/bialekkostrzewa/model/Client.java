@@ -1,5 +1,9 @@
 package pl.bialekkostrzewa.model;
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.util.List;
+
 public class Client extends User{
 
     private ClientType type;
@@ -12,23 +16,24 @@ public class Client extends User{
     public Client(String login, String password, String name, String surname, ClientType type) {
         super(login, password, name, surname);
         this.type = type;
+        setAuthorities(List.of(new SimpleGrantedAuthority("USER")));
     }
 
     @Override
     public String toString() {
         String tmp;
-        if(isActive()){
+        if(isEnabled()){
             tmp = "is active";
         }
         else tmp = "is inactive";
-        return "Client login " + getLogin() + " full name " + getName()
+        return "Client login " + getUsername() + " full name " + getName()
                 + " " + getSurname() + " " + getType() + " type " + tmp;
         /*return "Client{" +
-                "login='" + getLogin() + '\'' +
+                "login='" + getUsername() + '\'' +
                 ", name='" + getName() + '\'' +
                 ", surname='" + getSurname() + '\'' +
                 ", type=" + type + '\'' +
-                ", isActive='" + isActive() + '\'' +
+                ", isEnabled='" + isEnabled() + '\'' +
                 '}';*/
     }
 

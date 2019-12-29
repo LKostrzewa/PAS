@@ -2,20 +2,14 @@ package pl.bialekkostrzewa.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bialekkostrzewa.model.Client;
-import pl.bialekkostrzewa.model.MyUserDetails;
-import pl.bialekkostrzewa.service.MyUserDetailsService;
 import pl.bialekkostrzewa.service.UserService;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 @Controller
 @RequestMapping("/users")
@@ -30,17 +24,14 @@ public class UserController {
 
     @GetMapping("/add-client")
     public ModelAndView showClientForm(){
-        MyUserDetails client = new MyUserDetails();
-        client.setEnabled(true);
-        return new ModelAndView("clientForm", "client", client);
+        return new ModelAndView("clientForm", "client", new Client());
     }
 
     @PostMapping("/add-client")
-    public String addClient(@Valid @ModelAttribute("client") MyUserDetails client, BindingResult bindingResult, AuthenticationManagerBuilder auth){
+    public String addClient(@Valid @ModelAttribute("client") Client client, BindingResult bindingResult, AuthenticationManagerBuilder auth){
         if (!bindingResult.hasErrors()){
-            //userService.addUser(client);
-
-            userService.addUserToPool2(client,"USER");
+            userService.addUser(client);
+            //userService.addUserToPool2(client,"USER");
             return "redirect:/users/";
         }
         return "clientForm";
@@ -57,7 +48,7 @@ public class UserController {
     @PostMapping("/update-client")
     public String updateClient(@Valid @ModelAttribute Client client, BindingResult bindingResult){
         if (!bindingResult.hasErrors()){
-            userService.updateUser(client.getLogin(), client);
+            userService.updateUser(client.getUsername(), client);
             return "redirect:/users/";
         }
         return "clientUpdateForm";

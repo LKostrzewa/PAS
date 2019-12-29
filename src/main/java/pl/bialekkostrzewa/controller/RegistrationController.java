@@ -1,13 +1,6 @@
 package pl.bialekkostrzewa.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -16,23 +9,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bialekkostrzewa.model.Client;
-import pl.bialekkostrzewa.model.MyUserDetails;
+import pl.bialekkostrzewa.service.MyUserDetailsService;
 import pl.bialekkostrzewa.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 //@RequestMapping("")
 @Controller
 public class RegistrationController {
 
     private UserService userService;
+    private MyUserDetailsService myUserDetailsService;
 
     @Autowired
     public RegistrationController(UserService userService) {
         this.userService = userService;
+    }
+
+    @Autowired
+    public void setMyUserDetailsService(MyUserDetailsService myUserDetailsService) {
+        this.myUserDetailsService = myUserDetailsService;
     }
 
     @RequestMapping
@@ -57,18 +54,16 @@ public class RegistrationController {
 
     @RequestMapping("/register")
     public ModelAndView showRegisterPage() {
-        MyUserDetails client = new MyUserDetails();
+        Client client = new Client();
         client.setEnabled(false);
-        //Client client = new Client();
-        //client.setActive(false);
         return new ModelAndView("register", "user", client);
     }
 
     @PostMapping("/add-client")
-    public String addClient(@Valid @ModelAttribute("user") MyUserDetails client, BindingResult bindingResult) {
+    public String addClient(@Valid @ModelAttribute("user") Client client, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
-            //userService.addUser(client);
-            userService.addUserToPool2(client,"USER");
+            userService.addUser(client);
+            //myUserDetailsService.addUser(client);
             return "redirect:/reservations/";
         }
         return "register";

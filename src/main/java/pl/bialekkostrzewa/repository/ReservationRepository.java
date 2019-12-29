@@ -3,7 +3,6 @@ package pl.bialekkostrzewa.repository;
 import org.springframework.stereotype.Repository;
 import pl.bialekkostrzewa.model.Reservation;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -13,7 +12,7 @@ public class ReservationRepository extends RepositoryTemplate<Reservation> {
 
     public List<Reservation> getReservationsForClient(String login){
         return getAll().stream().filter(
-                r -> r.getClient().getLogin().equals(login))
+                r -> r.getClient().getUsername().equals(login))
                 .collect(Collectors.toList());
     }
 

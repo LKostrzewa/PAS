@@ -16,8 +16,8 @@
         <tr>
             <td><label th:text="Client"/></td>
             <td>
-                <select th:field="*{client.login}">
-                    <option th:each="client : ${clients}" th:value="${client.login}" th:text="${client.login}"></option>
+                <select th:field="*{client.username}">
+                    <option th:each="client : ${clients}" th:value="${client.username}" th:text="${client.username}"></option>
                 </select>
             </td>
         </tr>

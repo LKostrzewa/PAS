@@ -5,7 +5,7 @@
     <title>Update Client</title>
 </head>
 <body>
-<label th:text="'Update client ' + ${client.login}"/>
+<label th:text="'Update client ' + ${client.username}"/>
 <form action="#" th:action="@{/users/update-client}" th:object="${client}" method="post">
     <table border="1">
         <tr>
@@ -18,7 +18,7 @@
         </tr>
         <tr>
             <td><label th:text="'Active'" /></td>
-            <td><input type="checkbox" th:checked="*{active}" th:field="*{active}"/></td>
+            <td><input type="checkbox" th:checked="*{enabled}" th:field="*{enabled}"/></td>
         </tr>
         <tr>
             <td><label th:text="'Type'" /></td>
@@ -32,7 +32,7 @@
         </tr>
         <tr>
             <td><input type="submit" value="Update" /></td>
-            <td><input type="hidden" th:field="*{login}"></td>
+            <td><input type="hidden" th:field="*{username}"></td>
             <td><input type="hidden" th:field="*{password}"></td>
         </tr>
     </table>

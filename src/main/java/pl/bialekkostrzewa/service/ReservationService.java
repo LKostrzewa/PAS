@@ -25,7 +25,7 @@ public class ReservationService {
     public void startReservation(Reservation reservation) /*Runtime bo w testach wygoniej :)*/throws RuntimeException {
         if(reservations.getReservedReservations(reservation.getResource().getId()).isPresent())
             throw new ResourceTakenException("Reservation impossible, that resource is already taken");
-        if(!reservation.getClient().isActive()){
+        if(!reservation.getClient().isEnabled()){
             throw new InactiveClientException("Cannot reserve, client is inactive");
         }
         else reservations.add(reservation.getId(), reservation);
@@ -33,7 +33,7 @@ public class ReservationService {
 
     public void endReservation(String id, LocalDateTime end){
         Reservation r = getReservation(id);
-        if(r.getClient().isActive())
+        if(r.getClient().isEnabled())
             r.setEnding(end);
     }
 

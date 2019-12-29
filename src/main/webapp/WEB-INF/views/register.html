@@ -9,7 +9,7 @@
 <form action="/restaurant" th:action="@{/add-client}" th:object="${user}" method="POST">
     <table>
         <tr>
-            <td><label th:text="'Login'">login</label></td>
+            <td><label th:text="'Login'">username</label></td>
             <td><input th:field="*{username}"/></td>
             <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Validation error</td>
         </tr>
@@ -27,16 +27,13 @@
             <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Validation error</td>
         </tr>
         <tr>
-            <td><label th:text="'Confirm Password'">confirm</label></td>
-            <td><input type="password" th:field="*{matchingPassword}"/></td>
-        </tr>
-        <tr>
             <td><input type="submit" value="Register"/></td>
             <td><input type="hidden" th:field="*{enabled}"></td>
+            <td><input type="hidden" th:field="*{authorities}"></td>
         </tr>
     </table>
 </form>
 
-<!--<a th:href="@{/login.html}" th:text="#{label.form.loginLink}">login</a>-->
+<!--<a th:href="@{/username.html}" th:text="#{label.form.loginLink}">username</a>-->
 </body>
 </html>

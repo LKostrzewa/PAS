@@ -1,40 +1,75 @@
 package pl.bialekkostrzewa.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import java.util.Collection;
 
-public /*abstract */class User {
+public /*abstract */class User implements UserDetails {
 
-    @NotBlank(message = "Login cannot be blank")
-    private String login;
+    private Collection<SimpleGrantedAuthority> authorities;
+    @NotBlank(message = "Username cannot be blank")
+    private String username;
     @NotBlank(message = "Password cannot be blank")
     private String password;
     private String name;
     private String surname;
-    private boolean isActive;
+    private boolean enabled;
 
     public User(){
-        this.isActive = true;
+        this.enabled = true;
     }
 
-    public User(String login, String password, String name, String surname) {
-        this.login = login;
+    public User(String username, String password, String name, String surname) {
+        this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
-        this.isActive = true;
+        this.enabled = true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Collection<SimpleGrantedAuthority> authorities) {
+        this.authorities = authorities;
     }
 
     public String getPassword() {
         return password;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getLogin() {
-        return login;
+    @Override
+    public String getUsername() {
+        return username;
     }
 
     public String getName() {
@@ -45,16 +80,12 @@ public /*abstract */class User {
         return surname;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setName(String name) {
@@ -66,5 +97,6 @@ public /*abstract */class User {
     }
 
     /*@Override
-    public abstract String toString();*/
+    public
+    abstract String toString();*/
 }

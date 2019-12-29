@@ -49,7 +49,7 @@ public class ReservationController {
             return "reservationForm";
         }
         try{
-            reservation.setClient((Client)userService.getUser(reservation.getClient().getLogin()));
+            reservation.setClient((Client)userService.getUser(reservation.getClient().getUsername()));
             reservation.setResource(resourceService.getResource(reservation.getResource().getId()));
             reservationService.startReservation(reservation);
         }
