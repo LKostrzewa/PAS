@@ -24,13 +24,13 @@ public class MyUserDetails implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
         if(user instanceof Administrator){
-            authorities.add(new SimpleGrantedAuthority("ADMIN"));
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
         else if(user instanceof Manager){
-            authorities.add(new SimpleGrantedAuthority("MANAGER"));
+            authorities.add(new SimpleGrantedAuthority("ROLE_MANAGER"));
         }
         else {
-            authorities.add(new SimpleGrantedAuthority("USER"));
+            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
         return authorities;
     }
