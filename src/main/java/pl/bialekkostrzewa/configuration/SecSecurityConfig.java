@@ -33,8 +33,8 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
-        auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder().encode("password")).roles("ADMIN")
-                .and().withUser("manager").password(passwordEncoder().encode("password")).roles("MANAGER");
+        //auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder().encode("password")).roles("ADMIN")
+        //        .and().withUser("manager").password(passwordEncoder().encode("password")).roles("MANAGER");
         //auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
     }
 
