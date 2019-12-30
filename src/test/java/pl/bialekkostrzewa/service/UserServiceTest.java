@@ -12,7 +12,7 @@ class UserServiceTest {
     void ClientTypeTest(){
         UserService us = new UserService(new UserRepository());
 
-        us.addUser(new Client("pawel98", "Pawel", "Bialek", new NormalClient()));
+        us.addUser(new Client("pawel98", "sekret","Pawel", "Bialek", new NormalClient()));
 
         us.changeClientsType("pawel98", new RegularClient());
 

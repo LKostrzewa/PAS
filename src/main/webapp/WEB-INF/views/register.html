@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+<h1 th:text="'Register'"></h1>
+<form action="#" th:action="@{/register}" th:object="${client}" method="POST">
+    <table>
+        <tr>
+            <td><label th:text="'Login'">login</label></td>
+            <td><input th:field="*{login}"/></td>
+            <td th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Validation error</td>
+        </tr>
+        <tr>
+            <td><label th:text="'Password'">password</label></td>
+            <td><input type="password" th:field="*{password}"/></td>
+            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Validation error</td>
+        </tr>
+        <!--<tr>
+            <td><label th:text="'Confirm Password'">confirm</label></td>
+            <td><input type="password" th:field="*{matchingPassword}"/></td>
+        </tr>-->
+        <tr>
+            <td><label th:text="'Name'">name</label></td>
+            <td><input th:field="*{name}"/></td>
+        </tr>
+        <tr>
+            <td><label th:text="'Surname'">last</label></td>
+            <td><input th:field="*{surname}"/></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Register"/></td>
+            <td><input type="hidden" th:field="*{active}"></td>
+        </tr>
+    </table>
+</form>
+
+<!--<a th:href="@{/login.html}" th:text="#{label.form.loginLink}">login</a>-->
+</body>
+</html>

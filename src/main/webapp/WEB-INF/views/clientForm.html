@@ -11,8 +11,17 @@
         <tr>
             <td><label th:text="'Login'" /></td>
             <td><input type="text" th:field="*{login}" /></td>
-            <td th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login Error</td>
+            <td th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Validation Error</td>
         </tr>
+        <tr>
+            <td><label th:text="'Password'" /></td>
+            <td><input type="password" th:field="*{password}" /></td>
+            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Validation Error</td>
+        </tr>
+        <!--<tr>
+            <td><label th:text="'Confirm Password'">confirm</label></td>
+            <td><input type="password" th:field="*{matchingPassword}"/></td>
+        </tr>-->
         <tr>
             <td><label th:text="'Name'" /></td>
             <td><input type="text" th:field="*{name}" /></td>
@@ -23,6 +32,7 @@
         </tr>
         <tr>
             <td><input type="submit" value="Add" /></td>
+            <td><input type="hidden" th:field="*{active}"></td>
         </tr>
     </table>
     <a th:href="@{/users/}">Return</a>

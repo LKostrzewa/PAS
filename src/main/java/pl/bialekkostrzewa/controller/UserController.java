@@ -2,16 +2,14 @@ package pl.bialekkostrzewa.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bialekkostrzewa.model.Client;
+import pl.bialekkostrzewa.model.User;
 import pl.bialekkostrzewa.service.UserService;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 @Controller
 @RequestMapping("/users")
@@ -32,6 +30,7 @@ public class UserController {
     @PostMapping("/add-client")
     public String addClient(@Valid @ModelAttribute("client") Client client, BindingResult bindingResult){
         if (!bindingResult.hasErrors()){
+            //userService.addClientFromUser(user);
             userService.addUser(client);
             return "redirect:/users/";
         }
@@ -47,8 +46,9 @@ public class UserController {
     public String updateClient(@Valid @ModelAttribute Client client, BindingResult bindingResult){
         if (!bindingResult.hasErrors()){
             userService.updateUser(client.getLogin(), client);
+            return "redirect:/users/";
         }
-        return "redirect:/users/";
+        return "clientUpdateForm";
     }
 
     @RequestMapping

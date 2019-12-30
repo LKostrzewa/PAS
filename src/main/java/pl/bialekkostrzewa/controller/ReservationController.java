@@ -1,6 +1,9 @@
 package pl.bialekkostrzewa.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,10 +34,16 @@ public class ReservationController {
     }
 
     @GetMapping("/add-reservation")
-    public ModelAndView showReservationForm(){
+    public ModelAndView showReservationForm(Authentication authentication){
         ModelAndView modelAndView = new ModelAndView("reservationForm", "reservation", new Reservation());
-        modelAndView.addObject("clients", userService.getAllActiveClients());
+        //modelAndView.addObject("clients", userService.getAllActiveClients());
         modelAndView.addObject("resources", resourceService.getAllResources());
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        if(userDetails.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
+            modelAndView.addObject("clients", userService.getAllActiveClients());
+        } else {
+            modelAndView.addObject("clients", userService.getUser(userDetails.getUsername()));
+        }
         return modelAndView;
     }
 
@@ -62,8 +71,12 @@ public class ReservationController {
     }
 
     @RequestMapping
-    public ModelAndView showAllReservations(){
-        return new ModelAndView("allReservation", "reservation", reservationService.getAllReservations());
+    public ModelAndView showAllReservations(Authentication authentication){
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        if(userDetails.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
+            return new ModelAndView("allReservation", "reservations", reservationService.getAllReservations());
+        }
+        return new ModelAndView("allReservation", "reservations", reservationService.getAllClientReservations(userDetails.getUsername()));
     }
 
     @RequestMapping("/delete-reservation/{id}")

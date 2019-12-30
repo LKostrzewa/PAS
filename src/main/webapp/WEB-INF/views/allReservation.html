@@ -1,23 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Reservations</title>
 </head>
 <body>
 <table border="1">
-    <tr th:each="res: ${reservation}">
+    <tr th:each="res: ${reservations}">
         <td th:text="${res}"/>
-        <td><form method="get" th:action="@{'delete-reservation/' + ${res.getId()}}">
-            <button type="submit">Delete</button>
-        </form></td>
-        <td><form method="get" th:action="@{'end-reservation/' + ${res.getId()}}">
-            <button type="submit">End</button>
-        </form></td>
+        <td sec:authorize="hasRole('ADMIN')">
+            <form method="get" th:action="@{'delete-reservation/' + ${res.getId()}}">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+        <td sec:authorize="hasRole('USER')">
+            <form method="get" th:action="@{'end-reservation/' + ${res.getId()}}">
+                <button type="submit">End</button>
+            </form>
+        </td>
     </tr>
 </table>
 <form method="get" th:action="@{add-reservation}">
     <button type="submit">Add reservation</button>
 </form>
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Sign Out</button>
+</form>
+<a sec:authorize="hasRole('ADMIN')" th:href="@{/main/}">Return</a>
 </body>
 </html>

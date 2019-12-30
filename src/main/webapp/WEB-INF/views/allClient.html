@@ -19,5 +19,9 @@
 <form method="get" th:action="@{add-client}">
     <button type="submit">Add client</button>
 </form>
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Sign Out</button>
+</form>
+<a th:href="@{/main/}">Return</a>
 </body>
 </html>

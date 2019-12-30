@@ -4,14 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.bialekkostrzewa.exceptions.InactiveClientException;
 import pl.bialekkostrzewa.exceptions.ResourceTakenException;
-import pl.bialekkostrzewa.model.Client;
 import pl.bialekkostrzewa.model.Reservation;
-import pl.bialekkostrzewa.model.Resource;
 import pl.bialekkostrzewa.repository.ReservationRepository;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.List;
 
 @Service
@@ -26,7 +23,7 @@ public class ReservationService {
     }
 
     public void startReservation(Reservation reservation) /*Runtime bo w testach wygoniej :)*/throws RuntimeException {
-        if(reservations.getResevedReservations(reservation.getResource().getId()).isPresent())
+        if(reservations.getReservedReservations(reservation.getResource().getId()).isPresent())
             throw new ResourceTakenException("Reservation impossible, that resource is already taken");
         if(!reservation.getClient().isActive()){
             throw new InactiveClientException("Cannot reserve, client is inactive");
@@ -55,6 +52,10 @@ public class ReservationService {
 
     public List<Reservation> getAllReservations(){
         return reservations.getAll();
+    }
+
+    public List<Reservation> getAllClientReservations(String login){
+        return reservations.getReservationsForClient(login);
     }
 
     public Reservation getReservation(String id){

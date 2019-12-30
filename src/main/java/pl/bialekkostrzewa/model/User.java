@@ -1,12 +1,18 @@
 package pl.bialekkostrzewa.model;
 
+import pl.bialekkostrzewa.validators.PasswordMatches;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-public abstract class User {
+//@PasswordMatches
+public class User {
 
     @NotBlank(message = "Login cannot be blank")
     private String login;
+    @NotBlank(message = "Password cannot be blank")
+    private String password;
+    private String matchingPassword;
     private String name;
     private String surname;
     private boolean isActive;
@@ -15,11 +21,20 @@ public abstract class User {
         this.isActive = true;
     }
 
-    public User(String login, String name, String surname) {
+    public User(String login, String password, String name, String surname) {
         this.login = login;
+        this.password = password;
         this.name = name;
         this.surname = surname;
         this.isActive = true;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getLogin() {
@@ -54,6 +69,12 @@ public abstract class User {
         this.surname = surname;
     }
 
-    @Override
-    public abstract String toString();
+    public String getMatchingPassword() {
+        return matchingPassword;
+    }
+
+    public void setMatchingPassword(String matchingPassword) {
+        this.matchingPassword = matchingPassword;
+    }
+
 }

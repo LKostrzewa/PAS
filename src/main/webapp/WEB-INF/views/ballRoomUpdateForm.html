@@ -5,7 +5,7 @@
     <title>Update Ballroom</title>
 </head>
 <body>
-<label th:text="'Update table ' + ${room.id}"/>
+<label th:text="'Update room ' + ${room.id}"/>
 <form th:action="@{/resources/update-room}" th:object="${room}" method="post">
     <table border="1">
         <tr>
