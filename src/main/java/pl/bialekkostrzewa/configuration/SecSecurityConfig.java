@@ -47,7 +47,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users", "/users/", "/users/**", "/users/*").hasRole("ADMIN")
                 .and()
                     .formLogin().loginPage("/login")
-                    .defaultSuccessUrl("/default")
+                    .defaultSuccessUrl("/main")
                     //.failureUrl("/loginPage?error")
                     .usernameParameter("username").passwordParameter("password").permitAll()
                 .and()

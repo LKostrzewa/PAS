@@ -26,5 +26,6 @@
 <form th:action="@{/logout}" method="post">
     <button type="submit">Sign Out</button>
 </form>
+<a sec:authorize="hasRole('ADMIN')" th:href="@{/main/}">Return</a>
 </body>
 </html>

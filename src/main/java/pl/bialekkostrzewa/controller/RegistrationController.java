@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bialekkostrzewa.model.Client;
-import pl.bialekkostrzewa.model.User;
 import pl.bialekkostrzewa.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +31,7 @@ public class RegistrationController {
         return "index";
     }
 
-    @RequestMapping("/default")
+    @RequestMapping("/main")
     public String defaultAfterLogin(HttpServletRequest request) {
         if (request.isUserInRole("ADMIN")) {
             return "adminMain";
