@@ -39,8 +39,7 @@ public class UserController {
 
     @RequestMapping("/update-client/{login}")
     public ModelAndView showClientUpdateForm(@PathVariable String login){
-        //TODO Czy tu powinno byc rzutowanie na Client
-        return new ModelAndView("clientUpdateForm", "client", (Client) userService.getUser(login));
+        return new ModelAndView("clientUpdateForm", "client", userService.getUser(login));
     }
 
     @PostMapping("/update-client")

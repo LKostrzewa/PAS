@@ -5,8 +5,8 @@ import pl.bialekkostrzewa.validators.PasswordMatches;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@PasswordMatches
-public /*abstract */class User {
+//@PasswordMatches
+public class User {
 
     @NotBlank(message = "Login cannot be blank")
     private String login;
@@ -77,6 +77,4 @@ public /*abstract */class User {
         this.matchingPassword = matchingPassword;
     }
 
-    /*@Override
-    public abstract String toString();*/
 }

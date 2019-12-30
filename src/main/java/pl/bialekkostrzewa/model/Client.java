@@ -36,29 +36,6 @@ public class Client extends User{
         return type;
     }
 
-    /*public void setType(String type) {
-        switch (type){
-            case "Normal":
-                this.type = new NormalClient();
-                break;
-            case "Regular":
-                this.type = new RegularClient();
-                break;
-            case "Premium":
-                this.type = new PremiumClient();
-                break;
-        }
-    }*/
-
-   /* public String getTypeName(){
-        return typeName;
-    }*/
-
-   /* public void setTypeName(String typeName) {
-        this.typeName = typeName;
-        //setType(typeName);
-    }*/
-
     public void setType(ClientType type) {
         this.type = type;
     }

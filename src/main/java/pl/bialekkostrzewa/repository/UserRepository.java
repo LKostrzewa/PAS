@@ -12,12 +12,10 @@ import java.util.List;
 @Repository
 public class UserRepository extends RepositoryTemplate<User> {
 
-    //proba zeby miec obiekty admina i managera dziala na tyle ze nie mozna stworzyc drugiego konta o loginie admin ale myslalem
-    //ze wystarczy tylko tu dodac i bd git XD ale to niestety nie takie proste i i tak musi byc w configu to
-    public UserRepository(){
-        //add("admin", new Administrator("admin", "password", "Jan", "Kowalski"));
-        //add("manger", new Manager("manager", "password", "Piotr", "Nowak"));
-    }
+    /*public UserRepository(){
+        add("admin", new Administrator("admin", "password", "Jan", "Kowalski"));
+        add("manger", new Manager("manager", "password", "Piotr", "Nowak"));
+    }*/
 
     public List<Client> getAllClients(){
         List<Client> clients = new ArrayList<>();

@@ -18,10 +18,10 @@
             <td><input type="password" th:field="*{password}"/></td>
             <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Validation error</td>
         </tr>
-        <tr>
+        <!--<tr>
             <td><label th:text="'Confirm Password'">confirm</label></td>
             <td><input type="password" th:field="*{matchingPassword}"/></td>
-        </tr>
+        </tr>-->
         <tr>
             <td><label th:text="'Name'">name</label></td>
             <td><input th:field="*{name}"/></td>

@@ -23,16 +23,11 @@ import java.util.*;
 public class MyUserDetailsService implements UserDetailsService {
 
     private UserService userService;
-    //private UserToSecurityUserConverter userToSecurityUserConverter;
+
     @Autowired
     public void setUserService(UserService userService){
         this.userService = userService;
     }
-
-    /*@Autowired
-    public void setUserToSecurityUserConverter(UserToSecurityUserConverter userToSecurityUserConverter) {
-        this.userToSecurityUserConverter = userToSecurityUserConverter;
-    }*/
 
     public MyUserDetailsService(UserService userService){
         this.userService = userService;

@@ -70,14 +70,8 @@ public class ReservationController {
         return "redirect:/reservations/";
     }
 
-    /*@RequestMapping
-    public ModelAndView showAllReservations(){
-        return new ModelAndView("allReservation", "reservation", reservationService.getAllReservations());
-    }*/
-
-    //@RequestMapping("{login}")
     @RequestMapping
-    public ModelAndView showClientReservations(Authentication authentication){
+    public ModelAndView showAllReservations(Authentication authentication){
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         if(userDetails.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
             return new ModelAndView("allReservation", "reservations", reservationService.getAllReservations());
