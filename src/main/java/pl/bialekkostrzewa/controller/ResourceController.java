@@ -104,6 +104,7 @@ public class ResourceController {
     @PostMapping("/update-room")
     public String updateBallRoom(@Valid @ModelAttribute BallRoom ballRoom, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            //to w obu przypadkach jest chyba nie potrzebne
             model.addAttribute("res", ballRoom);
             return "ballRoomUpdateForm";
         }
