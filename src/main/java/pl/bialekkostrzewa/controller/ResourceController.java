@@ -36,11 +36,11 @@ public class ResourceController {
 
     @PostMapping("/add-table")
     public String addTable(@Valid @ModelAttribute Table resource, BindingResult bindingResult) {
-        if (!bindingResult.hasErrors()) {
+        //if (!bindingResult.hasErrors()) {
             resourceService.addResource(resource);
             return "redirect:/resources/";
-        }
-        return "tableForm";
+        //}
+        //return "tableForm";
     }
 
     @PostMapping("/add-room")

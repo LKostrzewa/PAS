@@ -4,24 +4,24 @@
     <meta charset="UTF-8">
     <title>Add Table</title>
 </head>
-<script type="javascript">
+<script type="text/javascript" language="javascript">
     function validateMyForm() {
-        if (document.getElementById("tableId").value.length > 0){
-            alert("validation failed false");
-            window.history.back();
+        if (document.getElementById("tableId").value.length <= 0){
+            alert("Id cannot be empty !");
+            //window.history.back();
             return false;
         }
-        alert("validations passed");
+        //alert("validations passed");
         return true;
     }
 </script>
 <body>
 <p>Add Table</p>
-<form action="#" th:action="@{add-table}" th:object="${table}" method="post" onsubmit="validateMyForm()">
+<form action="#" th:action="@{add-table}" th:object="${table}" method="post" onsubmit="return validateMyForm()">
     <table border="1">
         <tr>
             <td><label th:text="'ID'" /></td>
-            <td><input type="text" th:field="*{id}" id="tableId"/></td>
+            <td id="columnId"><input type="text" th:field="*{id}" id="tableId"/></td>
             <!--<td th:if="${#fields.hasErrors('id')}" th:errors="*{id}">ID Error</td>-->
         </tr>
         <tr>
