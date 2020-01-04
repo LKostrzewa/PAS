@@ -10,7 +10,7 @@
         <td th:text="${res}"/>
         <td sec:authorize="hasRole('ADMIN')">
             <form method="get" th:action="@{'delete-reservation/' + ${res.getId()}}">
-                <button type="submit">Delete</button>
+                <button type="submit" onclick="return window.confirm('Are you sure ?')">Delete</button>
             </form>
         </td>
         <td sec:authorize="hasRole('USER')">

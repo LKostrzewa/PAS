@@ -4,14 +4,25 @@
     <meta charset="UTF-8">
     <title>Add Table</title>
 </head>
+<script type="javascript">
+    function validateMyForm() {
+        if (document.getElementById("tableId").value.length > 0){
+            alert("validation failed false");
+            window.history.back();
+            return false;
+        }
+        alert("validations passed");
+        return true;
+    }
+</script>
 <body>
 <p>Add Table</p>
-<form action="#" th:action="@{add-table}" th:object="${table}" method="post">
+<form action="#" th:action="@{add-table}" th:object="${table}" method="post" onsubmit="validateMyForm()">
     <table border="1">
         <tr>
             <td><label th:text="'ID'" /></td>
-            <td><input type="text" th:field="*{id}" /></td>
-            <td th:if="${#fields.hasErrors('id')}" th:errors="*{id}">ID Error</td>
+            <td><input type="text" th:field="*{id}" id="tableId"/></td>
+            <!--<td th:if="${#fields.hasErrors('id')}" th:errors="*{id}">ID Error</td>-->
         </tr>
         <tr>
             <td><label th:text="'Price'" /></td>
@@ -29,7 +40,7 @@
             <td th:if="${#fields.hasErrors('number')}" th:errors="*{number}">Table Number Error</td>
         </tr>
         <tr>
-            <td><input type="submit" value="Add" /></td>
+            <td><input type="submit" value="Add"/></td>
         </tr>
     </table>
 </form>

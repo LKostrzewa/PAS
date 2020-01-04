@@ -12,7 +12,7 @@
             <button type="submit">Update</button>
         </form></td>
         <td><form method="get" th:action="@{'delete-resource/' + ${res.getId()}}">
-            <button type="submit">Delete</button>
+            <button type="submit" onclick="return window.confirm('Are you sure ?')">Delete</button>
         </form></td>
     </tr>
 </table>
