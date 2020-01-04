@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <title>Resources</title>
 </head>
+<script type="text/javascript" language="javascript">
+    function filterByType() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function (ev) {
+
+        }
+        xhttp.open("GET", "all-tables", true);
+        xhttp.send();
+    }
+</script>
 <body>
 <table border="1">
     <tr th:each="res: ${resource}">
@@ -23,6 +33,7 @@
 <form method="get" th:action="@{add-room}">
     <button type="submit">Add ball room</button>
 </form>
+<button onclick="filterByType()">Filter</button>
 <form th:action="@{/logout}" method="post">
     <button type="submit">Sign Out</button>
 </form>

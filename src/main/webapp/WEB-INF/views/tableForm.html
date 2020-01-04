@@ -6,9 +6,26 @@
 </head>
 <script type="text/javascript" language="javascript">
     function validateMyForm() {
-        if (document.getElementById("tableId").value.length <= 0){
+        var id = document.getElementById("tableId").value
+        var price = document.getElementById("tablePrice").value
+        var number = document.getElementById("tableNumber").value
+        var numOfPeople = document.getElementById("tableNumOfPpl").value
+
+        if (id.length <= 0){
             alert("Id cannot be empty !");
             //window.history.back();
+            return false;
+        }
+        else if(price < 0 || isNaN(price)){
+            alert("Price has to be a number greater than 0");
+            return false;
+        }
+        else if(number < 0 || number !== parseInt(number, 10) || isNaN(number)){
+            alert("Number has to be a number greater than 0");
+            return false;
+        }
+        else if(numOfPeople < 0 || numOfPeople !== parseInt(numOfPeople, 10) || isNaN(numOfPeople)){
+            alert("Number of people has to be a number greater than 0");
             return false;
         }
         //alert("validations passed");
@@ -26,18 +43,18 @@
         </tr>
         <tr>
             <td><label th:text="'Price'" /></td>
-            <td><input type="text" th:field="*{price}" /></td>
-            <td th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price Error</td>
+            <td><input type="text" th:field="*{price}" id="tablePrice" /></td>
+            <!--<td th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price Error</td>-->
         </tr>
         <tr>
             <td><label th:text="'Number of people'" /></td>
-            <td><input type="text" th:field="*{numOfPeople}" /></td>
-            <td th:if="${#fields.hasErrors('numOfPeople')}" th:errors="*{numOfPeople}">Number Of People Error</td>
+            <td><input type="text" th:field="*{numOfPeople}" id="tableNumOfPpl"/></td>
+            <!--<td th:if="${#fields.hasErrors('numOfPeople')}" th:errors="*{numOfPeople}">Number Of People Error</td>-->
         </tr>
         <tr>
             <td><label th:text="'Number'" /></td>
-            <td><input type="text" th:field="*{number}" /></td>
-            <td th:if="${#fields.hasErrors('number')}" th:errors="*{number}">Table Number Error</td>
+            <td><input type="text" th:field="*{number}" id="tableNumber"/></td>
+            <!--<td th:if="${#fields.hasErrors('number')}" th:errors="*{number}">Table Number Error</td>-->
         </tr>
         <tr>
             <td><input type="submit" value="Add"/></td>
