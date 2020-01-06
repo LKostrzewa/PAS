@@ -14,7 +14,6 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
       org.springframework.web.servlet.DispatcherServlet
     </servlet-class>
     <load-on-startup>1</load-on-startup>
-
   </servlet>
 
   <servlet-mapping>
@@ -22,14 +21,37 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
-<filter>
-    <filter-name>springSecurityFilterChain</filter-name>
-    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-  </filter>
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
 
 
-  <filter-mapping>
-    <filter-name>springSecurityFilterChain</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+    <!--<security-constraint>
+        <web-resource-collection>
+            <web-resource-name>AllPages</web-resource-name>
+            <url-pattern>/restaurant/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee> CONFIDENTIAL </transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>-->
+    <!--<security-constraint>
+        <web-resource-collection>
+            <web-resource-name>SecureConnection</web-resource-name>
+            <url-pattern>/restaurant/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint/>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>-->
 </web-app>

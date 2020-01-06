@@ -1,10 +1,13 @@
 package pl.bialekkostrzewa.configuration;
 
+import com.sun.jdi.connect.Connector;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
+import org.springframework.jmx.support.ConnectorServerFactoryBean;
+import org.springframework.web.WebApplicationInitializer;
 import pl.bialekkostrzewa.converter.StringToTypeConverter;
 
 import java.time.format.DateTimeFormatter;
