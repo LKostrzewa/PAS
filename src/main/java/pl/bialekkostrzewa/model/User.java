@@ -2,15 +2,15 @@ package pl.bialekkostrzewa.model;
 
 import pl.bialekkostrzewa.validators.PasswordMatches;
 
-import javax.validation.constraints.NotBlank;
+//import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 //@PasswordMatches
 public class User {
 
-    @NotBlank(message = "Login cannot be blank")
+    //@NotBlank(message = "Login cannot be blank")
     private String login;
-    @NotBlank(message = "Password cannot be blank")
+    //@NotBlank(message = "Password cannot be blank")
     private String password;
     private String matchingPassword;
     private String name;

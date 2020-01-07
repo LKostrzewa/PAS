@@ -2,13 +2,13 @@ package pl.bialekkostrzewa.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotBlank;
+//import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class Reservation {
 
-    @NotBlank(message = "id cannot be blank")
+    //@NotBlank(message = "id cannot be blank")
     private String id;
     private Resource resource;
     private Client client;
