@@ -4,8 +4,14 @@
     <meta charset="UTF-8">
     <title>Update Client</title>
 </head>
+<script type="text/javascript" language="javascript">
+    function changeView(selected) {
+        document.getElementById("currentType").innerText = selected.value;
+    }
+</script>
 <body>
 <label th:text="'Update client ' + ${client.login}"/>
+<label id="currentType" th:text="${client.type}"/>
 <form action="#" th:action="@{/users/update-client}" th:object="${client}" method="post">
     <table border="1">
         <tr>
@@ -23,7 +29,7 @@
         <tr>
             <td><label th:text="'Type'" /></td>
             <td>
-                <select th:field="*{type}">
+                <select th:field="*{type}" onchange="changeView(this)">
                     <option th:value="'Normal'" th:text="'Normal'"/>
                     <option th:value="'Regular'" th:text="'Regular'"/>
                     <option th:value="'Premium'" th:text="'Premium'"/>

@@ -8,7 +8,7 @@ public class NormalClient implements ClientType {
 
     @Override
     public String toString() {
-        return "normal ";
+        return "Normal ";
     }
 
 }
