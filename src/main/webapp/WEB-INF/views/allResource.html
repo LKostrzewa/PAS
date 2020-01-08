@@ -19,12 +19,11 @@
                 for(var i = 0; i < res.length; i++){
                     console.log(res[i])
                     var cell = trees[i].insertCell(0)
-                    cell.appendChild(document.createTextNode(res[i]["id"] + " " + res[i]["price"]))
-                    //var cell2 = trees[i].insertCell(-1)
-                    //cell2.appendChild()
+                    cell.appendChild(document.createTextNode("Table id " + res[i]["id"] + ", costs " + res[i]["price"]
+                        + " number " + res[i]["number"] + ", can hold " + res[i]["numOfPeople"] + " people"))
                 }
+                document.getElementById("back").hidden = false;
                 console.log(JSON.parse(xhr.response));
-                //document.getElementById("table").innerText = (xhttp.response);
             }
         }
         xhr.open("GET", "all-tables", true);
@@ -54,6 +53,9 @@
 <button onclick="filterByType()">Filter</button>
 <form th:action="@{/logout}" method="post">
     <button type="submit">Sign Out</button>
+</form>
+<form action="">
+    <button type="submit" id="back" hidden="hidden">Back</button>
 </form>
 </body>
 </html>
