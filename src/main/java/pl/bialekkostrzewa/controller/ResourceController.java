@@ -58,7 +58,7 @@ public class ResourceController {
         return new ModelAndView("allResource", "resource", resourceService.getAllResources());
     }
 
-    @RequestMapping(path = "/all-tables", produces = "application/json; charset=UTF-8")
+    @RequestMapping(path = "/all-tables")
     @ResponseBody
     public List<Table> showAllTables() {
         return resourceService.getAllTables();

@@ -59,12 +59,6 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .portMapper()
                 .http(8080).mapsTo(8443);
-
-        http.headers()
-                .httpStrictTransportSecurity()
-                .disable();
-                   // .logout().logoutSuccessUrl("/loginPage?logout");
-
     }
 
     @Bean
