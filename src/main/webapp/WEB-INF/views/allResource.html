@@ -5,6 +5,22 @@
     <title>Resources</title>
 </head>
 <script type="text/javascript" language="javascript">
+    //nie dziala
+    function createForm(name, id) {
+        var btnTxt = name.replace(name.substring(1),name.substring(1).toUpperCase)
+
+        var form = document.createElement("form")
+        var btn = form.appendChild(document.createElement("button"))
+        btn.innerText(btnTxt)
+
+        var atr = document.createAttribute("type")
+        atr.value = "submit"
+        btn.setAttributeNode(atr)
+
+        form.action = name + "-resource/" + id
+        return form
+    }
+
     function filterByType() {
         var xhr = new XMLHttpRequest();
         var trees = document.getElementsByTagName("tr");
@@ -21,6 +37,39 @@
                     var cell = trees[i].insertCell(0)
                     cell.appendChild(document.createTextNode("Table id " + res[i]["id"] + ", costs " + res[i]["price"]
                         + " number " + res[i]["number"] + ", can hold " + res[i]["numOfPeople"] + " people"))
+
+                    var cell2 = trees[i].insertCell(1)
+                    var formUpd = document.createElement("form")
+
+                    var btnUpd = formUpd.appendChild(document.createElement("button"))
+                    btnUpd.innerText = "Update"
+
+                    var atrUpd = document.createAttribute("type")
+                    atrUpd.value = "submit"
+                    btnUpd.setAttributeNode(atrUpd)
+
+                    formUpd.action = "update-resource/" + res[i]["id"]
+
+                    cell2.appendChild(formUpd)
+
+                    var cell3 = trees[i].insertCell(-1)
+
+                    var formDel = document.createElement("form")
+
+                    var btnDel = formDel.appendChild(document.createElement("button"))
+                    btnDel.innerText = "Delete"
+
+                    var atrDelType = document.createAttribute("type")
+                    atrDelType.value = "submit"
+                    btnDel.setAttributeNode(atrDelType)
+
+                    var atrDelClick = document.createAttribute("onclick")
+                    atrDelClick.value = "return window.confirm('Are you sure ?')"
+                    btnDel.setAttributeNode(atrDelClick)
+
+                    formDel.action = "delete-resource/" + res[i]["id"]
+
+                    cell3.appendChild(formDel)
                 }
                 document.getElementById("back").hidden = false;
                 console.log(JSON.parse(xhr.response));
