@@ -20,12 +20,12 @@
             alert("Price has to be a number greater than 0");
             return false;
         }
-        else if(number < 0 /*|| number === parseInt(number, 10) */|| isNaN(number)){
-            alert("Number has to be a number greater than 0");
+        else if(number < 0 || number !== parseInt(number, 10) || isNaN(number)){
+            alert("Number has to be an integer greater than 0");
             return false;
         }
-        else if(numOfPeople < 0 /*|| numOfPeople !== parseInt(numOfPeople, 10)*/ || isNaN(numOfPeople)){
-            alert("Number of people has to be a number greater than 0");
+        else if(numOfPeople < 0 || numOfPeople !== parseInt(numOfPeople, 10) || isNaN(numOfPeople)){
+            alert("Number of people has to be an integer greater than 0");
             return false;
         }
         //alert("validations passed");
