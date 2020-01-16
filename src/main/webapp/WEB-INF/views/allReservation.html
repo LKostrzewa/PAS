@@ -5,6 +5,8 @@
     <title>Reservations</title>
 </head>
 <body>
+<p th:text="${role}"></p>
+<p th:text="${login}"></p>
 <table border="1">
     <tr th:each="res: ${reservations}">
         <td th:text="${res}"/>
