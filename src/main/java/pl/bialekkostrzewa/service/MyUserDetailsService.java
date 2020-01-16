@@ -31,8 +31,8 @@ public class MyUserDetailsService implements UserDetailsService {
 
     public MyUserDetailsService(UserService userService){
         this.userService = userService;
-        userService.addUser(new Administrator("admin", "password", "Jan", "Kowalski"));
-        userService.addUser(new Manager("manager", "password", "Piotr", "Nowak"));
+        //userService.addUser(new Administrator("admin", "password", "Jan", "Kowalski"));
+        //userService.addUser(new Manager("manager", "password", "Piotr", "Nowak"));
     }
 
     @Override

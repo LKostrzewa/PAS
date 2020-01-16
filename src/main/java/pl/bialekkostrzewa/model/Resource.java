@@ -1,8 +1,8 @@
 package pl.bialekkostrzewa.model;
 
-import javax.validation.constraints.Digits;
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 
 public class Resource {
 

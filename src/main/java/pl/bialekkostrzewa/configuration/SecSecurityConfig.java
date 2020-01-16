@@ -40,7 +40,11 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.httpBasic()
+                //.and().csrf().and()
+                .and().requiresChannel().anyRequest().requiresSecure()
+                .and()
+                .authorizeRequests()
                 //TODO matchers można chyba uprościć
                 .antMatchers("/reservations", "/reservations/" , "/reservations/**", "/reservations/*").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/resources", "/resources/", "/resources/**", "/resources/*").hasRole("MANAGER")
@@ -52,8 +56,9 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                     .usernameParameter("username").passwordParameter("password").permitAll()
                 .and()
                     .logout().permitAll();
-                   // .logout().logoutSuccessUrl("/loginPage?logout");
-
+        http
+                .portMapper()
+                .http(8080).mapsTo(8443);
     }
 
     @Bean

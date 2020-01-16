@@ -8,6 +8,6 @@ public class PremiumClient implements ClientType {
 
     @Override
     public String toString() {
-        return "premium ";
+        return "Premium ";
     }
 }

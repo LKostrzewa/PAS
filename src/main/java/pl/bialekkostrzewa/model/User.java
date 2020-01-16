@@ -1,9 +1,7 @@
 package pl.bialekkostrzewa.model;
 
+import org.hibernate.validator.constraints.NotBlank;
 import pl.bialekkostrzewa.validators.PasswordMatches;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 //@PasswordMatches
 public class User {

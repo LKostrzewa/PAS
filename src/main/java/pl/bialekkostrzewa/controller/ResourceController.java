@@ -12,6 +12,7 @@ import pl.bialekkostrzewa.model.Table;
 import pl.bialekkostrzewa.service.ResourceService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/resources")
@@ -36,11 +37,11 @@ public class ResourceController {
 
     @PostMapping("/add-table")
     public String addTable(@Valid @ModelAttribute Table resource, BindingResult bindingResult) {
-        if (!bindingResult.hasErrors()) {
+        //if (!bindingResult.hasErrors()) {
             resourceService.addResource(resource);
             return "redirect:/resources/";
-        }
-        return "tableForm";
+        //}
+        //return "tableForm";
     }
 
     @PostMapping("/add-room")
@@ -57,9 +58,11 @@ public class ResourceController {
         return new ModelAndView("allResource", "resource", resourceService.getAllResources());
     }
 
-    @RequestMapping("/all-tables")
-    public ModelAndView showAllTables() {
-        return new ModelAndView("allResource", "resource", resourceService.getAllTables());
+    @RequestMapping(path = "/all-tables")
+    @ResponseBody
+    public List<Table> showAllTables() {
+        return resourceService.getAllTables();
+        //return new ModelAndView("allResource", "resource", resourceService.getAllTables());
     }
 
     @RequestMapping("/all-rooms")

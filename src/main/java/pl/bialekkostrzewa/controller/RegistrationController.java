@@ -31,6 +31,11 @@ public class RegistrationController {
         return "index";
     }
 
+    @RequestMapping("/error")
+    public String showMainPage() {
+        return "accessDenied";
+    }
+
     @RequestMapping("/main")
     public String defaultAfterLogin(HttpServletRequest request) {
         if (request.isUserInRole("ADMIN")) {

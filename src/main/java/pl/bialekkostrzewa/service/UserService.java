@@ -3,9 +3,7 @@ package pl.bialekkostrzewa.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
-import pl.bialekkostrzewa.model.Client;
-import pl.bialekkostrzewa.model.ClientType;
-import pl.bialekkostrzewa.model.User;
+import pl.bialekkostrzewa.model.*;
 import pl.bialekkostrzewa.repository.UserRepository;
 
 import java.util.List;
@@ -18,6 +16,9 @@ public class UserService {
     @Autowired
     public UserService(UserRepository users) {
         this.users = users;
+        addUser(new Administrator("admin", "password", "Jan", "Kowalski"));
+        addUser(new Manager("manager", "password", "Piotr", "Nowak"));
+        addUser(new Client("romek", "password", "Roman", "Bialek", new NormalClient()));
     }
 
     public void addUser(User user){

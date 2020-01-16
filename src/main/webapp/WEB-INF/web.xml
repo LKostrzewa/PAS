@@ -17,6 +17,11 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 
   </servlet>
 
+  <error-page>
+    <error-code>403</error-code>
+    <location>/error</location>
+  </error-page>
+
   <servlet-mapping>
     <servlet-name>HelloWeb</servlet-name>
     <url-pattern>/</url-pattern>

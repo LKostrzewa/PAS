@@ -15,6 +15,7 @@ import pl.bialekkostrzewa.service.ReservationService;
 import pl.bialekkostrzewa.service.ResourceService;
 import pl.bialekkostrzewa.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 
@@ -71,12 +72,20 @@ public class ReservationController {
     }
 
     @RequestMapping
-    public ModelAndView showAllReservations(Authentication authentication){
+    public ModelAndView showAllReservations(Authentication authentication, HttpServletRequest request){
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-        if(userDetails.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
-            return new ModelAndView("allReservation", "reservations", reservationService.getAllReservations());
+            if(userDetails.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
+                ModelAndView modelAndView = new ModelAndView("allReservation", "reservations", reservationService.getAllReservations());
+                modelAndView.addObject("role", authentication.getAuthorities().toArray()[0]);
+                modelAndView.addObject("login", request.getRemoteUser());
+                return modelAndView;
+                //return new ModelAndView("allReservation", "reservations", reservationService.getAllReservations());
         }
-        return new ModelAndView("allReservation", "reservations", reservationService.getAllClientReservations(userDetails.getUsername()));
+        ModelAndView modelAndView = new ModelAndView("allReservation", "reservations", reservationService.getAllClientReservations(userDetails.getUsername()));
+        modelAndView.addObject("role", authentication.getAuthorities().toArray()[0]);
+        modelAndView.addObject("login", request.getRemoteUser());
+        return modelAndView;
+        //return new ModelAndView("allReservation", "reservations", reservationService.getAllClientReservations(userDetails.getUsername()));
     }
 
     @RequestMapping("/delete-reservation/{id}")
