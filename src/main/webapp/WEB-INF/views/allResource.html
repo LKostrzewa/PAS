@@ -5,26 +5,11 @@
     <title>Resources</title>
 </head>
 <script type="text/javascript" language="javascript">
-    //nie dziala
-    function createForm(name, id) {
-        var btnTxt = name.replace(name.substring(1),name.substring(1).toUpperCase)
-
-        var form = document.createElement("form")
-        var btn = form.appendChild(document.createElement("button"))
-        btn.innerText(btnTxt)
-
-        var atr = document.createAttribute("type")
-        atr.value = "submit"
-        btn.setAttributeNode(atr)
-
-        form.action = name + "-resource/" + id
-        return form
-    }
 
     function filterByType() {
         var xhr = new XMLHttpRequest();
         var trees = document.getElementsByTagName("tr");
-        xhr.onload = function (ev) {
+        xhr.onload = function () {
             if(xhr.status === 200) {
                 var res = JSON.parse(xhr.response);
                 for(var i = 0; i < trees.length; i++){

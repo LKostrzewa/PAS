@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Add Table</title>
 </head>
-<script type="text/javascript" language="javascript">
+<script type="text/javascript" language="JavaScript">
     function validateMyForm() {
         var id = document.getElementById("tableId").value
         var price = document.getElementById("tablePrice").value
@@ -20,11 +20,11 @@
             alert("Price has to be a number greater than 0");
             return false;
         }
-        else if(number < 0 || number !== parseInt(number, 10) || isNaN(number)){
+        else if(number < 0 || number != parseInt(number, 10) || isNaN(number)){
             alert("Number has to be an integer greater than 0");
             return false;
         }
-        else if(numOfPeople < 0 || numOfPeople !== parseInt(numOfPeople, 10) || isNaN(numOfPeople)){
+        else if(numOfPeople < 0 || numOfPeople != parseInt(numOfPeople, 10) || isNaN(numOfPeople)){
             alert("Number of people has to be an integer greater than 0");
             return false;
         }
