@@ -14,7 +14,7 @@ import pl.bialekkostrzewa.service.ResourceService;
 import javax.validation.Valid;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/resources")
 public class ResourceController {
 
@@ -25,7 +25,7 @@ public class ResourceController {
         this.resourceService = resourceService;
     }
 
-    @GetMapping("/add-table")
+    /*@GetMapping("/add-table")
     public ModelAndView showTableForm() {
         return new ModelAndView("tableForm", "table", new Table());
     }
@@ -33,50 +33,71 @@ public class ResourceController {
     @GetMapping("/add-room")
     public ModelAndView showBallRoomForm() {
         return new ModelAndView("ballRoomForm", "ballRoom", new BallRoom());
-    }
+    }*/
 
     @PostMapping("/add-table")
-    public String addTable(@Valid @ModelAttribute Table resource, BindingResult bindingResult) {
-        //if (!bindingResult.hasErrors()) {
+    public void addTable(@Valid @ModelAttribute Table resource, BindingResult bindingResult) {
+        if (!bindingResult.hasErrors()) {
             resourceService.addResource(resource);
-            return "redirect:/resources/";
-        //}
+            //return "redirect:/resources/";
+        }
         //return "tableForm";
     }
 
     @PostMapping("/add-room")
-    public String addBallRoom(@Valid @ModelAttribute BallRoom resource, BindingResult bindingResult) {
+    public void addBallRoom(@Valid @ModelAttribute BallRoom resource, BindingResult bindingResult) {
         if ( !bindingResult.hasErrors()) {
             resourceService.addResource(resource);
-            return "redirect:/resources/";
+            //return "redirect:/resources/";
         }
-        return "ballRoomForm";
+        //return "ballRoomForm";
     }
 
-    @RequestMapping
+    /*@RequestMapping
     public ModelAndView showAllResources() {
         return new ModelAndView("allResource", "resource", resourceService.getAllResources());
+    }*/
+
+    @GetMapping
+    public List<Resource> getAllResource(){
+        return resourceService.getAllResources();
     }
 
-    @RequestMapping(path = "/all-tables")
-    @ResponseBody
+    @GetMapping(path = "/all-tables")
     public List<Table> showAllTables() {
         return resourceService.getAllTables();
         //return new ModelAndView("allResource", "resource", resourceService.getAllTables());
     }
 
-    @RequestMapping("/all-rooms")
+    @GetMapping("/all-rooms")
+    public List<BallRoom> getAllRooms(){
+        return resourceService.getAllBallRoom();
+    }
+
+    @GetMapping("/get-resource/{id}")
+    public Resource getResource(@PathVariable String id){
+        return resourceService.getResource(id);
+    }
+
+    /*@RequestMapping("/all-rooms")
     public ModelAndView showAllBallRoom() {
         return new ModelAndView("allResource", "resource", resourceService.getAllBallRoom());
-    }
+    }*/
 
-    @RequestMapping("/delete-resource/{id}")
-    public String deleteResource(@PathVariable String id) {
+    @DeleteMapping("/delete-resource/{id}")
+    public void deleteResource(@PathVariable String id) {
         resourceService.deleteResource(id);
-        return "redirect:/resources/";
+        //return "redirect:/resources/";
     }
 
-    @RequestMapping("/update-resource/{id}")
+    @PutMapping("/update-resource/{id}")
+    public void updateResource(@PathVariable String id, @Valid @ModelAttribute Resource resource){
+        if(id.equals(resource.getId())){
+            resourceService.updateResource(resource.getId(), resource);
+        }
+    }
+
+    /*@RequestMapping("/update-resource/{id}")
     public ModelAndView showUpdateForm(@PathVariable String id) {
         Resource resource = resourceService.getResource(id);
         if (resource instanceof Table) {
@@ -113,5 +134,5 @@ public class ResourceController {
         }
         resourceService.updateResource(ballRoom.getId(), ballRoom);
         return "redirect:/resources/";
-    }
+    }*/
 }
