@@ -1,5 +1,8 @@
 package pl.bialekkostrzewa.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.internal.LinkedTreeMap;
+import com.sun.source.doctree.LinkTree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -15,8 +18,10 @@ import pl.bialekkostrzewa.model.Table;
 import pl.bialekkostrzewa.service.ResourceService;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/resources")
@@ -85,15 +90,31 @@ public class ResourceController {
         ResponseEntity<Object[]> response = rest.getForEntity(urlBase, Object[].class);
         //List<Resource> resourceList = Arrays.asList(response.getBody());
         List<Object> resourceList = Arrays.asList(response.getBody());
+        List<Resource> resources = new ArrayList<>();
+        for(Object obj : resourceList){
+            Gson gson = new Gson();
+            Map resource = gson.fromJson(obj.toString(), Map.class);
+            if(resource.containsKey("numOfPeople")){
+                Double tmp = ((Double)resource.get("number"));
+                Double tmp2 = ((Double)resource.get("numOfPeople"));
+                resources.add(new Table((String)resource.get("id"), (double)resource.get("price"), tmp.intValue(),
+                        tmp2.intValue()));
+            }
+            else {
+                Double tmp = (Double)resource.get("numOfRooms");
+                resources.add(new BallRoom((String)resource.get("id"), (double)resource.get("price"), (String)resource.get("description"),
+                        tmp.intValue()));
+            }
+        }
         //Resource[] objects = responseEntity.getBody();
         //List<Resource> resourceList = rest.getForEntity(urlBase, Resource[].class);
 
         //HttpEntity<String> requestEntity = new HttpEntity<String>("", headers);
         //ResponseEntity<String> responseEntity = rest.exchange(urlBase, HttpMethod.GET, requestEntity, String.class);
         //List<Resource> resourceList = rest.getForEntity(urlBase, new HttpEntity<>(), String.class);
-        List<Resource> resources = rest.exchange(urlBase, HttpMethod.GET,
+        List<Resource> resources2 = rest.exchange(urlBase, HttpMethod.GET,
                 null, new ParameterizedTypeReference<List<Resource>>() {}).getBody();
-        return new ModelAndView("allResource", "resource", resourceList);
+        return new ModelAndView("allResource", "resource", resources);
     }
 
 
