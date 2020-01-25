@@ -8,7 +8,7 @@ import org.springframework.format.support.FormattingConversionService;
 import pl.bialekkostrzewa.converter.StringToTypeConverter;
 
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+
 
 @Configuration
 public class WebConfig {

@@ -46,8 +46,9 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //TODO matchers można chyba uprościć
+                //.antMatchers("/api", "/api/**").permitAll()
                 .antMatchers("/reservations", "/reservations/" , "/reservations/**", "/reservations/*").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/resources", "/resources/", "/resources/**", "/resources/*").hasRole("MANAGER")
+                .antMatchers("/resources", "/resources/", "/resources/**", "/resources/*", "/api", "/api/**").hasRole("MANAGER")
                 .antMatchers("/users", "/users/", "/users/**", "/users/*").hasRole("ADMIN")
                 .and()
                     .formLogin().loginPage("/login")
