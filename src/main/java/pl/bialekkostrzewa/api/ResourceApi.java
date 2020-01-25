@@ -22,41 +22,29 @@ public class ResourceApi {
     @Autowired
     public ResourceApi(ResourceService resourceService) {
         this.resourceService = resourceService;
+        resourceService.addResource(new BallRoom("testBallRoom", 10,"JakisTekst",5));
         resourceService.addResource(new Table("test", 10,10,10));
     }
 
-    /*@GetMapping("/add-table")
-    public ModelAndView showTableForm() {
-        return new ModelAndView("tableForm", "table", new Table());
-    }
-
-    @GetMapping("/add-room")
-    public ModelAndView showBallRoomForm() {
-        return new ModelAndView("ballRoomForm", "ballRoom", new BallRoom());
-    }*/
-
     @PostMapping("/add-table")
-    public void addTable(@Valid @ModelAttribute Table resource, BindingResult bindingResult) {
+    public ResponseEntity addTable(@RequestBody Table resource, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
             resourceService.addResource(resource);
+            return new ResponseEntity(HttpStatus.CREATED);
             //return "redirect:/resources/";
         }
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
         //return "tableForm";
     }
 
     @PostMapping("/add-room")
-    public void addBallRoom(@Valid @ModelAttribute BallRoom resource, BindingResult bindingResult) {
+    public void addBallRoom(@Valid @RequestBody BallRoom resource, BindingResult bindingResult) {
         if ( !bindingResult.hasErrors()) {
             resourceService.addResource(resource);
             //return "redirect:/resources/";
         }
         //return "ballRoomForm";
     }
-
-    /*@RequestMapping
-    public ModelAndView showAllResources() {
-        return new ModelAndView("allResource", "resource", resourceService.getAllResources());
-    }*/
 
     @GetMapping
     public List<Resource> getAllResource(){
@@ -80,11 +68,6 @@ public class ResourceApi {
         return resourceService.getResource(id);
     }
 
-    /*@RequestMapping("/all-rooms")
-    public ModelAndView showAllBallRoom() {
-        return new ModelAndView("allResource", "resource", resourceService.getAllBallRoom());
-    }*/
-
     @DeleteMapping("/delete-resource/{id}")
     public void deleteResource(@PathVariable String id) {
         resourceService.deleteResource(id);
@@ -92,48 +75,9 @@ public class ResourceApi {
     }
 
     @PutMapping("/update-resource/{id}")
-    public void updateResource(@PathVariable String id, @Valid @ModelAttribute Resource resource){
+    public void updateResource(@PathVariable String id, @Valid @RequestBody Resource resource){
         if(id.equals(resource.getId())){
             resourceService.updateResource(resource.getId(), resource);
         }
     }
-
-    /*@RequestMapping("/update-resource/{id}")
-    public ModelAndView showUpdateForm(@PathVariable String id) {
-        Resource resource = resourceService.getResource(id);
-        if (resource instanceof Table) {
-            return showUpdateTableForm((Table) resource);
-        } else {
-            return showUpdateBallRoomForm((BallRoom) resource);
-        }
-    }
-
-    private ModelAndView showUpdateTableForm(Table table) {
-        return new ModelAndView("tableUpdateForm", "table", table);
-    }
-
-    @PostMapping("/update-table")
-    public String updateTable(@Valid @ModelAttribute Table table, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("res", table);
-            return "tableUpdateForm";
-        }
-        resourceService.updateResource(table.getId(), table);
-        return "redirect:/resources/";
-    }
-
-    private ModelAndView showUpdateBallRoomForm(BallRoom ballRoom) {
-        return new ModelAndView("ballRoomUpdateForm", "room", ballRoom);
-    }
-
-    @PostMapping("/update-room")
-    public String updateBallRoom(@Valid @ModelAttribute BallRoom ballRoom, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            //to w obu przypadkach jest chyba nie potrzebne
-            model.addAttribute("res", ballRoom);
-            return "ballRoomUpdateForm";
-        }
-        resourceService.updateResource(ballRoom.getId(), ballRoom);
-        return "redirect:/resources/";
-    }*/
 }

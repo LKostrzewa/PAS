@@ -1,8 +1,6 @@
 package pl.bialekkostrzewa.controller;
 
-import org.apache.logging.log4j.core.appender.rewrite.MapRewritePolicy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
@@ -17,13 +15,14 @@ import pl.bialekkostrzewa.model.Table;
 import pl.bialekkostrzewa.service.ResourceService;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
 @RequestMapping("/resources")
 public class ResourceController {
 
-    private ResourceService resourceService;
+    //private ResourceService resourceService;
     //private final RestTemplate restTemplate;
     //private String urlBase = "https://localhost:8443/restaurant/api/resources";
     private String urlBase = "http://localhost:8080/restaurant/api/resources";
@@ -32,8 +31,7 @@ public class ResourceController {
 
     @Autowired
     public ResourceController(ResourceService resourceService) {
-        this.resourceService = resourceService;
-        resourceService.addResource(new BallRoom("testBallRoom", 10,"JakisTekst",5));
+        //this.resourceService = resourceService;
         this.rest = new RestTemplate();
         this.headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
@@ -53,7 +51,11 @@ public class ResourceController {
     @PostMapping("/add-table")
     public String addTable(@Valid @ModelAttribute Table resource, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
-            resourceService.addResource(resource);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+            HttpEntity<Table> entity = new HttpEntity<>(resource, headers);
+            //rest.postForEntity(urlBase + "/add-table", HttpMethod.POST, entity, );
+            //rest.addResource(resource);
             return "redirect:/resources/";
         }
         return "tableForm";
@@ -62,7 +64,8 @@ public class ResourceController {
     @PostMapping("/add-room")
     public String addBallRoom(@Valid @ModelAttribute BallRoom resource, BindingResult bindingResult) {
         if ( !bindingResult.hasErrors()) {
-            resourceService.addResource(resource);
+            //rest.exchange(urlBase + "/add-room", HttpMethod.POST)
+            //resourceService.addResource(resource);
             return "redirect:/resources/";
         }
         return "ballRoomForm";
@@ -79,14 +82,19 @@ public class ResourceController {
         //RestTemplate restTemplate = new RestTemplate();
         //List<Resource> resources = restTemplate.exchange(urlBase, HttpMethod.GET,
         //        null, new ParameterizedTypeReference<List<Resource>>() {}).getBody();
-        //List<Resource> resources = restTemplate.getForEntity(urlBase, List<Resource>() {}, HttpMethod.GET);
+
+        ResponseEntity<Object[]> response = rest.getForEntity(urlBase, Object[].class);
+        //List<Resource> resourceList = Arrays.asList(response.getBody());
+        List<Object> resourceList = Arrays.asList(response.getBody());
+        //Resource[] objects = responseEntity.getBody();
+        //List<Resource> resourceList = rest.getForEntity(urlBase, Resource[].class);
 
         //HttpEntity<String> requestEntity = new HttpEntity<String>("", headers);
         //ResponseEntity<String> responseEntity = rest.exchange(urlBase, HttpMethod.GET, requestEntity, String.class);
+        //List<Resource> resourceList = rest.getForEntity(urlBase, new HttpEntity<>(), String.class);
         List<Resource> resources = rest.exchange(urlBase, HttpMethod.GET,
                 null, new ParameterizedTypeReference<List<Resource>>() {}).getBody();
-        System.out.println(resources);
-        return new ModelAndView("allResource", "resource", resources);
+        return new ModelAndView("allResource", "resource", resourceList);
     }
 
 
@@ -113,12 +121,6 @@ public class ResourceController {
         return new ModelAndView("allResource", "resource", ballRooms);
     }
 
-    @GetMapping("/get-resource/{id}")
-    public Resource getResource(@PathVariable String id){
-        //TODO co tutaj?
-        return resourceService.getResource(id);
-    }
-
     /*@RequestMapping("/all-rooms")
     public ModelAndView showAllBallRoom() {
         return new ModelAndView("allResource", "resource", resourceService.getAllBallRoom());
@@ -139,9 +141,12 @@ public class ResourceController {
         return "redirect:/resources/";
     }*/
 
-    /*@RequestMapping("/update-resource/{id}")
+    @RequestMapping("/update-resource/{id}")
     public ModelAndView showUpdateForm(@PathVariable String id) {
-        Resource resource = resourceService.getResource(id);
+        //chuj wie czy to bedzie dobrze xdd
+        //pewnie nei bo znowu utnie dziada
+        Resource resource = rest.exchange(urlBase + "/get-resource/" + id, HttpMethod.GET,
+                null, Resource.class).getBody();
         if (resource instanceof Table) {
             return showUpdateTableForm((Table) resource);
         } else {
@@ -159,7 +164,8 @@ public class ResourceController {
             model.addAttribute("res", table);
             return "tableUpdateForm";
         }
-        resourceService.updateResource(table.getId(), table);
+        //tutaj rest update
+        //resourceService.updateResource(table.getId(), table);
         return "redirect:/resources/";
     }
 
@@ -174,7 +180,8 @@ public class ResourceController {
             model.addAttribute("res", ballRoom);
             return "ballRoomUpdateForm";
         }
-        resourceService.updateResource(ballRoom.getId(), ballRoom);
+        //tutaj rest update
+        //resourceService.updateResource(ballRoom.getId(), ballRoom);
         return "redirect:/resources/";
-    }*/
+    }
 }
