@@ -58,7 +58,7 @@ public class ResourceController {
         if (!bindingResult.hasErrors()) {
             headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
             HttpEntity<Table> entity = new HttpEntity<>(resource, headers);
-            //rest.postForEntity(urlBase + "/add-table", HttpMethod.POST, entity, );
+            rest.exchange(urlBase + "/add-table", HttpMethod.POST, entity, String.class);
             //rest.addResource(resource);
             return "redirect:/resources/";
         }
@@ -68,6 +68,9 @@ public class ResourceController {
     @PostMapping("/add-room")
     public String addBallRoom(@Valid @ModelAttribute BallRoom resource, BindingResult bindingResult) {
         if ( !bindingResult.hasErrors()) {
+            headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+            HttpEntity<BallRoom> entity = new HttpEntity<>(resource, headers);
+            rest.exchange(urlBase + "/add-room", HttpMethod.POST, entity, String.class);
             //rest.exchange(urlBase + "/add-room", HttpMethod.POST)
             //resourceService.addResource(resource);
             return "redirect:/resources/";
@@ -82,29 +85,13 @@ public class ResourceController {
 
     @RequestMapping
     public ModelAndView showAllResources(){
-        //return resourceService.getAllResources();
-        //RestTemplate restTemplate = new RestTemplate();
-        //List<Resource> resources = restTemplate.exchange(urlBase, HttpMethod.GET,
-        //        null, new ParameterizedTypeReference<List<Resource>>() {}).getBody();
-
-        ResponseEntity<Object[]> response = rest.getForEntity(urlBase, Object[].class);
-        //List<Resource> resourceList = Arrays.asList(response.getBody());
-        List<Object> resourceList = Arrays.asList(response.getBody());
+        //ResponseEntity<Object[]> response = rest.getForEntity(urlBase, Object[].class);
+        List<Object> resourceList = rest.exchange(urlBase, HttpMethod.GET,
+                null, new ParameterizedTypeReference<List<Object>>() {}).getBody();
+        //List<Object> resourceList = Arrays.asList(response.getBody());
         List<Resource> resources = new ArrayList<>();
         for(Object obj : resourceList){
-            Gson gson = new Gson();
-            Map resource = gson.fromJson(obj.toString(), Map.class);
-            if(resource.containsKey("numOfPeople")){
-                Double tmp = ((Double)resource.get("number"));
-                Double tmp2 = ((Double)resource.get("numOfPeople"));
-                resources.add(new Table((String)resource.get("id"), (double)resource.get("price"), tmp.intValue(),
-                        tmp2.intValue()));
-            }
-            else {
-                Double tmp = (Double)resource.get("numOfRooms");
-                resources.add(new BallRoom((String)resource.get("id"), (double)resource.get("price"), (String)resource.get("description"),
-                        tmp.intValue()));
-            }
+            resources.add(getFromJson(obj));
         }
         //Resource[] objects = responseEntity.getBody();
         //List<Resource> resourceList = rest.getForEntity(urlBase, Resource[].class);
@@ -112,8 +99,8 @@ public class ResourceController {
         //HttpEntity<String> requestEntity = new HttpEntity<String>("", headers);
         //ResponseEntity<String> responseEntity = rest.exchange(urlBase, HttpMethod.GET, requestEntity, String.class);
         //List<Resource> resourceList = rest.getForEntity(urlBase, new HttpEntity<>(), String.class);
-        List<Resource> resources2 = rest.exchange(urlBase, HttpMethod.GET,
-                null, new ParameterizedTypeReference<List<Resource>>() {}).getBody();
+        /*List<Resource> resources3 = rest.exchange(urlBase, HttpMethod.GET,
+                null, new ParameterizedTypeReference<List<Resource>>() {}).getBody();*/
         return new ModelAndView("allResource", "resource", resources);
     }
 
@@ -161,12 +148,30 @@ public class ResourceController {
         return "redirect:/resources/";
     }*/
 
+    private Resource getFromJson(Object obj){
+        Gson gson = new Gson();
+        Map resource = gson.fromJson(obj.toString(), Map.class);
+        if(resource.containsKey("numOfPeople")){
+            Double tmp = ((Double)resource.get("number"));
+            Double tmp2 = ((Double)resource.get("numOfPeople"));
+            return new Table((String)resource.get("id"), (double)resource.get("price"), tmp.intValue(),
+                    tmp2.intValue());
+        }
+        else {
+            Double tmp = (Double)resource.get("numOfRooms");
+            return  new BallRoom((String)resource.get("id"), (double)resource.get("price"), (String)resource.get("description"),
+                    tmp.intValue());
+        }
+    }
+
     @RequestMapping("/update-resource/{id}")
     public ModelAndView showUpdateForm(@PathVariable String id) {
         //chuj wie czy to bedzie dobrze xdd
         //pewnie nei bo znowu utnie dziada
-        Resource resource = rest.exchange(urlBase + "/get-resource/" + id, HttpMethod.GET,
-                null, Resource.class).getBody();
+        //no i ucielo i zrobilem po dziadowemu
+        Object obj = rest.exchange(urlBase + "/get-resource/" + id, HttpMethod.GET,
+                null, Object.class).getBody();
+        Resource resource = getFromJson(obj);
         if (resource instanceof Table) {
             return showUpdateTableForm((Table) resource);
         } else {
@@ -179,13 +184,13 @@ public class ResourceController {
     }
 
     @PostMapping("/update-table")
-    public String updateTable(@Valid @ModelAttribute Table table, BindingResult bindingResult, Model model) {
+    public String updateTable(@Valid @ModelAttribute Table table, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("res", table);
             return "tableUpdateForm";
         }
-        //tutaj rest update
-        //resourceService.updateResource(table.getId(), table);
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<Table> entity = new HttpEntity<>(table, headers);
+        rest.exchange(urlBase + "/update-table", HttpMethod.PUT, entity, String.class);
         return "redirect:/resources/";
     }
 
@@ -194,14 +199,13 @@ public class ResourceController {
     }
 
     @PostMapping("/update-room")
-    public String updateBallRoom(@Valid @ModelAttribute BallRoom ballRoom, BindingResult bindingResult, Model model) {
+    public String updateBallRoom(@Valid @ModelAttribute BallRoom ballRoom, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            //to w obu przypadkach jest chyba nie potrzebne
-            model.addAttribute("res", ballRoom);
             return "ballRoomUpdateForm";
         }
-        //tutaj rest update
-        //resourceService.updateResource(ballRoom.getId(), ballRoom);
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<BallRoom> entity = new HttpEntity<>(ballRoom, headers);
+        rest.exchange(urlBase + "/update-room", HttpMethod.PUT, entity, String.class);
         return "redirect:/resources/";
     }
 }

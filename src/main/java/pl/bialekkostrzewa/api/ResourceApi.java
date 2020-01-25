@@ -27,35 +27,27 @@ public class ResourceApi {
     }
 
     @PostMapping("/add-table")
-    public ResponseEntity addTable(@RequestBody Table resource, BindingResult bindingResult) {
+    public void addTable(@RequestBody Table resource, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
             resourceService.addResource(resource);
-            return new ResponseEntity(HttpStatus.CREATED);
-            //return "redirect:/resources/";
         }
-        return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        //return "tableForm";
     }
 
     @PostMapping("/add-room")
     public void addBallRoom(@Valid @RequestBody BallRoom resource, BindingResult bindingResult) {
         if ( !bindingResult.hasErrors()) {
             resourceService.addResource(resource);
-            //return "redirect:/resources/";
         }
-        //return "ballRoomForm";
     }
 
     @GetMapping
     public List<Resource> getAllResource(){
         return resourceService.getAllResources();
-        //return new ResponseEntity<>(resourceService.getAllResources(), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/all-tables")
+    @GetMapping("/all-tables")
     public List<Table> showAllTables() {
         return resourceService.getAllTables();
-        //return new ModelAndView("allResource", "resource", resourceService.getAllTables());
     }
 
     @GetMapping("/all-rooms")
@@ -71,13 +63,19 @@ public class ResourceApi {
     @DeleteMapping("/delete-resource/{id}")
     public void deleteResource(@PathVariable String id) {
         resourceService.deleteResource(id);
-        //return "redirect:/resources/";
     }
 
-    @PutMapping("/update-resource/{id}")
-    public void updateResource(@PathVariable String id, @Valid @RequestBody Resource resource){
-        if(id.equals(resource.getId())){
+    @PutMapping("/update-table")
+    public void updateTable( @Valid @RequestBody Table resource){
+        //if(id.equals(resource.getId())){
             resourceService.updateResource(resource.getId(), resource);
-        }
+        //}
+    }
+
+    @PutMapping("/update-room")
+    public void updateBallRoom( @Valid @RequestBody BallRoom resource){
+       // if(id.equals(resource.getId())){
+            resourceService.updateResource(resource.getId(), resource);
+        //}
     }
 }
