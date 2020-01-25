@@ -51,7 +51,6 @@ public class ResourceController {
     @PostMapping("/add-table")
     public String addTable(@Valid @ModelAttribute Table resource, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
-            HttpHeaders headers = new HttpHeaders();
             headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
             HttpEntity<Table> entity = new HttpEntity<>(resource, headers);
             //rest.postForEntity(urlBase + "/add-table", HttpMethod.POST, entity, );
