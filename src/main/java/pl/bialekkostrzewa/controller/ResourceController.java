@@ -156,7 +156,8 @@ public class ResourceController {
         Map resource = gson.fromJson(obj.toString(), Map.class);
         String id;
         if (resource.get("id") instanceof Double) {
-            id = resource.get("id").toString();
+            Double tmp = (Double)resource.get("id");
+            id = Integer.toString(tmp.intValue());
         } else {
             id = (String) resource.get("id");
         }
