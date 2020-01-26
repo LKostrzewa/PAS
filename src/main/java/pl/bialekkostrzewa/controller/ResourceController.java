@@ -67,7 +67,7 @@ public class ResourceController {
 
     @PostMapping("/add-room")
     public String addBallRoom(@Valid @ModelAttribute BallRoom resource, BindingResult bindingResult) {
-        if ( !bindingResult.hasErrors()) {
+        if (!bindingResult.hasErrors()) {
             headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
             HttpEntity<BallRoom> entity = new HttpEntity<>(resource, headers);
             rest.exchange(urlBase + "/add-room", HttpMethod.POST, entity, String.class);
@@ -84,13 +84,14 @@ public class ResourceController {
     }*/
 
     @RequestMapping
-    public ModelAndView showAllResources(){
+    public ModelAndView showAllResources() {
         //ResponseEntity<Object[]> response = rest.getForEntity(urlBase, Object[].class);
         List<Object> resourceList = rest.exchange(urlBase, HttpMethod.GET,
-                null, new ParameterizedTypeReference<List<Object>>() {}).getBody();
+                null, new ParameterizedTypeReference<List<Object>>() {
+                }).getBody();
         //List<Object> resourceList = Arrays.asList(response.getBody());
         List<Resource> resources = new ArrayList<>();
-        for(Object obj : resourceList){
+        for (Object obj : resourceList) {
             resources.add(getFromJson(obj));
         }
         //Resource[] objects = responseEntity.getBody();
@@ -115,15 +116,17 @@ public class ResourceController {
     @GetMapping(path = "/all-tables")
     public ModelAndView showAllTables() {
         List<Table> tables = rest.exchange(urlBase + "/all-tables", HttpMethod.GET,
-                null, new ParameterizedTypeReference<List<Table>>() {}).getBody();
+                null, new ParameterizedTypeReference<List<Table>>() {
+                }).getBody();
         //return resourceService.getAllTables();
         return new ModelAndView("allResource", "resource", tables);
     }
 
     @GetMapping("/all-rooms")
-    public ModelAndView getAllRooms(){
+    public ModelAndView getAllRooms() {
         List<BallRoom> ballRooms = rest.exchange(urlBase + "/all-rooms", HttpMethod.GET,
-                null, new ParameterizedTypeReference<List<BallRoom>>() {}).getBody();
+                null, new ParameterizedTypeReference<List<BallRoom>>() {
+                }).getBody();
         //return resourceService.getAllTables();
         return new ModelAndView("allResource", "resource", ballRooms);
     }
@@ -148,18 +151,23 @@ public class ResourceController {
         return "redirect:/resources/";
     }*/
 
-    private Resource getFromJson(Object obj){
+    private Resource getFromJson(Object obj) {
         Gson gson = new Gson();
         Map resource = gson.fromJson(obj.toString(), Map.class);
-        if(resource.containsKey("numOfPeople")){
-            Double tmp = ((Double)resource.get("number"));
-            Double tmp2 = ((Double)resource.get("numOfPeople"));
-            return new Table((String)resource.get("id"), (double)resource.get("price"), tmp.intValue(),
-                    tmp2.intValue());
+        String id;
+        if (resource.get("id") instanceof Double) {
+            id = resource.get("id").toString();
+        } else {
+            id = (String) resource.get("id");
         }
-        else {
-            Double tmp = (Double)resource.get("numOfRooms");
-            return  new BallRoom((String)resource.get("id"), (double)resource.get("price"), (String)resource.get("description"),
+        if (resource.containsKey("numOfPeople")) {
+            Double tmp = ((Double) resource.get("number"));
+            Double tmp2 = ((Double) resource.get("numOfPeople"));
+            return new Table(id, (double) resource.get("price"), tmp.intValue(),
+                    tmp2.intValue());
+        } else {
+            Double tmp = (Double) resource.get("numOfRooms");
+            return new BallRoom(id, (double) resource.get("price"), (String) resource.get("description"),
                     tmp.intValue());
         }
     }
