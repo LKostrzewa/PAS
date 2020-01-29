@@ -48,8 +48,11 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 //TODO matchers można chyba uprościć
                 //.antMatchers("/api", "/api/**").permitAll()
                 .antMatchers("/reservations", "/reservations/" , "/reservations/**", "/reservations/*").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/resources", "/resources/", "/resources/**", "/resources/*", "/api", "/api/**").hasRole("MANAGER")
+                .antMatchers("/resources", "/resources/", "/resources/**", "/resources/*").hasRole("MANAGER")
                 .antMatchers("/users", "/users/", "/users/**", "/users/*").hasRole("ADMIN")
+                .antMatchers("/api", "/api/**").permitAll()
+                .and()
+                .csrf().ignoringAntMatchers("/api", "/api/**")
                 .and()
                     .formLogin().loginPage("/login")
                     .defaultSuccessUrl("/main")

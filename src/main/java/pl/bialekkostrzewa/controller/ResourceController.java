@@ -1,13 +1,18 @@
 package pl.bialekkostrzewa.controller;
 
 import com.google.gson.Gson;
-import com.google.gson.internal.LinkedTreeMap;
-import com.sun.source.doctree.LinkTree;
+import org.apache.http.client.HttpClient;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.ssl.SSLContextBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -18,29 +23,72 @@ import pl.bialekkostrzewa.model.Table;
 import pl.bialekkostrzewa.service.ResourceService;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.security.*;
+import java.security.cert.CertificateException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/resources")
+@RequestMapping("/resources/")
 public class ResourceController {
 
-    //private ResourceService resourceService;
-    //private final RestTemplate restTemplate;
-    //private String urlBase = "https://localhost:8443/restaurant/api/resources";
-    private String urlBase = "http://localhost:8080/restaurant/api/resources";
+    private String urlBase = "https://localhost:8443/restaurant/api/resources";
     private RestTemplate rest;
     private HttpHeaders headers;
 
     @Autowired
     public ResourceController(ResourceService resourceService) {
-        //this.resourceService = resourceService;
-        this.rest = new RestTemplate();
         this.headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
         headers.add("Accept", "*/*");
+
+        String keyStorePassword = "changeit";
+        KeyStore keyStore = null;
+        try {
+            keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+        } catch (KeyStoreException e) {
+            e.printStackTrace();
+        }
+        try {
+            keyStore.load(new FileInputStream(new File("/Users/pawelbialek/.keystore")),
+                    keyStorePassword.toCharArray());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (CertificateException e) {
+            e.printStackTrace();
+        }
+
+        SSLConnectionSocketFactory socketFactory = null;
+        try {
+            socketFactory = new SSLConnectionSocketFactory(
+                    new SSLContextBuilder()
+                            .loadTrustMaterial(null, new TrustSelfSignedStrategy())
+                            .loadKeyMaterial(keyStore, keyStorePassword.toCharArray())
+                            .build(),
+                    NoopHostnameVerifier.INSTANCE);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (KeyManagementException e) {
+            e.printStackTrace();
+        } catch (KeyStoreException e) {
+            e.printStackTrace();
+        } catch (UnrecoverableKeyException e) {
+            e.printStackTrace();
+        }
+
+        HttpClient httpClient = HttpClients.custom().setSSLSocketFactory(
+                socketFactory).build();
+
+        ClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(
+                httpClient);
+        this.rest = new RestTemplate(requestFactory);
     }
 
     @GetMapping("/add-table")
@@ -86,7 +134,7 @@ public class ResourceController {
     @RequestMapping
     public ModelAndView showAllResources() {
         //ResponseEntity<Object[]> response = rest.getForEntity(urlBase, Object[].class);
-        List<Object> resourceList = rest.exchange(urlBase, HttpMethod.GET,
+        List<Object> resourceList = rest.exchange(urlBase + "", HttpMethod.GET,
                 null, new ParameterizedTypeReference<List<Object>>() {
                 }).getBody();
         //List<Object> resourceList = Arrays.asList(response.getBody());
