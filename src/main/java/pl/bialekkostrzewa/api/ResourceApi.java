@@ -65,8 +65,9 @@ public class ResourceApi {
     }
 
     @DeleteMapping("/delete-resource/{id}")
-    public void deleteResource(@PathVariable String id) {
+    public ResponseEntity<?> deleteResource(@PathVariable String id) {
         resourceService.deleteResource(id);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/update-table")
