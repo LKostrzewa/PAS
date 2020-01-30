@@ -85,6 +85,24 @@ class ResourceApiTest {
     }
 
     @Test
+    void invalidPostTest() throws Exception {
+        HttpClient httpClient = creteConnection();
+
+        JSONObject body = new JSONObject()
+                .put("number",-10)
+                .put("numOfPeople",90)
+                .put("id","")
+                .put("price", 12.5);
+        StringEntity tmp = new StringEntity(body.toString());
+        HttpPost post = new HttpPost(urlBase + "/add-table");
+        post.setEntity(tmp);
+        post.addHeader("Content-Type", "application/json");
+        HttpResponse response = httpClient.execute(post);
+
+        Assertions.assertEquals(response.getStatusLine().getStatusCode(), 400);
+    }
+
+    @Test
     void deleteTest() throws Exception {
         HttpClient httpClient = creteConnection();
         String id = "restTest";
