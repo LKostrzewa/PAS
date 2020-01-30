@@ -55,7 +55,7 @@ public class ResourceController {
             e.printStackTrace();
         }
         try {
-            keyStore.load(new FileInputStream(new File("/Users/pawelbialek/.keystore")),
+            keyStore.load(new FileInputStream(new File("C:\\Users\\Lukasz\\.keystore")),
                     keyStorePassword.toCharArray());
         } catch (IOException e) {
             e.printStackTrace();
@@ -106,8 +106,8 @@ public class ResourceController {
         if (!bindingResult.hasErrors()) {
             headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
             HttpEntity<Table> entity = new HttpEntity<>(resource, headers);
-            rest.exchange(urlBase + "/add-table", HttpMethod.POST, entity, String.class);
-            //rest.addResource(resource);
+            ResponseEntity<String> test = rest.exchange(urlBase + "/add-table", HttpMethod.POST, entity, String.class);
+        //if(test.getStatusCode())
             return "redirect:/resources/";
         }
         return "tableForm";

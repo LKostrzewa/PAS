@@ -27,17 +27,21 @@ public class ResourceApi {
     }
 
     @PostMapping("/add-table")
-    public void addTable(@RequestBody Table resource, BindingResult bindingResult) {
+    public ResponseEntity addTable(@Valid @RequestBody Table resource, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
             resourceService.addResource(resource);
+            return new ResponseEntity(HttpStatus.OK);
         }
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("/add-room")
-    public void addBallRoom(@Valid @RequestBody BallRoom resource, BindingResult bindingResult) {
+    public ResponseEntity addBallRoom(@Valid @RequestBody BallRoom resource, BindingResult bindingResult) {
         if ( !bindingResult.hasErrors()) {
             resourceService.addResource(resource);
+            return new ResponseEntity(HttpStatus.OK);
         }
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping
@@ -66,16 +70,20 @@ public class ResourceApi {
     }
 
     @PutMapping("/update-table")
-    public void updateTable( @Valid @RequestBody Table resource){
-        //if(id.equals(resource.getId())){
+    public ResponseEntity updateTable( @Valid @RequestBody Table resource, BindingResult bindingResult){
+        if(!bindingResult.hasErrors()){
             resourceService.updateResource(resource.getId(), resource);
-        //}
+            return new ResponseEntity(HttpStatus.OK);
+        }
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/update-room")
-    public void updateBallRoom( @Valid @RequestBody BallRoom resource){
-       // if(id.equals(resource.getId())){
+    public ResponseEntity updateBallRoom( @Valid @RequestBody BallRoom resource, BindingResult bindingResult){
+        if(!bindingResult.hasErrors()){
             resourceService.updateResource(resource.getId(), resource);
-        //}
+            return new ResponseEntity(HttpStatus.OK);
+        }
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 }
