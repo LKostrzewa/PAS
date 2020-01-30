@@ -16,9 +16,9 @@ import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
+import javax.json.JsonArray;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -27,6 +27,7 @@ import java.security.cert.CertificateException;
 import java.util.HashMap;
 import java.util.Map;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ResourceApiTest {
 
     private String urlBase = "https://localhost:8443/restaurant/api/resources/";
@@ -53,6 +54,7 @@ class ResourceApiTest {
 
 
     @Test
+    @Order(1)
     void simpleTest() throws Exception {
 
         HttpClient httpClient = creteConnection();
@@ -67,6 +69,7 @@ class ResourceApiTest {
     }
 
     @Test
+    @Order(2)
     void postTest() throws Exception {
         HttpClient httpClient = creteConnection();
 
@@ -99,6 +102,7 @@ class ResourceApiTest {
     }
 
     @Test
+    @Order(3)
     void invalidPostTest() throws Exception {
         HttpClient httpClient = creteConnection();
 
@@ -117,6 +121,38 @@ class ResourceApiTest {
     }
 
     @Test
+    @Order(4)
+    void putTest() throws Exception {
+        HttpClient httpClient = creteConnection();
+
+        HttpGet get = new HttpGet(urlBase + "/get-resource/" + "restTest");
+        HttpResponse response = httpClient.execute(get);
+        String responseJSON = EntityUtils.toString(response.getEntity());
+        JSONObject test = new JSONObject(responseJSON);
+        Assertions.assertEquals(test.get("number"), 10);
+
+        JSONObject body = new JSONObject()
+                .put("number",9999)
+                .put("numOfPeople",90)
+                .put("id","restTest")
+                .put("price", 12.5);
+        StringEntity tmp = new StringEntity(body.toString());
+        HttpPut put = new HttpPut(urlBase + "/update-table");
+        put.setEntity(tmp);
+        put.addHeader("Content-Type", "application/json");
+        response = httpClient.execute(put);
+
+        Assertions.assertEquals(response.getStatusLine().getStatusCode(), 200);
+
+        get = new HttpGet(urlBase + "/get-resource/" + "restTest");
+        response = httpClient.execute(get);
+        responseJSON = EntityUtils.toString(response.getEntity());
+        test = new JSONObject(responseJSON);
+        Assertions.assertEquals(test.get("number"), 9999);
+    }
+
+    @Test
+    @Order(5)
     void deleteTest() throws Exception {
         HttpClient httpClient = creteConnection();
         String id = "restTest";
