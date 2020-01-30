@@ -70,6 +70,13 @@ class ResourceApiTest {
     void postTest() throws Exception {
         HttpClient httpClient = creteConnection();
 
+        HttpUriRequest request = new HttpGet(urlBase);
+        HttpResponse response = httpClient.execute(request);
+        String responseJSON = EntityUtils.toString(response.getEntity());
+        JSONArray test = new JSONArray(responseJSON);
+
+        Assertions.assertEquals(2, test.length());
+
         JSONObject body = new JSONObject()
                 .put("number",10)
                 .put("numOfPeople",90)
@@ -79,9 +86,16 @@ class ResourceApiTest {
         HttpPost post = new HttpPost(urlBase + "/add-table");
         post.setEntity(tmp);
         post.addHeader("Content-Type", "application/json");
-        HttpResponse response = httpClient.execute(post);
+        response = httpClient.execute(post);
 
         Assertions.assertEquals(response.getStatusLine().getStatusCode(), 200);
+
+        request = new HttpGet(urlBase);
+        response = httpClient.execute(request);
+        responseJSON = EntityUtils.toString(response.getEntity());
+        test = new JSONArray(responseJSON);
+
+        Assertions.assertEquals(3, test.length());
     }
 
     @Test
