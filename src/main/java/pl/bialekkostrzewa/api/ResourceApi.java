@@ -22,30 +22,34 @@ public class ResourceApi {
     @Autowired
     public ResourceApi(ResourceService resourceService) {
         this.resourceService = resourceService;
-        resourceService.addResource(new BallRoom("testBallRoom", 10,"JakisTekst",5));
-        resourceService.addResource(new Table("test", 10,10,10));
+        resourceService.addResource(new BallRoom("testBallRoom", 10, "JakisTekst", 5));
+        resourceService.addResource(new Table("test", 10, 10, 10));
     }
 
     @PostMapping("/add-table")
     public ResponseEntity addTable(@Valid @RequestBody Table resource, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
-            resourceService.addResource(resource);
-            return new ResponseEntity(HttpStatus.OK);
+            if (resourceService.addResource(resource)) {
+                return new ResponseEntity(HttpStatus.OK);
+            }
+            else return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("/add-room")
     public ResponseEntity addBallRoom(@Valid @RequestBody BallRoom resource, BindingResult bindingResult) {
-        if ( !bindingResult.hasErrors()) {
-            resourceService.addResource(resource);
-            return new ResponseEntity(HttpStatus.OK);
+        if (!bindingResult.hasErrors()) {
+            if (resourceService.addResource(resource)) {
+                return new ResponseEntity(HttpStatus.OK);
+            }
+            else return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping
-    public List<Resource> getAllResource(){
+    public List<Resource> getAllResource() {
         return resourceService.getAllResources();
     }
 
@@ -55,12 +59,12 @@ public class ResourceApi {
     }
 
     @GetMapping("/all-rooms")
-    public List<BallRoom> getAllRooms(){
+    public List<BallRoom> getAllRooms() {
         return resourceService.getAllBallRoom();
     }
 
     @GetMapping("/get-resource/{id}")
-    public Resource getResource(@PathVariable String id){
+    public Resource getResource(@PathVariable String id) {
         return resourceService.getResource(id);
     }
 
@@ -71,8 +75,8 @@ public class ResourceApi {
     }
 
     @PutMapping("/update-table")
-    public ResponseEntity updateTable( @Valid @RequestBody Table resource, BindingResult bindingResult){
-        if(!bindingResult.hasErrors()){
+    public ResponseEntity updateTable(@Valid @RequestBody Table resource, BindingResult bindingResult) {
+        if (!bindingResult.hasErrors()) {
             resourceService.updateResource(resource.getId(), resource);
             return new ResponseEntity(HttpStatus.OK);
         }
@@ -80,8 +84,8 @@ public class ResourceApi {
     }
 
     @PutMapping("/update-room")
-    public ResponseEntity updateBallRoom( @Valid @RequestBody BallRoom resource, BindingResult bindingResult){
-        if(!bindingResult.hasErrors()){
+    public ResponseEntity updateBallRoom(@Valid @RequestBody BallRoom resource, BindingResult bindingResult) {
+        if (!bindingResult.hasErrors()) {
             resourceService.updateResource(resource.getId(), resource);
             return new ResponseEntity(HttpStatus.OK);
         }

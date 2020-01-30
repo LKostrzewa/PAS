@@ -19,15 +19,19 @@ public class ResourceService {
         this.resources = resources;
     }
 
-    public void addResource(Resource resource){
-        resources.add(resource.getId(), resource);
+    public boolean addResource(Resource resource) {
+        if (resources.getData().containsKey(resource.getId())) return false;
+        else {
+            resources.add(resource.getId(), resource);
+            return true;
+        }
     }
 
-    public void deleteResource(String id){
+    public void deleteResource(String id) {
         resources.delete(id);
     }
 
-    public List<Resource> getAllResources(){
+    public List<Resource> getAllResources() {
         return resources.getAll();
     }
 
@@ -35,15 +39,15 @@ public class ResourceService {
         return resources.get(id);
     }
 
-    public List<Table> getAllTables(){
+    public List<Table> getAllTables() {
         return resources.getAllTables();
     }
 
-    public List<BallRoom> getAllBallRoom(){
+    public List<BallRoom> getAllBallRoom() {
         return resources.getAllBallRooms();
     }
 
-    public void updateResource(String id, Resource resource){
+    public void updateResource(String id, Resource resource) {
         resources.update(id, resource);
     }
 }

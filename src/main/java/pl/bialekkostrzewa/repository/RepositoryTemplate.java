@@ -28,4 +28,8 @@ public abstract class RepositoryTemplate<T> {
     public List<T> getAll(){
         return new ArrayList<>(data.values());
     }
+
+    public Map<String, T> getData() {
+        return data;
+    }
 }
