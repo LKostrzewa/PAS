@@ -122,6 +122,25 @@ class ResourceApiTest {
 
     @Test
     @Order(4)
+    void uniqueIDPostTest() throws Exception {
+        HttpClient httpClient = creteConnection();
+
+        JSONObject body = new JSONObject()
+                .put("number",8888)
+                .put("numOfPeople",8888)
+                .put("id","restTest")
+                .put("price", 888.8);
+        StringEntity tmp = new StringEntity(body.toString());
+        HttpPost post = new HttpPost(urlBase + "/add-table");
+        post.setEntity(tmp);
+        post.addHeader("Content-Type", "application/json");
+        HttpResponse response = httpClient.execute(post);
+
+        Assertions.assertEquals(response.getStatusLine().getStatusCode(), 400);
+    }
+
+    @Test
+    @Order(5)
     void putTest() throws Exception {
         HttpClient httpClient = creteConnection();
 
@@ -152,7 +171,7 @@ class ResourceApiTest {
     }
 
     @Test
-    @Order(5)
+    @Order(6)
     void deleteTest() throws Exception {
         HttpClient httpClient = creteConnection();
         String id = "restTest";
