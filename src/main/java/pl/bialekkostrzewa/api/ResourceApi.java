@@ -26,8 +26,7 @@ public class ResourceApi {
         resourceService.addResource(new Table("test", 10, 10, 10));
     }
 
-    @PostMapping("/add-table")
-    public ResponseEntity addTable(@Valid @RequestBody Table resource, BindingResult bindingResult) {
+    private ResponseEntity addResource(Resource resource, BindingResult bindingResult){
         if (!bindingResult.hasErrors()) {
             if (resourceService.addResource(resource)) {
                 return new ResponseEntity(HttpStatus.OK);
@@ -37,15 +36,14 @@ public class ResourceApi {
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
+    @PostMapping("/add-table")
+    public ResponseEntity addTable(@Valid @RequestBody Table resource, BindingResult bindingResult) {
+        return addResource(resource, bindingResult);
+    }
+
     @PostMapping("/add-room")
     public ResponseEntity addBallRoom(@Valid @RequestBody BallRoom resource, BindingResult bindingResult) {
-        if (!bindingResult.hasErrors()) {
-            if (resourceService.addResource(resource)) {
-                return new ResponseEntity(HttpStatus.OK);
-            }
-            else return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        return addResource(resource, bindingResult);
     }
 
     @GetMapping
@@ -74,8 +72,7 @@ public class ResourceApi {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/update-table")
-    public ResponseEntity updateTable(@Valid @RequestBody Table resource, BindingResult bindingResult) {
+    private ResponseEntity updateResource(Resource resource, BindingResult bindingResult){
         if (!bindingResult.hasErrors()) {
             resourceService.updateResource(resource.getId(), resource);
             return new ResponseEntity(HttpStatus.OK);
@@ -83,12 +80,13 @@ public class ResourceApi {
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
+    @PutMapping("/update-table")
+    public ResponseEntity updateTable(@Valid @RequestBody Table resource, BindingResult bindingResult) {
+        return updateResource(resource, bindingResult);
+    }
+
     @PutMapping("/update-room")
     public ResponseEntity updateBallRoom(@Valid @RequestBody BallRoom resource, BindingResult bindingResult) {
-        if (!bindingResult.hasErrors()) {
-            resourceService.updateResource(resource.getId(), resource);
-            return new ResponseEntity(HttpStatus.OK);
-        }
-        return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        return updateResource(resource, bindingResult);
     }
 }

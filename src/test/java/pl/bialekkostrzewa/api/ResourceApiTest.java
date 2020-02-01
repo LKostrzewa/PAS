@@ -1,7 +1,5 @@
 package pl.bialekkostrzewa.api;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.*;
@@ -9,8 +7,6 @@ import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.util.EntityUtils;
@@ -18,14 +14,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.*;
 
-import javax.json.JsonArray;
+
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.security.*;
-import java.security.cert.CertificateException;
-import java.util.HashMap;
-import java.util.Map;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ResourceApiTest {
@@ -35,9 +27,8 @@ class ResourceApiTest {
 
     HttpClient creteConnection() throws Exception{
         String keyStorePassword = "changeit";
-        KeyStore keyStore = null;
-        keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
-        keyStore.load(new FileInputStream(new File("/Users/pawelbialek/.keystore")),
+        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+        keyStore.load(new FileInputStream(new File("C:\\Users\\Lukasz\\.keystore")),
                 keyStorePassword.toCharArray());
 
         SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(

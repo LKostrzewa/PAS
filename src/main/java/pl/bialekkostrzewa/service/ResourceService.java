@@ -20,11 +20,7 @@ public class ResourceService {
     }
 
     public boolean addResource(Resource resource) {
-        if (resources.getData().containsKey(resource.getId())) return false;
-        else {
-            resources.add(resource.getId(), resource);
-            return true;
-        }
+        return (resources.add(resource.getId(), resource) == null);
     }
 
     public void deleteResource(String id) {

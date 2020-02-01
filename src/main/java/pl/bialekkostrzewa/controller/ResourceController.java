@@ -13,8 +13,10 @@ import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import pl.bialekkostrzewa.model.BallRoom;
@@ -41,8 +43,7 @@ public class ResourceController {
     private RestTemplate rest;
     private HttpHeaders headers;
 
-    @Autowired
-    public ResourceController(ResourceService resourceService) {
+    public ResourceController() {
         this.headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
         headers.add("Accept", "*/*");
@@ -102,12 +103,18 @@ public class ResourceController {
     }
 
     @PostMapping("/add-table")
-    public String addTable(@Valid @ModelAttribute Table resource, BindingResult bindingResult) {
+    public String addTable(@Valid @ModelAttribute Table resource, BindingResult bindingResult, Model model) {
         if (!bindingResult.hasErrors()) {
             headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
             HttpEntity<Table> entity = new HttpEntity<>(resource, headers);
-            ResponseEntity<String> test = rest.exchange(urlBase + "/add-table", HttpMethod.POST, entity, String.class);
-        //if(test.getStatusCode())
+            try{
+                rest.exchange(urlBase + "/add-table", HttpMethod.POST, entity, String.class);
+            }
+            catch (HttpClientErrorException httpClientErrorException ){
+                model.addAttribute("link", "/resources/add-table");
+                model.addAttribute("msg", "resource of this id is already in database");
+                return "exception";
+            }
             return "redirect:/resources/";
         }
         return "tableForm";
@@ -119,17 +126,10 @@ public class ResourceController {
             headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
             HttpEntity<BallRoom> entity = new HttpEntity<>(resource, headers);
             rest.exchange(urlBase + "/add-room", HttpMethod.POST, entity, String.class);
-            //rest.exchange(urlBase + "/add-room", HttpMethod.POST)
-            //resourceService.addResource(resource);
             return "redirect:/resources/";
         }
         return "ballRoomForm";
     }
-
-    /*@RequestMapping
-    public ModelAndView showAllResources() {
-        return new ModelAndView("allResource", "resource", resourceService.getAllResources());
-    }*/
 
     @RequestMapping
     public ModelAndView showAllResources() {
@@ -142,31 +142,14 @@ public class ResourceController {
         for (Object obj : resourceList) {
             resources.add(getFromJson(obj));
         }
-        //Resource[] objects = responseEntity.getBody();
-        //List<Resource> resourceList = rest.getForEntity(urlBase, Resource[].class);
-
-        //HttpEntity<String> requestEntity = new HttpEntity<String>("", headers);
-        //ResponseEntity<String> responseEntity = rest.exchange(urlBase, HttpMethod.GET, requestEntity, String.class);
-        //List<Resource> resourceList = rest.getForEntity(urlBase, new HttpEntity<>(), String.class);
-        /*List<Resource> resources3 = rest.exchange(urlBase, HttpMethod.GET,
-                null, new ParameterizedTypeReference<List<Resource>>() {}).getBody();*/
         return new ModelAndView("allResource", "resource", resources);
     }
-
-
-   /*public String get(String uri) {
-        HttpEntity<String> requestEntity = new HttpEntity<String>("", headers);
-        ResponseEntity<String> responseEntity = rest.exchange(server + uri, HttpMethod.GET, requestEntity, String.class);
-        this.setStatus(responseEntity.getStatusCode());
-        return responseEntity.getBody();
-    }*/
 
     @GetMapping(path = "/all-tables")
     public ModelAndView showAllTables() {
         List<Table> tables = rest.exchange(urlBase + "/all-tables", HttpMethod.GET,
                 null, new ParameterizedTypeReference<List<Table>>() {
                 }).getBody();
-        //return resourceService.getAllTables();
         return new ModelAndView("allResource", "resource", tables);
     }
 
@@ -175,29 +158,14 @@ public class ResourceController {
         List<BallRoom> ballRooms = rest.exchange(urlBase + "/all-rooms", HttpMethod.GET,
                 null, new ParameterizedTypeReference<List<BallRoom>>() {
                 }).getBody();
-        //return resourceService.getAllTables();
         return new ModelAndView("allResource", "resource", ballRooms);
     }
-
-    /*@RequestMapping("/all-rooms")
-    public ModelAndView showAllBallRoom() {
-        return new ModelAndView("allResource", "resource", resourceService.getAllBallRoom());
-    }*/
 
     @GetMapping("/delete-resource/{id}")
     public String deleteResource(@PathVariable String id) {
         rest.delete(urlBase + "/delete-resource/" + id);
-        //resourceService.deleteResource(id);
         return "redirect:/resources/";
     }
-
-    /*@GetMapping("/update-resource/{id}")
-    public String updateResource(@PathVariable String id, @Valid @ModelAttribute Resource resource){
-        if(id.equals(resource.getId())){
-            resourceService.updateResource(resource.getId(), resource);
-        }
-        return "redirect:/resources/";
-    }*/
 
     private Resource getFromJson(Object obj) {
         Gson gson = new Gson();
@@ -223,9 +191,6 @@ public class ResourceController {
 
     @RequestMapping("/update-resource/{id}")
     public ModelAndView showUpdateForm(@PathVariable String id) {
-        //chuj wie czy to bedzie dobrze xdd
-        //pewnie nei bo znowu utnie dziada
-        //no i ucielo i zrobilem po dziadowemu
         Object obj = rest.exchange(urlBase + "/get-resource/" + id, HttpMethod.GET,
                 null, Object.class).getBody();
         Resource resource = getFromJson(obj);
