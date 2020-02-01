@@ -133,11 +133,9 @@ public class ResourceController {
 
     @RequestMapping
     public ModelAndView showAllResources() {
-        //ResponseEntity<Object[]> response = rest.getForEntity(urlBase, Object[].class);
         List<Object> resourceList = rest.exchange(urlBase + "", HttpMethod.GET,
                 null, new ParameterizedTypeReference<List<Object>>() {
                 }).getBody();
-        //List<Object> resourceList = Arrays.asList(response.getBody());
         List<Resource> resources = new ArrayList<>();
         for (Object obj : resourceList) {
             resources.add(getFromJson(obj));
@@ -169,24 +167,14 @@ public class ResourceController {
 
     private Resource getFromJson(Object obj) {
         Gson gson = new Gson();
-        Map resource = gson.fromJson(obj.toString(), Map.class);
-        String id;
-        if (resource.get("id") instanceof Double) {
-            Double tmp = (Double)resource.get("id");
-            id = Integer.toString(tmp.intValue());
-        } else {
-            id = (String) resource.get("id");
+        Resource resource;
+        if(obj.toString().contains("numOfPeople")){
+            resource = gson.fromJson(obj.toString(), Table.class);
         }
-        if (resource.containsKey("numOfPeople")) {
-            Double tmp = ((Double) resource.get("number"));
-            Double tmp2 = ((Double) resource.get("numOfPeople"));
-            return new Table(id, (double) resource.get("price"), tmp.intValue(),
-                    tmp2.intValue());
-        } else {
-            Double tmp = (Double) resource.get("numOfRooms");
-            return new BallRoom(id, (double) resource.get("price"), (String) resource.get("description"),
-                    tmp.intValue());
+        else {
+            resource = gson.fromJson(obj.toString(), BallRoom.class);
         }
+        return resource;
     }
 
     @RequestMapping("/update-resource/{id}")
