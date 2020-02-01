@@ -61,10 +61,12 @@ public class ReservationController {
             reservationService.startReservation(reservation);
         }
         catch (NullPointerException e){
+            model.addAttribute("link", "/reservations/add-reservation");
             model.addAttribute("msg", "requested object is not accessible right now");
             return "exception";
         }
         catch (RuntimeException e){
+            model.addAttribute("link", "/reservations/add-reservation");
             model.addAttribute("msg", e.getMessage());
             return "exception";
         }

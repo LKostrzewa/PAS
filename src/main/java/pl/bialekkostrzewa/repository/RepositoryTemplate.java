@@ -9,8 +9,8 @@ public abstract class RepositoryTemplate<T> {
 
     private Map<String , T> data = new HashMap<String, T>();
 
-    public void add (String key, T value){
-        data.putIfAbsent(key, value);
+    public T add (String key, T value){
+        return data.putIfAbsent(key, value);
     }
 
     public T get(String key){
